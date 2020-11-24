@@ -8,7 +8,7 @@ export default function ConversationListItem(props) {
     shave('.conversation-snippet', 20);
   })
   const activateLasers = async () => {
-    alert("chava")
+    alert(_id)
     const listConvesation = await ConvesationsService.getHangoutByID(_id);
 
 
