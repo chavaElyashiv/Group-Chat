@@ -7,26 +7,26 @@ export default function ConversationListItem(props) {
   useEffect(() => {
     shave('.conversation-snippet', 20);
   })
-  const activateLasers=async()=>{
-    alert(_id)
+  const activateLasers = async () => {
+    alert("chava")
     const listConvesation = await ConvesationsService.getHangoutByID(_id);
 
 
 
-  
+
     // for(i=0;i<listConvesation.length;i++){
     //         alert(listConvesation[i])
     // }
 
- 
 
-}
-  
-  const {_id, profileGroup, name, text } = props.data;
+
+  }
+
+  const { _id, profileGroup, name, text } = props.data;
 
   return (
     <div className="conversation-list-item" onClick={activateLasers} >
-      <img className="conversation-photo" src={require("../../images/"+profileGroup)} alt="conversation" />
+      <img className="conversation-photo" src={require("../../images/" + profileGroup)} alt="conversation" />
       {/* <img className="conversation-photo" src={require('../../images/user-1.jpg')} alt="conversation" />  */}
 
       <div className="conversation-info">
