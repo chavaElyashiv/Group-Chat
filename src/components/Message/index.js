@@ -1,9 +1,23 @@
 import React from 'react';
 import moment from 'moment';
 import './Message.css';
+import {connect} from 'react-redux';
+import{setConversation} from '../../redux/actions'
+function mapStateToProps(state){
+  return{
+    stateConversation:state.listConvesation,
+  }
 
-export default function Message(props) {
-    const {
+}
+const mapDispatchToProps =(dispatch)=>({
+  setCurrentConversation:(conversation)=>
+  dispatch(setConversation(conversation)), 
+
+})
+export default  connect(mapStateToProps,mapDispatchToProps) (function Message(props) {
+  const {stateConversation ,setCurrentConversation} = props;
+  
+  const {
       data,
       isMine,
       startsSequence,
@@ -28,9 +42,9 @@ export default function Message(props) {
 
         <div className="bubble-container">
           <div className="bubble" title={friendlyTimestamp}>
-            { data.message }
+            {stateConversation.body}
           </div>
         </div>
       </div>
     );
-}
+})

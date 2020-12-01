@@ -2,16 +2,35 @@ import React, { useEffect } from 'react';
 import shave from 'shave';
 import ConvesationsService from '../../services/conversations.service'
 import './ConversationListItem.css';
+import {connect} from 'react-redux'
+import{setConversation} from '../../redux/actions'
 
-export default function ConversationListItem(props) {
+function mapStateToProps(state){
+  return{
+    stateConversation:state.listConvesation,
+  }
+
+}
+const mapDispatchToProps =(dispatch)=>({
+  setCurrentConversation:(conversation)=>
+  dispatch(setConversation(conversation)), 
+
+})
+export default connect(mapStateToProps,mapDispatchToProps) (function ConversationListItem(props) {
+
+  const {stateConversation ,setCurrentConversation} = props;
+
+  const activateLasers=async()=>{
+    alert(_id)
+   let data = await ConvesationsService.getHangoutByID(_id);
+    setCurrentConversation(data)
+  
+}
+
   useEffect(() => {
     shave('.conversation-snippet', 20);
   })
-  const activateLasers=async()=>{
-    alert(_id)
-    const listConvesation = await ConvesationsService.getHangoutByID(_id);
-
-}
+ 
   
   const {_id, profileGroup, name, text } = props.data;
 
@@ -27,3 +46,4 @@ export default function ConversationListItem(props) {
     </div>
   );
 }
+)
