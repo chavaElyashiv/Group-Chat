@@ -7,16 +7,15 @@ function mapStateToProps(state){
   return{
     stateConversation:state.listConvesation,
   }
-
 }
+
 const mapDispatchToProps =(dispatch)=>({
   setCurrentConversation:(conversation)=>
   dispatch(setConversation(conversation)), 
-
 })
 export default  connect(mapStateToProps,mapDispatchToProps) (function Message(props) {
   const {stateConversation ,setCurrentConversation} = props;
-  
+  console.log();
   const {
       data,
       isMine,
@@ -39,12 +38,14 @@ export default  connect(mapStateToProps,mapDispatchToProps) (function Message(pr
               { friendlyTimestamp }
             </div>
         }
-
+ {stateConversation
+ .map((element)=>
         <div className="bubble-container">
           <div className="bubble" title={friendlyTimestamp}>
-            {stateConversation.body}
+          {element.body}
           </div>
         </div>
+         )}
       </div>
     );
 })
