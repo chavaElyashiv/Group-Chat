@@ -29,7 +29,7 @@ export default connect(mapStateToProps,mapDispatchToProps) (function Conversatio
 // }
 
   useEffect(() => {
-    shave('.conversation-snippet', 20);
+    // shave('.conversation-snippet', 20);
   })
  
   

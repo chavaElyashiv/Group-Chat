@@ -7,8 +7,8 @@ function mapStateToProps(state){
   return{
     stateConversation:state.listConvesation,
   }
-
 }
+
 const mapDispatchToProps =(dispatch)=>({
   setCurrentConversation:(conversation)=>
   dispatch(actions.setConversation(conversation)), 
