@@ -12,7 +12,7 @@ const reducer = produce((state, action) => {
 
      switch (action.type) {
           case "SET_CONVERSATION":
-               console.log(action.payload.waves);
+               console.log("store",action.payload.waves);
                state.listConvesation = action.payload.waves
                break;
           case "SET_HANGOUTS":

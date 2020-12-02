@@ -47,7 +47,7 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
 
 
         }).then((res) => {
-            console.log(res.waves)
+            console.log("waves",res.waves)
             dispatch(actions.setConversation(res));
             //return res
 
