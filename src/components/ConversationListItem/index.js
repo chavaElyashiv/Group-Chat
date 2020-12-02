@@ -3,7 +3,7 @@ import shave from 'shave';
 import ConvesationsService from '../../services/conversations.service'
 import './ConversationListItem.css';
 import {connect} from 'react-redux'
-import{setConversation} from '../../redux/actions'
+import{actions} from '../../redux/Actions/actions'
 
 function mapStateToProps(state){
   return{
@@ -12,20 +12,21 @@ function mapStateToProps(state){
 
 }
 const mapDispatchToProps =(dispatch)=>({
-  setCurrentConversation:(conversation)=>
-  dispatch(setConversation(conversation)), 
+  
+  setCurrentConversation:(_id)=>
+  dispatch(actions.getHangoutById(_id),alert(_id)), 
 
 })
 export default connect(mapStateToProps,mapDispatchToProps) (function ConversationListItem(props) {
 
   const {stateConversation ,setCurrentConversation} = props;
 
-  const activateLasers=async()=>{
-    alert(_id)
-   let data = await ConvesationsService.getHangoutByID(_id);
-    setCurrentConversation(data)
+//   const activateLasers=async()=>{
+//     alert(_id)
+//    let data = await ConvesationsService.getHangoutByID(_id);
+//     setCurrentConversation(data)
   
-}
+// }
 
   useEffect(() => {
     shave('.conversation-snippet', 20);
@@ -35,7 +36,7 @@ export default connect(mapStateToProps,mapDispatchToProps) (function Conversatio
   const {_id, profileGroup, name, text } = props.data;
 
   return (
-    <div className="conversation-list-item" onClick={activateLasers} >
+    <div className="conversation-list-item" onClick={(e)=>setCurrentConversation(_id)} >
       <img className="conversation-photo" src={require("../../images/"+profileGroup)} alt="conversation" />
       {/* <img className="conversation-photo" src={require('../../images/user-1.jpg')} alt="conversation" />  */}
 
