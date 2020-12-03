@@ -4,7 +4,7 @@ import ConversationListItem from '../ConversationListItem';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
-import ConvesationsService from '../../services/conversations.service'
+// import ConvesationsService from '../../services/conversations.service'
 import { connect } from 'react-redux'
 
 import './ConversationList.css';

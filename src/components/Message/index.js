@@ -6,6 +6,7 @@ import { actions } from '../../redux/Actions/actions'
 function mapStateToProps(state) {
   return {
     stateConversation: state.listConvesation,
+    ID:state.userID
   }
 }
 
@@ -15,7 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function Message(props) {
-  const { stateConversation, setCurrentConversation } = props;
+  const { stateConversation,ID, setCurrentConversation } = props;
   const {
     data,
     isMine,
@@ -25,48 +26,44 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
   } = props;
 
   const friendlyTimestamp = moment(data.timestamp).format('LLLL');
-  // return (
-  //   <div className={[
-  //     'message',
-  //     `${isMine ? 'mine' : ''}`,
-  //     `${startsSequence ? 'start' : ''}`,
-  //     `${endsSequence ? 'end' : ''}`
-  //   ].join(' ')}>
-  //     {
-  //       showTimestamp &&
-  //         <div className="timestamp">
-  //           { friendlyTimestamp }
-  //         </div>
-  //     }
-
-  //     <div className="bubble-container">
-  //       <div className="bubble" title={friendlyTimestamp}>
-  //         {data.message}
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
+  if(ID!=data.from){
+    debugger;
   return (
-    <div className={[
-      'message',
-      `${isMine ? 'mine' : ''}`,
-      `${startsSequence ? 'start' : ''}`,
-      `${endsSequence ? 'end' : ''}`
-    ].join(' ')}>
+    <div className={['message'].join(' ')}>
       {
         showTimestamp &&
         <div className="timestamp">
           {friendlyTimestamp}
         </div>
       }
-      {stateConversation
-        .map((element) =>
           <div className="bubble-container">
             <div className="bubble" title={friendlyTimestamp}>
-              {element.body}
+              {data.body}
             </div>
           </div>
-        )}
+        
     </div>
   );
+}
+  else{
+    return (
+      <div className={[
+        'message', 'mine', 'start' 
+       
+      ].join(' ')}>
+        {
+          showTimestamp &&
+          <div className="timestamp">
+            {friendlyTimestamp}
+          </div>
+        }
+            <div className="bubble-container">
+              <div className="bubble" title={friendlyTimestamp}>
+                {data.body}
+              </div>
+            </div>
+          
+      </div>
+    );
+  }
 })

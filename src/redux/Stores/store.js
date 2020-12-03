@@ -5,7 +5,10 @@ import { getHangoutById, getHangoutsForUser } from '../MiddleWares/conversation'
 
 const initalStaste = {
      listConvesation: [],
-     hangouts: []
+     hangouts: [],
+     userID: "chavae1"
+
+     
 }
 
 const reducer = produce((state, action) => {
