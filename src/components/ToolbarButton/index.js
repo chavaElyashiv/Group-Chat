@@ -3,8 +3,11 @@ import './ToolbarButton.css';
 
 export default function ToolbarButton(props) {
   debugger
-    const { icon,h } = props;
-
+    const { icon } = props;
+    function h() {
+      debugger;
+      alert("you clicked")
+    }
     return (
       <i className={`toolbar-button ${icon}`} onClick={h} />
     );

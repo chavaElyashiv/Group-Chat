@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import shave from 'shave';
-// import ConvesationsService from '../../services/conversations.service'
 import './ConversationListItem.css';
 import {connect} from 'react-redux'
 import{actions} from '../../redux/Actions/actions'

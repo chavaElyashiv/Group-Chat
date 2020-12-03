@@ -24,10 +24,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
     endsSequence,
     showTimestamp
   } = props;
-
   const friendlyTimestamp = moment(data.timestamp).format('LLLL');
   if(ID!=data.from){
-    debugger;
   return (
     <div className={['message'].join(' ')}>
       {
