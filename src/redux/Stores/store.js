@@ -6,7 +6,7 @@ import { getHangoutById, getHangoutsForUser } from '../MiddleWares/conversation'
 const initalStaste = {
      listConvesation: [],
      hangouts: [],
-     userID: "chavae1"
+     userName: "chavae1"
 
      
 }
