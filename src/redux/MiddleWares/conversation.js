@@ -22,7 +22,7 @@ export const getHangoutsForUser = ({ dispatch, getState }) => next => action => 
             debugger
             console.log(res.hangouts)
             //   return res
-            dispatch(actions.setHangouts(res));
+            dispatch(actions.setHangouts(res.hangouts));
 
 
         });
@@ -48,7 +48,7 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
 
         }).then((res) => {
             console.log("waves",res.waves)
-            dispatch(actions.setConversation(res));
+            dispatch(actions.setConversation(res.waves));
             //return res
 
         });

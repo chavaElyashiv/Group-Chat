@@ -9,16 +9,24 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import './MessageList.css';
 import { actions } from '../../redux/Actions/actions'
+import ContactList from '../ContactList/index'
+import { AiOutlineUserAdd } from "react-icons/ai";
+// npm install --save-dev @iconify/react @iconify-icons/mdi
+import { Icon, InlineIcon } from '@iconify/react';
+import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
+
 
 function mapStateToProps(state) {
   return {
     stateConversation: state.listConvesation,
+    showContactList:state.showContactList
   }
 
 }
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentConversation: (conversation) =>
-    dispatch(actions.setConversation(conversation)),
+  setCurrentConversation: (conversation) => dispatch(actions.setConversation(conversation)),
+    showContact:()=>dispatch(actions.setShowContactList()),
+
 
 })
 
@@ -27,7 +35,7 @@ const MY_USER_ID = 'apple';
 export default connect(mapStateToProps, mapDispatchToProps)(function MessageList(props) {
   const messages = props.stateConversation;
 
-  const { stateConversation, setCurrentConversation } = props;
+  const { stateConversation, setCurrentConversation ,showContactList,showContact} = props;
 
   const [messages2, setMessages] = useState([])
 
@@ -46,14 +54,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   }
 
   const renderMessages = () => {
-    debugger;
     console.log("messages", messages);
     let i = 0;
     let messageCount = messages.length;
     let tempMessages = [];
 
     while (i < messageCount) {
-      // debugger
       if (messages[i].body) {
 
         // console.log(messages[i].body);
@@ -91,7 +97,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
             endsSequence = false;
           }
         }
-        debugger;
         tempMessages.push(
 
           <Message
@@ -112,21 +117,30 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
     return tempMessages;
   }
   function h() {
-    debugger;
-    alert("you clicked")
+    showContact(!showContactList)
   }
   return (
     <div className="message-list">
       <Toolbar
         title="Conversation Title"
-        rightItems={[
-        <ToolbarButton key="info" icon="ion-ios-information-circle-outline" onClick={h} ></ToolbarButton>,
-          <ToolbarButton key="video" icon="ion-ios-videocam" />,
+        rightItems={[ 
+            // {/* <ToolbarButton key="123e" icon="ion-ios-person-add-sharp" /> */}
+
+        // {/* <span class="iconify" data-icon="ion:person-add-sharp" data-inline="false"></span> */}
+ 
+      <>  <Icon key="pop" className="tool" icon={accountMultiplePlus} onClick={h} />
+     
+          <ToolbarButton key="video" icon="ion-ios-videocam" />
           <ToolbarButton key="phone" icon="ion-ios-call" />
+          </>
+       
+          
         ]}
       />
+      {/* <AiOutlineUserAdd/> */}
+     
 
-      <div className="message-list-container">{renderMessages()}</div>
+      <div className="message-list-container">{showContactList ? <ContactList/>: renderMessages()}</div>
 
       <Compose rightItems={[
         <ToolbarButton key="photo" icon="ion-ios-camera" />,

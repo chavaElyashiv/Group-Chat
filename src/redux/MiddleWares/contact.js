@@ -4,10 +4,10 @@ import { actions } from '../Actions/actions'
 export const getContactsForUser = ({ dispatch, getState }) => next => action => {
     //debugger
     if (action.type === 'GET_CONTACTS_FOR_USER') {
-        return fetch(`https://chat.leader.codes/api/${userID}/getAllHangouts`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userID}/getAllContacts`, {
             method: 'POST',
             headers: {
-                Authentication: jwt,
+                Authentication: getState().jwt,
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             }
@@ -16,10 +16,9 @@ export const getContactsForUser = ({ dispatch, getState }) => next => action => 
 
 
         }).then((res) => {
-            debugger
-            console.log(res.hangouts)
+            console.log("contacts", res)
             //   return res
-            dispatch(actions.setHangouts(res));
+            dispatch(actions.setContacts(res.contacts));
 
 
         });

@@ -2,3 +2,18 @@
   padding: 10px;
   padding-bottom: 70px;
 }
+.tool{
+  color: #007aff;
+  font-size: 28px;
+  transition: all 0.1s;
+  
+}
+.tool:hover {
+  cursor: pointer;
+  color: #0063ce;
+}
+
+.tool:active {
+  color: #007aff;
+  opacity: 0.25;
+}

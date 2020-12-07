@@ -1,4 +1,5 @@
 import React from 'react';
+import ContactList from '../ContactList';
 import ConversationList from '../ConversationList';
 import MessageList from '../MessageList';
 import './Messenger.css';
@@ -33,6 +34,7 @@ export default function Messenger(props) {
           
           <MessageList />
         </div>
+        {/* <div maxwidth="mm"><ContactList/></div> */}
       </div>
     );
 }

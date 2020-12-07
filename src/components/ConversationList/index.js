@@ -7,6 +7,7 @@ import axios from 'axios';
 import { connect } from 'react-redux'
 
 import './ConversationList.css';
+import ContactList from '../ContactList';
 
 function mapStateToProps(state) {
     return {
@@ -63,6 +64,7 @@ export default connect(mapStateToProps)(function ConversationList(props) {
                     data={conversation}
                 />
             )
-        } </div>
+        }
+         </div>
     );
 })

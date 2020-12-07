@@ -6,7 +6,7 @@ import { actions } from '../../redux/Actions/actions'
 function mapStateToProps(state) {
   return {
     stateConversation: state.listConvesation,
-    ID:state.userID
+    ID:state.userName
   }
 }
 
@@ -25,6 +25,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
     showTimestamp
   } = props;
   const friendlyTimestamp = moment(data.timestamp).format('LLLL');
+  debugger;
   if(ID!=data.from){
   return (
     <div className={['message'].join(' ')}>
