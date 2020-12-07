@@ -13,7 +13,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps =(dispatch)=>({
   
   setCurrentConversation:(_id)=>
-  dispatch(actions.getHangoutById(_id)), 
+  dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false))), 
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationListItem(props) {
