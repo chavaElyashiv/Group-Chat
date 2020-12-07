@@ -24,7 +24,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
     endsSequence,
     showTimestamp
   } = props;
-
   const friendlyTimestamp = moment(data.timestamp).format('LLLL');
   if(userName!=data.from){
     debugger;

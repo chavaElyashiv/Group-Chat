@@ -4,10 +4,10 @@ import ConversationListItem from '../ConversationListItem';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
-// import ConvesationsService from '../../services/conversations.service'
 import { connect } from 'react-redux'
 
 import './ConversationList.css';
+import ContactList from '../ContactList';
 
 function mapStateToProps(state) {
     return {
@@ -45,15 +45,12 @@ export default connect(mapStateToProps)(function ConversationList(props) {
            // setConversations([...conversations, ...newConversations])
         });
     }
-function h(){
-    debugger;
-    alert("you clicked")
-}
+
     return (<div className="conversation-list" >
         <Toolbar title="Messenger"
             leftItems={
                 [<ToolbarButton key="cog"
-                    icon="ion-ios-cog" onClick={h}/>
+                    icon="ion-ios-cog"/>
                 ]
             }
             rightItems={
@@ -67,6 +64,7 @@ function h(){
                     data={conversation}
                 />
             )
-        } </div>
+        }
+         </div>
     );
 })
