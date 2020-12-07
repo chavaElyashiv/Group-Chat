@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import './MessageList.css';
 import { actions } from '../../redux/Actions/actions'
 import ContactList from '../ContactList/index'
-import { AiOutlineUserAdd } from "react-icons/ai";
+// import { AiOutlineUserAdd } from "react-icons/ai";
 // npm install --save-dev @iconify/react @iconify-icons/mdi
 import { Icon, InlineIcon } from '@iconify/react';
 import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
