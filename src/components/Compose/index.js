@@ -5,10 +5,8 @@ import $ from 'jquery';
 import socketIOClient from "socket.io-client";
 
 export default function Compose(props) {
-
-useEffect(()=>{
   const socket = socketIOClient("https://socket.chat.leader.codes", { transports: ['websocket']});
-
+useEffect(()=>{
   socket.on('send_message', function (msg) {
 
     console.log("send", msg);
