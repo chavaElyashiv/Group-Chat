@@ -5,6 +5,7 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import { connect } from 'react-redux'
+import {actions} from '../../redux/Actions/actions'
 
 import './ConversationList.css';
 import ContactList from '../ContactList';
@@ -16,16 +17,14 @@ function mapStateToProps(state) {
     }
 
 }
-//   const mapDispatchToProps =(dispatch)=>({
-
-//     setCurrentConversation:(_id)=>
-//     dispatch(actions.getHangoutById(_id)), 
-
-//   })
-export default connect(mapStateToProps)(function ConversationList(props) {
+  const mapDispatchToProps =(dispatch)=>({
+    setCurrentConversation:(_id)=>
+    dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false))), 
+  })
+export default connect(mapStateToProps,mapDispatchToProps)(function ConversationList(props) {
     //const [conversations, setConversations] = useState(props.hangouts);
+    const {setCurrentConversation}=props;
     const conversations=props.hangouts;
-    debugger;
     // useEffect(async () => {
     //     // getConversations()
     //     // const items = await ConvesationsService.getHangoutsForUser();
@@ -61,7 +60,7 @@ export default connect(mapStateToProps)(function ConversationList(props) {
         /> <ConversationSearch /> {
             conversations.map(conversation =>
                 <ConversationListItem key={conversation._id}
-                    data={conversation}
+                    data={conversation} onClick={setCurrentConversation}
                 />
             )
         }

@@ -3,7 +3,6 @@ import React from 'react';
 import './ToolbarButton.css';
 
 export default function ToolbarButton(props) {
-  debugger
     const { icon } = props;
     const h=props.onClick;
     

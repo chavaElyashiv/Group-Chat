@@ -7,6 +7,8 @@ import ConversationListItem from '../ConversationListItem';
 // import ToolbarButton from '../ToolbarButton';
 // import axios from 'axios';
 import { connect } from 'react-redux'
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 // import '../ConversationList/ConversationList.css'
 
@@ -17,6 +19,13 @@ function mapStateToProps(state) {
     }
 
 }
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+}));
 //   const mapDispatchToProps =(dispatch)=>({
 
 //     setCurrentConversation:(_id)=>
@@ -25,33 +34,64 @@ function mapStateToProps(state) {
 //   })
 export default connect(mapStateToProps)(function ContactList(props) {
     debugger;
-    const conversations = props.contacts;
+    const contacts = props.contacts;
+    const classes = useStyles();
+    // var arr = [];
+    var [AddContacts, setAddContacts] = useState([{ email: "oiipip" }]);
+    var [con, setCon] = useState([]);
+    // useEffect(()=>{setMyUser(us)},us)
+    // useEffect(() => {
+    //     debugger
+    //     console.log("changed");
+    //     // Should not ever set state during rendering, so do this in useEffect instead.
+    //     setAddContacts(arr);
+    //   }, arr);
+    // useEffect(() => { console.log('re-rendered!'); });
+    // useEffect(() => {
+    //     debugger
+    //     setAddContacts(arr)
+    //     console.log("addcontact",AddContacts);
+    // });
+    const addContactsToList = function (contact) {
+        // setCon(contact.email);
+        debugger
+        if(AddContacts.includes(contact)){
+            setAddContacts(AddContacts = AddContacts.filter(x => x !== contact));
+        }
+       
+else
+        setAddContacts(AddContacts=AddContacts.concat(contact));
 
-    console.log("contact-contactList", conversations);
+       
+        console.log("AddContacts", AddContacts)
+        // console.log("arr", arr)
+
+    }
+    console.log("contact-contactList", contacts);
     return (
 
 
         <div className="conversation-list" >
-            
-            {/* <Toolbar title="Messenger"
-            leftItems={
-                [<ToolbarButton key="cog"
-                    icon="ion-ios-cog" />
-                ]
-            }
-            rightItems={
-                [<ToolbarButton key="add"
-                    icon="ion-ios-add-circle-outline" />
-                ]
-            }
-        />  */}
-            {/* <ConversationSearch />  */}
+
+            {AddContacts ? AddContacts.map((item, index) => (
+                console.log("item", item.email),
+                <>{item.email}</>
+            )) : 'null'}
+            {/* {con}<br/> */}
+            {/* {AddContacts ? AddContacts : 'oio'} */}
             {
-                conversations.map(conversation =>
-                    <ConversationListItem key={conversation._id}
-                        data={conversation}
+                contacts.map(contact =>
+                    <ConversationListItem key={contact._id}
+                        data={contact}
+                        onClick={() => addContactsToList(contact)
+                        }
+                        AddContacts={AddContacts}
                     />
                 )
-            } </div>
+            }
+
+            <div className={classes.root}><Button variant="contained" color="primary">ADD CONTACT</Button></div>
+        </div>
+
     );
 })
