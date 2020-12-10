@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import produce from 'immer';
-import { getHangoutById, getHangoutsForUser } from '../MiddleWares/conversation'
+import { getHangoutById,setJwt, getHangoutsForUser, getUidByUserName } from '../MiddleWares/conversation'
 import { getContactsForUser } from '../MiddleWares/contact'
 
 
@@ -8,11 +8,32 @@ const initalStaste = {
      listConvesation: [],
      hangouts: [],
      contacts: [],
-     userName: "chavae1",
-     userID: "ym4MmM09W3fan5xkOw6AmxxyNba2",
-     jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJhUERrUlFmU01rU3BrU1FWSlRQWHFRVlQ3SWkyIiwiZW1haWwiOiJtaW5kaWZyQGdtYWlsLmNvbSIsImlwIjoiMTk1LjYwLjIzNS4xNDEiLCJpYXQiOjE2MDUxNzg4NjZ9.fm0jv-pQbTve2DPIskk0wqMNkrBSuGpGv_kLRw44lvM",
+     // userName: "chavae1",
+     userName: (window.location.pathname.split('/')[1]),
+     hangout: (window.location.pathname.split('/')[3]),
+     // uid: 'vdQ4rhYrcJOuTNSoxLbirDG8vMJ2',
+     uid: '',
+     // jwt: document.cookie ? document.cookie.split(";")
+     //      .filter(s => s.includes('jwt'))[0].split("=").pop() : null,
+     jwt: '',
      showContactList: false
 }
+
+// try {
+//      debugger
+//      initalStaste.jwt = document.cookie ? document.cookie.split(";")
+//           .filter(s => s.includes('jwt'))[0].split("=").pop() : null;
+// } catch (error) {
+//      initalStaste.jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJhUERrUlFmU01rU3BrU1FWSlRQWHFRVlQ3SWkyIiwiZW1haWwiOiJtaW5kaWZyQGdtYWlsLmNvbSIsImlwIjoiMTk1LjYwLjIzNS4xNDEiLCJpYXQiOjE2MDUxNzg4NjZ9.fm0jv-pQbTve2DPIskk0wqMNkrBSuGpGv_kLRw44lvM"
+// }
+// try {
+//      jwt = document.cookie ? document.cookie.split(";")
+//           .filter(s => s.includes('jwt'))[0].split("=").pop() : null;
+// } catch (error) {
+//      jwt = null
+// }
+
+
 
 const reducer = produce((state, action) => {
 
@@ -22,12 +43,17 @@ const reducer = produce((state, action) => {
                state.listConvesation = action.payload;
                break;
           case "SET_HANGOUTS":
-               debugger;
+               debugger
                console.log("7777777777777", action.payload);
                state.hangouts = action.payload;
                break;
           case "SET_CONTACTS":
-               state.contacts = action.payload
+               state.contacts = action.payload;
+               break;
+          case "SET_UID":
+               debugger;
+               console.log("uid", action.payload);
+               state.uid = action.payload
                break;
           case "SET_SHOW_CONTACT_LIST":
                if (action.payload != undefined)
@@ -38,13 +64,16 @@ const reducer = produce((state, action) => {
      }
 
 }, initalStaste)
-const store = createStore(reducer, applyMiddleware(getHangoutById, getHangoutsForUser, getContactsForUser))
+const store = createStore(reducer, applyMiddleware(setJwt,getUidByUserName, getHangoutById, getHangoutsForUser, getContactsForUser))
 window.store = store
 
 export default store;
 
-store.dispatch({ type: 'GET_HANGOUTS_FOR_USER' })
+store.dispatch({ type: 'SET_JWT' })
+store.dispatch({ type: 'GET_UID_BY_USER_NAME' })
 
-store.dispatch({ type: 'GET_CONTACTS_FOR_USER' })
 
+// store.dispatch({ type: 'GET_HANGOUTS_FOR_USER' })
+
+// store.dispatch({ type: 'GET_CONTACTS_FOR_USER' })
 

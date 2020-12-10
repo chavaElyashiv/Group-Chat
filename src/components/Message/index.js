@@ -26,7 +26,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
   } = props;
   const friendlyTimestamp = moment(data.timestamp).format('LLLL');
   if(userName!=data.from){
-    debugger;
   return (
     <div className={['message'].join(' ')}>
       {
