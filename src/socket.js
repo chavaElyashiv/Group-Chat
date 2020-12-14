@@ -54,11 +54,11 @@ const startSocket = () => {
         });
 
         socket.on('send_message', function (message) {
-            debugger;
+            //debugger;
             console.log(message)
 
             if (message != '') {
-                debugger;
+                //debugger;
                 socket.emit('save_msg', message, socket.username);
 
                 socket.emit('send_message',

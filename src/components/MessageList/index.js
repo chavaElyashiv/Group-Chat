@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import './MessageList.css';
 import { actions } from '../../redux/Actions/actions'
 import ContactList from '../ContactList/index'
+import MembersList from '../MembersList/index'
 // import { AiOutlineUserAdd } from "react-icons/ai";
 // npm install --save-dev @iconify/react @iconify-icons/mdi
 import { Icon, InlineIcon } from '@iconify/react';
@@ -19,14 +20,15 @@ import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
 function mapStateToProps(state) {
   return {
     stateConversation: state.listConvesation,
-    showContactList:state.showContactList
+    showContactList:state.showContactList,
+    showMembersList:state.showMembersList
   }
 
 }
 const mapDispatchToProps = (dispatch) => ({
   setCurrentConversation: (conversation) => dispatch(actions.setConversation(conversation)),
     showContact:()=>dispatch(actions.setShowContactList()),
-
+    showMembers:()=>dispatch(actions.setShowMembersList()),
 
 })
 
@@ -35,7 +37,7 @@ const MY_USER_ID = 'apple';
 export default connect(mapStateToProps, mapDispatchToProps)(function MessageList(props) {
   const messages = props.stateConversation;
 
-  const { stateConversation, setCurrentConversation ,showContactList,showContact} = props;
+  const { stateConversation, setCurrentConversation ,showContactList,showContact,showMembersList,showMembers} = props;
 
   const [messages2, setMessages] = useState([])
 
@@ -116,8 +118,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
 
     return tempMessages;
   }
+  // function h2() {
+  //   showContact(!showContactList)
+  // }
   function h() {
-    showContact(!showContactList)
+    showMembers()
+    if(showContactList==true)
+    showContact()
   }
   return (
     <div className="message-list">
@@ -140,7 +147,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
       {/* <AiOutlineUserAdd/> */}
      
 
-      <div className="message-list-container">{showContactList ? <ContactList/>: renderMessages()}</div>
+      {/* <div className="message-list-container">
+        {showContactList ? <ContactList/>: renderMessages()}
+        </div> */}
+        <div className="message-list-container">
+        {!showMembersList && !showContactList ?  renderMessages(): ''}
+        {showMembersList ? <MembersList/>: ''}
+        {showContactList ? <ContactList/>: ''}
+        </div>
 
       <Compose rightItems={[
         <ToolbarButton key="photo" icon="ion-ios-camera" />,

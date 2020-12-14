@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 }
   const mapDispatchToProps =(dispatch)=>({
     setCurrentConversation:(_id)=>
-    dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false))), 
+    dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false)),dispatch(actions.setShowMembersList(false))), 
   })
 export default connect(mapStateToProps,mapDispatchToProps)(function ConversationList(props) {
     //const [conversations, setConversations] = useState(props.hangouts);

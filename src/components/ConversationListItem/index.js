@@ -20,10 +20,10 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
 
   const { stateConversation, setCurrentConversation, AddContacts } = props;
 
-  debugger;
+  //debugger;
   const getConversations = props.onClick;
   function contactList(_id) {
-    debugger;
+    //debugger;
     getConversations(_id);
   }
   console.log("getConversations", getConversations);
@@ -47,8 +47,8 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
 
       {profileGroup && <img className="conversation-photo" src={require("../../images/" + profileGroup)} alt="conversation" />}
       {thumbnail && <img className="conversation-photo" src={require("../../images/" + thumbnail)} alt="conversation" />}
-{/* {AddContacts?AddContacts:'jhkji'} */}
- {/* {AddContacts? AddContacts.map((item, index) => (
+      {/* {AddContacts?AddContacts:'jhkji'} */}
+      {/* {AddContacts? AddContacts.map((item, index) => (
         <React.Fragment key={index} item={item} />
       )):'km'} */}
       <div className="conversation-info">
