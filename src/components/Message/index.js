@@ -22,7 +22,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
     isMine,
     startsSequence,
     endsSequence,
-    showTimestamp
+    showTimestamp,
+    name
   } = props;
   const friendlyTimestamp = moment(data.timestamp).format('LLLL');
   if(userName!=data.from){
@@ -37,8 +38,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
           <div className="bubble-container">
             <div className="bubble" title={friendlyTimestamp}>
               {data.body}
+            
             </div>
+         {/* <p class="sentText pr-10">{name}</p> */}
           </div>
+
         
     </div>
   );
@@ -58,6 +62,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
             <div className="bubble-container">
               <div className="bubble" title={friendlyTimestamp}>
                 {data.body}
+
               </div>
             </div>
           

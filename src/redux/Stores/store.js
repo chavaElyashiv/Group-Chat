@@ -8,6 +8,7 @@ const initalStaste = {
      listConvesation: [],
      hangouts: [],
      contacts: [],
+     filteredHangouts:[],
      // userName: "chavae1",
      userName: (window.location.pathname.split('/')[1]),
      hangout: (window.location.pathname.split('/')[3]),
@@ -47,6 +48,11 @@ const reducer = produce((state, action) => {
                console.log("7777777777777", action.payload);
                state.hangouts = action.payload;
                break;
+               case "SET_FILTERED_HANGOUTS":
+                    debugger
+                    console.log("!!!!!!!", action.payload);
+                    state.filteredHangouts = action.payload;
+                    break;
           case "SET_CONTACTS":
                state.contacts = action.payload;
                break;

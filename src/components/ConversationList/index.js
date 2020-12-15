@@ -5,26 +5,29 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import { connect } from 'react-redux'
-import {actions} from '../../redux/Actions/actions'
+import { actions } from '../../redux/Actions/actions'
 
 import './ConversationList.css';
 import ContactList from '../ContactList';
 
 function mapStateToProps(state) {
     return {
-        hangouts: state.hangouts
+        hangouts: state.hangouts,
+        filteredHangouts: state.filteredHangouts
         // stateConversation:state.listConvesation,
     }
 
 }
-  const mapDispatchToProps =(dispatch)=>({
-    setCurrentConversation:(_id)=>
-    dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false))), 
-  })
-export default connect(mapStateToProps,mapDispatchToProps)(function ConversationList(props) {
+const mapDispatchToProps = (dispatch) => ({
+    setCurrentConversation: (_id) =>
+        dispatch(actions.getHangoutById(_id), dispatch(actions.setShowContactList(false))),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(function ConversationList(props) {
     //const [conversations, setConversations] = useState(props.hangouts);
-    const {setCurrentConversation}=props;
-    const conversations=props.hangouts;
+    const { setCurrentConversation } = props;
+    // const conversations=props.hangouts;
+    const filteredHangouts = props.filteredHangouts;
+
     // useEffect(async () => {
     //     // getConversations()
     //     // const items = await ConvesationsService.getHangoutsForUser();
@@ -41,7 +44,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Conversation
                     text: 'Hello world! This is a long message that needs to be truncated.'
                 };
             });
-           // setConversations([...conversations, ...newConversations])
+            // setConversations([...conversations, ...newConversations])
         });
     }
 
@@ -49,7 +52,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Conversation
         <Toolbar title="Messenger"
             leftItems={
                 [<ToolbarButton key="cog"
-                    icon="ion-ios-cog"/>
+                    icon="ion-ios-cog" />
                 ]
             }
             rightItems={
@@ -57,13 +60,24 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Conversation
                     icon="ion-ios-add-circle-outline" />
                 ]
             }
-        /> <ConversationSearch /> {
-            conversations.map(conversation =>
+        /> <ConversationSearch />
+        {
+            props.filteredHangouts.length > 0 ?
+                filteredHangouts.map(conversation =>
+
+                    <ConversationListItem key={conversation._id}
+                        data={conversation} onClick={setCurrentConversation}
+                    />
+                ) : <div className="no-result">No results found</div>
+        }
+        {/* {
+            filteredHangouts.map(conversation =>
+                
                 <ConversationListItem key={conversation._id}
                     data={conversation} onClick={setCurrentConversation}
                 />
             )
-        }
-         </div>
+        } */}
+    </div>
     );
 })

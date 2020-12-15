@@ -18,6 +18,14 @@
   display: flex;
 }
 
+
+.sentText {
+    display: flex;
+    align-items: center;
+    font-family: Helvetica;
+    color: #828282;
+    letter-spacing: 0.3px;
+}
 .message.mine .bubble-container {
   justify-content: flex-end;
 }

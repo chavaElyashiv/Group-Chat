@@ -16,6 +16,7 @@ function mapStateToProps(state) {
 //   dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false))), 
 
 // })
+
 export default connect(mapStateToProps)(function ConversationListItem(props) {
 
   const { stateConversation, setCurrentConversation, AddContacts } = props;
@@ -36,8 +37,8 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
 
 
   // useEffect(() => {
-  //   // shave('.conversation-snippet', 20);
-  // })
+   
+  // },[props.data])
 
 
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
@@ -60,5 +61,4 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
     </div>
   );
 
-}
-)
+})
