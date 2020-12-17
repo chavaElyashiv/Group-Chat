@@ -5,7 +5,7 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import { connect } from 'react-redux'
-import {actions} from '../../redux/Actions/actions'
+import { actions } from '../../redux/Actions/actions'
 
 import './ConversationList.css';
 import ContactList from '../ContactList';
@@ -13,25 +13,22 @@ import ContactList from '../ContactList';
 function mapStateToProps(state) {
     return {
         hangouts: state.hangouts
-        // stateConversation:state.listConvesation,
     }
 
 }
-  const mapDispatchToProps =(dispatch)=>({
-    setCurrentConversation:(_id)=>
-    dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false)),dispatch(actions.setShowMembersList(false))), 
-  })
-export default connect(mapStateToProps,mapDispatchToProps)(function ConversationList(props) {
-    //const [conversations, setConversations] = useState(props.hangouts);
-    const {setCurrentConversation}=props;
-    const conversations=props.hangouts;
-    // useEffect(async () => {
-    //     // getConversations()
-    //     // const items = await ConvesationsService.getHangoutsForUser();
-    //     // setConversations(items.hangouts);
-    //     const items=props.hangouts;
-    // }, [])
+const mapDispatchToProps = (dispatch) => ({
+    setCurrentConversation: (_id) => dispatch(actions.getHangoutById(_id)
+        , dispatch(actions.setShow("messages"))),
+    
 
+    NewHanghout: () => dispatch(actions.setShow("newHangout"))
+
+
+})
+export default connect(mapStateToProps, mapDispatchToProps)(function ConversationList(props) {
+    const { setCurrentConversation, NewHanghout } = props;
+    const conversations = props.hangouts;
+ 
     const getConversations = () => {
         axios.get('https://randomuser.me/api/?results=20').then(response => {
             let newConversations = response.data.results.map(result => {
@@ -41,7 +38,6 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Conversation
                     text: 'Hello world! This is a long message that needs to be truncated.'
                 };
             });
-           // setConversations([...conversations, ...newConversations])
         });
     }
 
@@ -49,12 +45,12 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Conversation
         <Toolbar title="Messenger"
             leftItems={
                 [<ToolbarButton key="cog"
-                    icon="ion-ios-cog"/>
+                    icon="ion-ios-cog" />
                 ]
             }
             rightItems={
                 [<ToolbarButton key="add"
-                    icon="ion-ios-add-circle-outline" />
+                    icon="ion-ios-add-circle-outline" onClick={NewHanghout} />
                 ]
             }
         /> <ConversationSearch /> {
@@ -64,6 +60,6 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Conversation
                 />
             )
         }
-         </div>
+    </div>
     );
 })

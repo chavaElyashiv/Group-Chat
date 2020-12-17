@@ -8,11 +8,11 @@ import Button from '@material-ui/core/Button';
 
 function mapStateToProps(state) {
     return {
-        contacts: state.hangoutsContacts,
+        contacts: state.contacts,
         members: state.members
     }
-
 }
+
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
@@ -20,15 +20,17 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
+
 const mapDispatchToProps = (dispatch) => ({
 
-    AddContactsToHangout: (AddContacts) =>
-        dispatch(actions.addContactsToHangout(AddContacts)),
-    setShowContactList: () => dispatch(actions.setShow("members"))
-
+    AddContactsToHangout: (AddContacts) => dispatch(actions.addContactsToHangout(AddContacts)),
+    setShowContactList: () => dispatch(actions.setShowContactList())
 })
-export default connect(mapStateToProps, mapDispatchToProps)(function ContactList(props) {
+
+export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(props) {
+    debugger;
     const { contacts, AddContactsToHangout, members, setShowContactList } = props;
+    console.log("*****", contacts);
     const classes = useStyles();
     var [AddContacts, setAddContacts] = useState([]);
     var [con, setCon] = useState([]);
@@ -38,16 +40,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(function ContactList
         if (AddContacts.includes(contact)) {
             setAddContacts(AddContacts = AddContacts.filter(x => x !== contact));
         }
-
         else
             setAddContacts(AddContacts = AddContacts.concat(contact));
 
-
         console.log("AddContacts", AddContacts)
-
     }
-  
+    const clearList = function () {
+        setAddContacts([]);
+        AddContactsToHangout(AddContacts);
+        setShowContactList();
+    }
     console.log("contact-contactList", contacts);
+
+
     return (
         <div className="conversation-list" >
 
@@ -67,8 +72,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function ContactList
                 )
             }
 
-            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { setShowContactList() }}>ADD CONTACTS</Button></div>
+            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { clearList() }}>ADD CONTACTS!</Button></div>
         </div>
 
     );
-})
+});
