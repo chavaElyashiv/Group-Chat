@@ -18,11 +18,11 @@ function mapStateToProps(state) {
     }
 
 }
-const mapDispatchToProps = (dispatch) => ({
-    setCurrentConversation: (_id) =>
-        dispatch(actions.getHangoutById(_id), dispatch(actions.setShowContactList(false))),
-})
-export default connect(mapStateToProps, mapDispatchToProps)(function ConversationList(props) {
+  const mapDispatchToProps =(dispatch)=>({
+    setCurrentConversation:(_id)=>
+    dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false)),dispatch(actions.setShowMembersList(false))), 
+  })
+export default connect(mapStateToProps,mapDispatchToProps)(function ConversationList(props) {
     //const [conversations, setConversations] = useState(props.hangouts);
     const { setCurrentConversation } = props;
     // const conversations=props.hangouts;
@@ -62,7 +62,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
             }
         /> <ConversationSearch />
         {
-            props.filteredHangouts.length > 0 ?
+          filteredHangouts && filteredHangouts.length > 0 ?
                 filteredHangouts.map(conversation =>
 
                     <ConversationListItem key={conversation._id}

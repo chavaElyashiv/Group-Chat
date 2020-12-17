@@ -1,38 +1,23 @@
 import { createStore, applyMiddleware } from 'redux';
 import produce from 'immer';
-import { getHangoutById,setJwt, getHangoutsForUser, getUidByUserName } from '../MiddleWares/conversation'
-import { getContactsForUser } from '../MiddleWares/contact'
+import { getHangoutById, setJwt, getHangoutsForUser, getUidByUserName ,addNewWave} from '../MiddleWares/conversation'
+import { getContactsForUser, AddContactsToHangout, getAllHangoutMembers } from '../MiddleWares/contact'
 
 
 const initalStaste = {
      listConvesation: [],
      hangouts: [],
      contacts: [],
-     filteredHangouts:[],
-     // userName: "chavae1",
      userName: (window.location.pathname.split('/')[1]),
      hangout: (window.location.pathname.split('/')[3]),
-     // uid: 'vdQ4rhYrcJOuTNSoxLbirDG8vMJ2',
      uid: '',
-     // jwt: document.cookie ? document.cookie.split(";")
-     //      .filter(s => s.includes('jwt'))[0].split("=").pop() : null,
      jwt: '',
-     showContactList: false
+     showContactList: false,
+     showMembersList: false,
+
+     members: []
 }
 
-// try {
-//      debugger
-//      initalStaste.jwt = document.cookie ? document.cookie.split(";")
-//           .filter(s => s.includes('jwt'))[0].split("=").pop() : null;
-// } catch (error) {
-//      initalStaste.jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJhUERrUlFmU01rU3BrU1FWSlRQWHFRVlQ3SWkyIiwiZW1haWwiOiJtaW5kaWZyQGdtYWlsLmNvbSIsImlwIjoiMTk1LjYwLjIzNS4xNDEiLCJpYXQiOjE2MDUxNzg4NjZ9.fm0jv-pQbTve2DPIskk0wqMNkrBSuGpGv_kLRw44lvM"
-// }
-// try {
-//      jwt = document.cookie ? document.cookie.split(";")
-//           .filter(s => s.includes('jwt'))[0].split("=").pop() : null;
-// } catch (error) {
-//      jwt = null
-// }
 
 
 
@@ -44,7 +29,7 @@ const reducer = produce((state, action) => {
                state.listConvesation = action.payload;
                break;
           case "SET_HANGOUTS":
-               debugger
+               //debugger
                console.log("7777777777777", action.payload);
                state.hangouts = action.payload;
                break;
@@ -53,24 +38,49 @@ const reducer = produce((state, action) => {
                     console.log("!!!!!!!", action.payload);
                     state.filteredHangouts = action.payload;
                     break;
+          case "ADD_WAVE":
+               //debugger
+               console.log("7777777777777", action.payload);
+               state.hangouts.push(action.payload);
+               break;
           case "SET_CONTACTS":
                state.contacts = action.payload;
                break;
+          case "ADD_MEMBER":
+               state.members.push(action.payload);
+               break;
+
           case "SET_UID":
-               debugger;
+               //debugger;
                console.log("uid", action.payload);
                state.uid = action.payload
                break;
           case "SET_SHOW_CONTACT_LIST":
+               debugger
                if (action.payload != undefined)
                     state.showContactList = action.payload;
                else
                     state.showContactList = !state.showContactList;
                break;
+          case "SET_SHOW_MEMBERS_LIST":
+               debugger
+               if (action.payload != undefined)
+                    state.showMembersList = action.payload;
+               else
+                    state.showMembersList = !state.showMembersList;
+               break;
+          case "SET_CURRENT_HANGOUT":
+               //debugger;
+               state.hangout = action.payload;
+               break;
+          case "SET_MEMBERS":
+               //debugger;
+               state.members = action.payload;
+               break;
      }
 
 }, initalStaste)
-const store = createStore(reducer, applyMiddleware(setJwt,getUidByUserName, getHangoutById, getHangoutsForUser, getContactsForUser))
+const store = createStore(reducer, applyMiddleware(setJwt, getUidByUserName, getHangoutById, getHangoutsForUser, getContactsForUser, AddContactsToHangout, getAllHangoutMembers,addNewWave))
 window.store = store
 
 export default store;

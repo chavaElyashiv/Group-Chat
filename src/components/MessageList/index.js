@@ -14,6 +14,7 @@ import ContactList from '../ContactList/index'
 
 import io from "socket.io-client";
 
+import MembersList from '../MembersList/index'
 // import { AiOutlineUserAdd } from "react-icons/ai";
 // npm install --save-dev @iconify/react @iconify-icons/mdi
 import { Icon, InlineIcon } from '@iconify/react';
@@ -24,7 +25,8 @@ import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
 function mapStateToProps(state) {
   return {
     stateConversation: state.listConvesation,
-    showContactList:state.showContactList
+    showContactList:state.showContactList,
+    showMembersList:state.showMembersList
   }
 
 }
@@ -32,7 +34,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
   setCurrentConversation: (conversation) => dispatch(actions.setConversation(conversation)),
     showContact:()=>dispatch(actions.setShowContactList()),
-
+    showMembers:()=>dispatch(actions.setShowMembersList()),
 
 })
 
@@ -44,7 +46,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const messages = props.stateConversation;
   
 
-  const { stateConversation, setCurrentConversation ,showContactList,showContact} = props;
+  const { stateConversation, setCurrentConversation ,showContactList,showContact,showMembersList,showMembers} = props;
   let socket;
   const [messages2, setMessages] = useState([])
   const [name, setName] = useState('');
@@ -166,8 +168,13 @@ const sendMessage = (event) => {
 
     return tempMessages;
   }
+  // function h2() {
+  //   showContact(!showContactList)
+  // }
   function h() {
-    showContact(!showContactList)
+    showMembers()
+    if(showContactList==true)
+    showContact()
   }
   return (
     <div className="message-list">
@@ -192,7 +199,14 @@ const sendMessage = (event) => {
       {/* <AiOutlineUserAdd/> */}
      
 
-      <div className="message-list-container">{showContactList ? <ContactList/>: renderMessages()}</div>
+      {/* <div className="message-list-container">
+        {showContactList ? <ContactList/>: renderMessages()}
+        </div> */}
+        <div className="message-list-container">
+        {!showMembersList && !showContactList ?  renderMessages(): ''}
+        {showMembersList ? <MembersList/>: ''}
+        {showContactList ? <ContactList/>: ''}
+        </div>
 
       <Compose rightItems={[
          <button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,

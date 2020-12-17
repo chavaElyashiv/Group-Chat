@@ -10,7 +10,6 @@ function mapStateToProps(state) {
 
 }
 
-
 const mapDispatchToProps = (dispatch) => ({
   setSearchReasult: (filteredHangouts) => dispatch(actions.setFilteredHangouts(filteredHangouts))
   
