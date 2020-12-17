@@ -16,6 +16,7 @@ function mapStateToProps(state) {
 //   dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false))), 
 
 // })
+
 export default connect(mapStateToProps)(function ConversationListItem(props) {
 
   const { stateConversation, setCurrentConversation, AddContacts } = props;
@@ -28,6 +29,20 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
   console.log("getConversations", getConversations);
 
 
+<<<<<<< HEAD
+=======
+  //   const activateLasers=async()=>{
+  //     alert(_id)
+  //    let data = await ConvesationsService.getHangoutByID(_id);
+  //     setCurrentConversation(data)
+
+
+  // useEffect(() => {
+   
+  // },[props.data])
+
+
+>>>>>>> 6f1ceaa7ac91fe9a6bd024e9c1f2c254cb28ad6a
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
   return (
 
@@ -45,5 +60,4 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
     </div>
   );
 
-}
-)
+})

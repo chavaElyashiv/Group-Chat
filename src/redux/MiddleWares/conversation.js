@@ -32,7 +32,7 @@ export const getHangoutsForUser = ({ dispatch, getState }) => next => action => 
         }).then((res) => {
             console.log(res.hangouts)
             dispatch(actions.setHangouts(res.hangouts));
-
+            dispatch(actions.setFilteredHangouts(res.hangouts));
 
         });
     }

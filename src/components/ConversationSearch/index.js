@@ -1,68 +1,64 @@
 import React from 'react';
 import './ConversationSearch.css';
 import { connect } from 'react-redux'
-
+import {actions} from '../../redux/Actions/actions'
 function mapStateToProps(state) {
   return {
-      hangouts: state.hangouts
+      hangouts: state.hangouts,
+      filteredHangouts: state.filteredHangouts
   }
 
 }
 
-export default connect(mapStateToProps)(function ConversationSearch(props) {
-  const conversations=props.hangouts;
- 
-   function searchObj(obj, searchText) {
+const mapDispatchToProps = (dispatch) => ({
+  setSearchReasult: (filteredHangouts) => dispatch(actions.setFilteredHangouts(filteredHangouts))
+  
+})
 
-    for (let key in obj) {
-        let value = obj[key];
-        if (typeof value === 'object') {
-            return searchObj(value, searchText);
-        }
-        else {
-            try {
-                value = `${value}`;
-            }
-            finally {
-                if (typeof value === 'string' && value.toLowerCase().indexOf(searchText) > -1) {
-                    return obj;
-                }
-            }
-        }
+export default connect(mapStateToProps,mapDispatchToProps)(function ConversationSearch(props) {
+  const conversations=props.hangouts;
+  const {setSearchReasult} = props
+  let filteredHangouts=props.filteredHangouts
+  
+  filteredHangouts=conversations;
+  function search (eve) {
+  
+    if (eve != "") {
+        console.log(eve);
+        searchConversations(eve)
+    } else {
+      console.log("press somthing ");
+      
+      filteredHangouts=conversations 
+      setSearchReasult(filteredHangouts)
     }
 }
 
 
-let searchPromise;
 
-async function asyncSearchFunction(elementRefValue) {
-    let textValue = elementRefValue.toLowerCase();
-    await (
-        searchPromise = new Promise((resolve, reject) => {
+function searchConversations(searchText) {
+ 
+  filteredHangouts=[];
+  setSearchReasult(filteredHangouts)
+    // filteredHangouts = []
+    conversations.forEach(item => {
+    
+        //if the subject contains the searchTxt
+        if (item.name != undefined && item.name.toLowerCase().indexOf(searchText) > -1) {
+           console.log(item.name);
+           filteredHangouts.push(item);
+           setSearchReasult(filteredHangouts)
+        }
+        
+    });
 
-            let searchFilter = conversations.filter(obj => {
-                return searchObj(obj, textValue);
-            });
-
-            resolve(searchFilter)
-        })
-    )
-
-
-    searchPromise.then((msg) => {
-        console.log("Promise resolved");
-        console.log(msg);
-       
-    }, () => {
-        console.log("Promise reject");
-       
-    })
+    console.log(filteredHangouts);
 }
-
+   
     return (
       <div className="conversation-search">
         <input
-          type="search" onChange={(e)=>{asyncSearchFunction(e.target.value)}}
+          type="search" onChange={(e)=>{search(e.target.value)}}
           className="conversation-search-input"
           placeholder="Search Messages"
         />

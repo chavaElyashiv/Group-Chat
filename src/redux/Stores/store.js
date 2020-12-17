@@ -35,6 +35,11 @@ const reducer = produce((state, action) => {
                console.log("7777777777777", action.payload);
                state.hangouts = action.payload;
                break;
+               case "SET_FILTERED_HANGOUTS":
+                    debugger
+                    console.log("!!!!!!!", action.payload);
+                    state.filteredHangouts = action.payload;
+                    break;
           case "ADD_WAVE":
                
                console.log("7777777777777", action.payload);
