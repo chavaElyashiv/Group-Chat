@@ -1,7 +1,7 @@
 import { actions } from '../Actions/actions'
 
 
-// let userID = "ym4MmM09W3fan5xkOw6AmxxyNba2";
+let userID = "ym4MmM09W3fan5xkOw6AmxxyNba2";
 
 export const setJwt = ({ dispatch, getState }) => next => action => {
     if (action.type === 'SET_JWT') {
@@ -11,7 +11,7 @@ export const setJwt = ({ dispatch, getState }) => next => action => {
         } catch (error) {
             getState().jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJhUERrUlFmU01rU3BrU1FWSlRQWHFRVlQ3SWkyIiwiZW1haWwiOiJtaW5kaWZyQGdtYWlsLmNvbSIsImlwIjoiMTk1LjYwLjIzNS4xNDEiLCJpYXQiOjE2MDUxNzg4NjZ9.fm0jv-pQbTve2DPIskk0wqMNkrBSuGpGv_kLRw44lvM"
         }
-     
+
     }
     return next(action);
 }
@@ -104,6 +104,7 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
         }).then((res) => {
             console.log("waves", res.waves)
             dispatch(actions.setConversation(res.waves));
+            dispatch(actions.setFilteredList({ list: res.waves, kindList: "filteredMessages" }));
             dispatch(actions.setCurrentHangout(action.payload));
 
         }).then(() => {

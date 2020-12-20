@@ -4,12 +4,15 @@ import { actions } from '../../redux/Actions/actions'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import ConversationSearch from '../ConversationSearch/index'
+
 
 
 function mapStateToProps(state) {
     return {
         contacts: state.hangoutsContacts,
-        members: state.members
+        members: state.members,
+        filteredAddContacts:state.filteredAddContacts
     }
 
 }
@@ -28,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function ContactList(props) {
-    const { contacts, AddContactsToHangout, members, setShowContactList } = props;
+    const { filteredAddContacts,contacts, AddContactsToHangout, members, setShowContactList } = props;
     const classes = useStyles();
     var [AddContacts, setAddContacts] = useState([]);
     var [con, setCon] = useState([]);
@@ -55,9 +58,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function ContactList
                 console.log("item", item.email),
                 <> {item.email} , </>
             )) : 'null'}
+           <ConversationSearch list={contacts} kindList="filteredAddContacts"/>
 
             {
-                contacts.map(contact =>
+                filteredAddContacts.map(contact =>
                     <ConversationListItem key={contact._id}
                         data={contact}
                         onClick={() => addContactsToList(contact)

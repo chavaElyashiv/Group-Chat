@@ -42,6 +42,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
             </div>
          {/* <p class="sentText pr-10">{name}</p> */}
           </div>
+          <div class="from2" >{data.from}</div> 
 
         
     </div>
@@ -59,12 +60,23 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
             {friendlyTimestamp}
           </div>
         }
+        <div >
             <div className="bubble-container">
               <div className="bubble" title={friendlyTimestamp}>
                 {data.body}
+                {/* <div  class="from" >{data.from}</div>  */}
 
               </div>
+
+            {/* <div>{data.from}</div>   */}
+          
+            </div>  <div  class="from" >{data.from}</div> 
+
+            {/* <div  class="from" >{data.from}</div>  */}
+
             </div>
+            {/* <div class="pull-right" >{data.from}</div>  */}
+
           
       </div>
     );

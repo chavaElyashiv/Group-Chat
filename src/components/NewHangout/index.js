@@ -4,12 +4,15 @@ import { actions } from '../../redux/Actions/actions'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import ConversationSearch from '../ConversationSearch/index'
 
 
 function mapStateToProps(state) {
     return {
         contacts: state.contacts,
-        members: state.members
+        members: state.members,
+        filteredContacts: state.filteredContacts
+
     }
 }
 
@@ -24,16 +27,18 @@ const useStyles = makeStyles((theme) => ({
 const mapDispatchToProps = (dispatch) => ({
 
     AddContactsToHangout: (AddContacts) => dispatch(actions.addContactsToHangout(AddContacts)),
-    setShowContactList: () => dispatch(actions.setShowContactList())
+    setShowContactList: () => dispatch(actions.setShowContactList()),
+   // setFilteredContacts:()=> dispatch(actions.setShowContactList())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(props) {
     debugger;
-    const { contacts, AddContactsToHangout, members, setShowContactList } = props;
+    const { contacts, AddContactsToHangout, members, setShowContactList ,filteredContacts} = props;
     console.log("*****", contacts);
     const classes = useStyles();
     var [AddContacts, setAddContacts] = useState([]);
     var [con, setCon] = useState([]);
+   // setShowContactList
 
     const addContactsToList = function (contact) {
 
@@ -46,23 +51,23 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
         console.log("AddContacts", AddContacts)
     }
     const clearList = function () {
-        setAddContacts([]);
-        AddContactsToHangout(AddContacts);
-        setShowContactList();
+        // setAddContacts([]);
+        // AddContactsToHangout(AddContacts);
+        // setShowContactList();
     }
     console.log("contact-contactList", contacts);
 
 
     return (
         <div className="conversation-list" >
-
-            {AddContacts ? AddContacts.map((item, index) => (
+           <ConversationSearch list={contacts} kindList="filteredContacts"/>
+            {/* {AddContacts ? AddContacts.map((item, index) => (
                 console.log("item", item.email),
                 <> {item.email} , </>
-            )) : 'null'}
+            )) : 'null'} */}
 
             {
-                contacts.map(contact =>
+                filteredContacts.map(contact =>
                     <ConversationListItem key={contact._id}
                         data={contact}
                         onClick={() => addContactsToList(contact)

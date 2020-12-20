@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import './MessageList.css';
 import { actions } from '../../redux/Actions/actions'
 import ContactList from '../ContactList/index'
-
+import ConversationSearch from '../ConversationSearch/index'
 import io from "socket.io-client";
 
 import MembersList from '../MembersList/index'
@@ -24,7 +24,10 @@ function mapStateToProps(state) {
     stateConversation: state.listConvesation,
     showContactList: state.showContactList,
     showMembersList: state.showMembersList,
-    showNewHangout: state.showNewHangout
+    showNewHangout: state.showNewHangout,
+    showMessagesList:state.showMessagesList,
+    filteredMessages:state.filteredMessages,
+  //  filteredContacts:state.filteredContacts
   }
 
 }
@@ -42,22 +45,30 @@ const MY_USER_ID = 'apple';
 export default connect(mapStateToProps, mapDispatchToProps)(function MessageList(props) {
   
   const ENDPOINT = 'https://socket.chat.leader.codes';
-  const messages = props.stateConversation;
+  const messages = props.filteredMessages;
   
 
-<<<<<<< HEAD
-  const { showNewHangout, stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers } = props;
+  const {showMessagesList, showNewHangout, stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers } = props;
 
-=======
-  const { stateConversation, setCurrentConversation ,showContactList,showContact,showMembersList,showMembers} = props;
   let socket;
->>>>>>> 6f1ceaa7ac91fe9a6bd024e9c1f2c254cb28ad6a
+  // let list;
+  // let kindList;
   const [messages2, setMessages] = useState([])
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   // const [messages, setMessages] = useState([]);
+//   let f=(()=>{
+// // if(showNewHangout){
+//   list=filteredContacts
+// kindList="filteredContacts"
+// }
+// else if(!showMembersList && !showContactList && !showNewHangout ){
+//   list=filteredMessages
+//   kindList="filteredMessages"
+// }
+//   })
   useEffect(() => {
 
     const name ="mindy"
@@ -98,10 +109,6 @@ const sendMessage = (event) => {
  
 }
 
-<<<<<<< HEAD
-=======
-  // const getMessages = () => {
->>>>>>> 6f1ceaa7ac91fe9a6bd024e9c1f2c254cb28ad6a
 
   //   console.log("con", stateConversation);
 
@@ -109,10 +116,7 @@ const sendMessage = (event) => {
   //   setMessages([...messages, ...tempMessages])
   // }
 
-<<<<<<< HEAD
-  }
-=======
->>>>>>> 6f1ceaa7ac91fe9a6bd024e9c1f2c254cb28ad6a
+  
 
   const renderMessages = () => {
     console.log("messages", messages);
@@ -184,44 +188,33 @@ const sendMessage = (event) => {
   }
   return (
     <div className="message-list">
-      <Toolbar
-      title={ !showMembersList && !showContactList && !showNewHangout?"Conversation Title":""}
+      {showMessagesList ||showMembersList||showContactList?<Toolbar
+      title={ showMessagesList?"Conversation Title":""}
         rightItems={[
           // {/* <ToolbarButton key="123e" icon="ion-ios-person-add-sharp" /> */}
 
-<<<<<<< HEAD
           // {/* <span class="iconify" data-icon="ion:person-add-sharp" data-inline="false"></span> */}
 
-          <>  <Icon key="pop" className="tool" icon={accountMultiplePlus} onClick={h} />
+      <>  <Icon key="pop" className="tool" icon={accountMultiplePlus} onClick={h} />
 
             <ToolbarButton key="video" icon="ion-ios-videocam" />
             <ToolbarButton key="phone" icon="ion-ios-call" />
-=======
-        // {/* <span class="iconify" data-icon="ion:person-add-sharp" data-inline="false"></span> */}
- 
-      <> 
-      
-       <Icon key="pop" className="tool" icon={accountMultiplePlus} onClick={h} />
-     
-          <ToolbarButton key="video" icon="ion-ios-videocam" />
-          <ToolbarButton key="phone" icon="ion-ios-call" />
->>>>>>> 6f1ceaa7ac91fe9a6bd024e9c1f2c254cb28ad6a
           </>
 
 
         ]}
-      />
-
+      />:''}
 
     
       <div className="message-list-container">
-        {!showMembersList && !showContactList && !showNewHangout ? renderMessages() : ''}
+      {showMessagesList ?<ConversationSearch list={stateConversation} kindList="filteredMessages"/>:''}
+        {showMessagesList ? renderMessages() : ''}
         {showMembersList ? <MembersList /> : ''}
         {showContactList ? <ContactList /> : ''}
         {showNewHangout ? <NewHangout /> : ''}
       </div>
 
-      <Compose rightItems={[
+     {showMessagesList? <Compose rightItems={[
          <button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
         <ToolbarButton key="photo" icon="ion-ios-camera" />,
         <ToolbarButton key="image" icon="ion-ios-image" />,
@@ -229,7 +222,7 @@ const sendMessage = (event) => {
         <ToolbarButton key="money" icon="ion-ios-card" />,
         <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
         <ToolbarButton key="emoji" icon="ion-ios-happy" />
-      ]} />
+      ]} />:''}
     </div>
   );
-})
+    })

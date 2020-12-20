@@ -12,6 +12,27 @@
   margin: 10px 0px;
   text-transform: uppercase;
 }
+.from{
+  text-align: right;
+  min-height: 18px;
+    font-size: 12px;
+    text-transform: uppercase;
+  color: #999;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.from2{
+  text-align: left;
+  min-height: 18px;
+    font-size: 12px;
+    text-transform: uppercase;
+  color: #999;
+  font-weight: 600;
+  font-size: 12px;
+ 
+}
+
 
 .message .bubble-container {
   font-size: 14px;

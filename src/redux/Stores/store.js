@@ -16,8 +16,12 @@ const initalStaste = {
      showContactList: false,
      showMembersList: false,
      showNewHangout: false,
-
-     members: []
+     showMessagesList:false,
+     filteredContacts:[],
+     filteredMessages:[],
+     filteredMembers:[],
+     filteredAddContacts:[],
+     members: [],
 }
 
 
@@ -31,10 +35,24 @@ const reducer = produce((state, action) => {
                state.listConvesation = action.payload;
                break;
           case "SET_HANGOUTS":
-               
-               console.log("7777777777777", action.payload);
                state.hangouts = action.payload;
                break;
+               
+               case "SET_FILTERED_LIST":
+                    debugger
+                    
+                    if(action.payload.kindList=="filteredContacts")
+                    state.filteredContacts = action.payload.list;
+                  else  if(action.payload.kindList=="filteredHangouts")
+                    state.filteredHangouts = action.payload.list;
+                    else  if(action.payload.kindList=="filteredMessages")
+                    state.filteredMessages = action.payload.list;
+                    else  if(action.payload.kindList=="filteredMembers")
+                    state.filteredMembers = action.payload.list;
+                    else  if(action.payload.kindList=="filteredAddContacts")
+                    state.filteredAddContacts = action.payload.list;
+                    
+                    break;
                case "SET_FILTERED_HANGOUTS":
                     debugger
                     console.log("!!!!!!!", action.payload);
@@ -75,6 +93,14 @@ const reducer = produce((state, action) => {
                else
                     state.showContactList = !state.showContactList;
                break;
+               
+               case "SET_SHOW_MESSAGES_LIST":
+                    debugger
+                    if (action.payload != undefined)
+                         state.showMessagesList = action.payload;
+                    else
+                         state.showMessagesList = !state.showMessagesList;
+                    break;
           case "SET_SHOW_MEMBERS_LIST":
                debugger
                if (action.payload != undefined)
@@ -83,11 +109,11 @@ const reducer = produce((state, action) => {
                     state.showMembersList = !state.showMembersList;
                break;
           case "SET_CURRENT_HANGOUT":
-               ;
+               
                state.hangout = action.payload;
                break;
           case "SET_MEMBERS":
-               ;
+               
                state.members = action.payload;
                break;
      }
