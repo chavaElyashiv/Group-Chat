@@ -8,6 +8,10 @@
   background: #eeeef1;
   cursor: pointer;
 }
+.conversation-list-item:focus-visible {
+  background:chartreuse;
+  cursor: pointer;
+}
 
 .conversation-photo {
   width: 50px;
@@ -28,4 +32,7 @@
   font-size: 14px;
   color: #888;
   margin: 0;
+}
+.color{
+  background-color: brown;
 }

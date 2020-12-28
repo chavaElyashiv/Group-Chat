@@ -9,6 +9,7 @@ import { actions } from '../../redux/Actions/actions'
 
 import './ConversationList.css';
 import ContactList from '../ContactList';
+import { red } from '@material-ui/core/colors';
 
 function mapStateToProps(state) {
     return {
@@ -60,10 +61,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
         {
           filteredHangouts && filteredHangouts.length > 0 ?
                 filteredHangouts.map(conversation =>
-
-                    <ConversationListItem key={conversation._id}
-                        data={conversation} onClick={setCurrentConversation}
-                    />
+<div >
+                    <ConversationListItem key={conversation._id} className="color"
+                        data={conversation} onClick={setCurrentConversation} 
+                    /></div>
                 ) : <div className="no-result">No results found</div>
         }
         {/* {

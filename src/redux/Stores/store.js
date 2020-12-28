@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import produce from 'immer';
-import { getHangoutById, setJwt, getHangoutsForUser, getUidByUserName, addNewWave } from '../MiddleWares/conversation'
-import { getContactsForUser, getAllContactsExceptMembers, AddContactsToHangout, getAllHangoutMembers,setShow } from '../MiddleWares/contact'
+import {getUsernameReturnEmail,returnUsersId, newHangout, getHangoutById, setJwt, getHangoutsForUser, getUidByUserName, addNewWave } from '../MiddleWares/conversation'
+import { getContactsForUser, getAllContactsExceptMembers, AddContactsToHangout, getAllHangoutMembers, setShow } from '../MiddleWares/contact'
 
 
 const initalStaste = {
@@ -16,11 +16,11 @@ const initalStaste = {
      showContactList: false,
      showMembersList: false,
      showNewHangout: false,
-     showMessagesList:false,
-     filteredContacts:[],
-     filteredMessages:[],
-     filteredMembers:[],
-     filteredAddContacts:[],
+     showMessagesList: false,
+     filteredContacts: [],
+     filteredMessages: [],
+     filteredMembers: [],
+     filteredAddContacts: [],
      members: [],
 }
 
@@ -37,30 +37,32 @@ const reducer = produce((state, action) => {
           case "SET_HANGOUTS":
                state.hangouts = action.payload;
                break;
-               
-               case "SET_FILTERED_LIST":
-                    debugger
-                    
-                    if(action.payload.kindList=="filteredContacts")
+
+          case "SET_FILTERED_LIST":
+               debugger
+
+               if (action.payload.kindList == "filteredContacts")
                     state.filteredContacts = action.payload.list;
-                  else  if(action.payload.kindList=="filteredHangouts")
+               else if (action.payload.kindList == "filteredHangouts")
                     state.filteredHangouts = action.payload.list;
-                    else  if(action.payload.kindList=="filteredMessages")
+               else if (action.payload.kindList == "filteredMessages")
                     state.filteredMessages = action.payload.list;
-                    else  if(action.payload.kindList=="filteredMembers")
+               else if (action.payload.kindList == "filteredMembers")
                     state.filteredMembers = action.payload.list;
-                    else  if(action.payload.kindList=="filteredAddContacts")
+               else if (action.payload.kindList == "filteredAddContacts")
                     state.filteredAddContacts = action.payload.list;
-                    
-                    break;
-               case "SET_FILTERED_HANGOUTS":
-                    debugger
-                    console.log("!!!!!!!", action.payload);
-                    state.filteredHangouts = action.payload;
-                    break;
+
+               break;
+          case "SET_FILTERED_HANGOUTS":
+               debugger
+               console.log("!!!!!!!", action.payload);
+               state.filteredHangouts = action.payload;
+               break;
           case "ADD_WAVE":
-               
-               console.log("7777777777777", action.payload);
+               state.hangouts.push(action.payload);
+               break;
+          case "ADD_NEW_HANGOUT":
+               debugger
                state.hangouts.push(action.payload);
                break;
           case "SET_HANGOUTS_CONTACTS":
@@ -93,14 +95,14 @@ const reducer = produce((state, action) => {
                else
                     state.showContactList = !state.showContactList;
                break;
-               
-               case "SET_SHOW_MESSAGES_LIST":
-                    debugger
-                    if (action.payload != undefined)
-                         state.showMessagesList = action.payload;
-                    else
-                         state.showMessagesList = !state.showMessagesList;
-                    break;
+
+          case "SET_SHOW_MESSAGES_LIST":
+               debugger
+               if (action.payload != undefined)
+                    state.showMessagesList = action.payload;
+               else
+                    state.showMessagesList = !state.showMessagesList;
+               break;
           case "SET_SHOW_MEMBERS_LIST":
                debugger
                if (action.payload != undefined)
@@ -109,17 +111,17 @@ const reducer = produce((state, action) => {
                     state.showMembersList = !state.showMembersList;
                break;
           case "SET_CURRENT_HANGOUT":
-               
+
                state.hangout = action.payload;
                break;
           case "SET_MEMBERS":
-               
+
                state.members = action.payload;
                break;
      }
 
 }, initalStaste)
-const store = createStore(reducer, applyMiddleware(setJwt, getUidByUserName, getHangoutById, getHangoutsForUser, getAllContactsExceptMembers, getContactsForUser, AddContactsToHangout, getAllHangoutMembers, addNewWave,setShow))
+const store = createStore(reducer, applyMiddleware(setJwt,getUsernameReturnEmail,returnUsersId, getUidByUserName, newHangout, getHangoutById, getHangoutsForUser, getAllContactsExceptMembers, getContactsForUser, AddContactsToHangout, getAllHangoutMembers, addNewWave, setShow))
 window.store = store
 
 export default store;

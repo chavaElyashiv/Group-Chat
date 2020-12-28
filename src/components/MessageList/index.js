@@ -25,9 +25,9 @@ function mapStateToProps(state) {
     showContactList: state.showContactList,
     showMembersList: state.showMembersList,
     showNewHangout: state.showNewHangout,
-    showMessagesList:state.showMessagesList,
-    filteredMessages:state.filteredMessages,
-  //  filteredContacts:state.filteredContacts
+    showMessagesList: state.showMessagesList,
+    filteredMessages: state.filteredMessages,
+    //  filteredContacts:state.filteredContacts
   }
 
 }
@@ -43,12 +43,12 @@ const mapDispatchToProps = (dispatch) => ({
 const MY_USER_ID = 'apple';
 
 export default connect(mapStateToProps, mapDispatchToProps)(function MessageList(props) {
-  
-  const ENDPOINT = 'https://socket.chat.leader.codes';
-  const messages = props.filteredMessages;
-  
 
-  const {showMessagesList, showNewHangout, stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers } = props;
+  // const ENDPOINT = 'https://socket.chat.leader.codes';
+  const messages = props.filteredMessages;
+
+
+  const { showMessagesList, showNewHangout, stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers } = props;
 
   let socket;
   // let list;
@@ -59,24 +59,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   // const [messages, setMessages] = useState([]);
-//   let f=(()=>{
-// // if(showNewHangout){
-//   list=filteredContacts
-// kindList="filteredContacts"
-// }
-// else if(!showMembersList && !showContactList && !showNewHangout ){
-//   list=filteredMessages
-//   kindList="filteredMessages"
-// }
-//   })
+  //   let f=(()=>{
+  // // if(showNewHangout){
+  //   list=filteredContacts
+  // kindList="filteredContacts"
+  // }
+  // else if(!showMembersList && !showContactList && !showNewHangout ){
+  //   list=filteredMessages
+  //   kindList="filteredMessages"
+  // }
+  //   })
   useEffect(() => {
 
-    const name ="mindy"
-    const room= 210
+    const name = "mindy"
+    const room = 210
 
-   
 
-    socket = io(ENDPOINT);
+
+   // socket = io(ENDPOINT);
 
     // socket.emit('join', { name, room }, (error) => {
     //   console.log("hello");
@@ -84,30 +84,30 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
     //     alert(error);
     //   }
     // });
-  },)
+  })
 
-  useEffect(() => {
-    
-    socket.on('Message', message => {
-      console.log("emitt");
-      setMessages(msgs => [ ...msgs, message ]);
-    });
-    
-    socket.on("roomData", ({ users }) => {
-      setUsers(users);
-    });
-}, []);
+  // useEffect(() => {
 
-const sendMessage = (event) => {
-  event.preventDefault();
-  console.log(socket);
-  if( $(".compose-input").val()) {
-    socket.emit('sendMessage', $(".compose-input").val());
-    // renderMessages()
-   
+  //   socket.on('Message', message => {
+  //     console.log("emitt");
+  //     setMessages(msgs => [...msgs, message]);
+  //   });
+
+  //   socket.on("roomData", ({ users }) => {
+  //     setUsers(users);
+  //   });
+  // }, []);
+
+  const sendMessage = (event) => {
+    event.preventDefault();
+    console.log(socket);
+    if ($(".compose-input").val()) {
+      socket.emit('sendMessage', $(".compose-input").val());
+      // renderMessages()
+
+    }
+
   }
- 
-}
 
 
   //   console.log("con", stateConversation);
@@ -116,7 +116,7 @@ const sendMessage = (event) => {
   //   setMessages([...messages, ...tempMessages])
   // }
 
-  
+
 
   const renderMessages = () => {
     console.log("messages", messages);
@@ -164,8 +164,8 @@ const sendMessage = (event) => {
         tempMessages.push(
 
           <Message
-          // messages={messages}
-          //  name={name} 
+            // messages={messages}
+            //  name={name} 
             key={i}
             //  isMine={isMine}
             startsSequence={startsSequence}
@@ -182,20 +182,20 @@ const sendMessage = (event) => {
 
     return tempMessages;
   }
- 
+
   function h() {
     showMembers()
   }
   return (
     <div className="message-list">
-      {showMessagesList ||showMembersList||showContactList?<Toolbar
-      title={ showMessagesList?"Conversation Title":""}
+      {showMessagesList || showMembersList || showContactList ? <Toolbar
+        title={showMessagesList ? "Conversation Title" : ""}
         rightItems={[
           // {/* <ToolbarButton key="123e" icon="ion-ios-person-add-sharp" /> */}
 
           // {/* <span class="iconify" data-icon="ion:person-add-sharp" data-inline="false"></span> */}
 
-      <>  <Icon key="pop" className="tool" icon={accountMultiplePlus} onClick={h} />
+          <>  <Icon key="pop" className="tool" icon={accountMultiplePlus} onClick={h} />
 
             <ToolbarButton key="video" icon="ion-ios-videocam" />
             <ToolbarButton key="phone" icon="ion-ios-call" />
@@ -203,26 +203,26 @@ const sendMessage = (event) => {
 
 
         ]}
-      />:''}
+      /> : ''}
 
-    
+
       <div className="message-list-container">
-      {showMessagesList ?<ConversationSearch list={stateConversation} kindList="filteredMessages"/>:''}
+        {showMessagesList ? <ConversationSearch list={stateConversation} kindList="filteredMessages" /> : ''}
         {showMessagesList ? renderMessages() : ''}
         {showMembersList ? <MembersList /> : ''}
         {showContactList ? <ContactList /> : ''}
         {showNewHangout ? <NewHangout /> : ''}
       </div>
 
-     {showMessagesList? <Compose rightItems={[
-         <button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
+      {showMessagesList ? <Compose rightItems={[
+        <button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
         <ToolbarButton key="photo" icon="ion-ios-camera" />,
         <ToolbarButton key="image" icon="ion-ios-image" />,
         <ToolbarButton key="audio" icon="ion-ios-mic" />,
         <ToolbarButton key="money" icon="ion-ios-card" />,
         <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
         <ToolbarButton key="emoji" icon="ion-ios-happy" />
-      ]} />:''}
+      ]} /> : ''}
     </div>
   );
-    })
+})

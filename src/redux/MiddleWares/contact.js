@@ -154,6 +154,7 @@ export const getAllHangoutMembers = ({ dispatch, getState }) => next => action =
         })
             .then((res) => {
                 console.log("contacts", res)
+                debugger;
                 dispatch(actions.setMembers(res.memberList));
                 dispatch(actions.setFilteredList({ list: res.memberList, kindList: "filteredMembers" }));
 

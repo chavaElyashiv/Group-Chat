@@ -3,6 +3,7 @@ import shave from 'shave';
 import './ConversationListItem.css';
 import { connect } from 'react-redux'
 import { actions } from '../../redux/Actions/actions'
+import { blueGrey, red } from '@material-ui/core/colors';
 
 function mapStateToProps(state) {
   return {
@@ -32,7 +33,7 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
   return (
 
-    <div className="conversation-list-item" onClick={(e) => getConversations ? contactList(_id) : console.log(getConversations)} >
+    <div  className="conversation-list-item"   onClick={(e) => getConversations ? contactList(_id)  : console.log(getConversations)} >
 
       {profileGroup && <img className="conversation-photo" src={require("../../images/" + profileGroup)} alt="conversation" />}
       {thumbnail && <img className="conversation-photo" src={require("../../images/" + thumbnail)} alt="conversation" />}

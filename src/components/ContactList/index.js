@@ -53,12 +53,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(function ContactList
     console.log("contact-contactList", contacts);
     return (
         <div className="conversation-list" >
+           <ConversationSearch list={contacts} kindList="filteredAddContacts"/>
 
             {AddContacts ? AddContacts.map((item, index) => (
                 console.log("item", item.email),
                 <> {item.email} , </>
             )) : 'null'}
-           <ConversationSearch list={contacts} kindList="filteredAddContacts"/>
 
             {
                 filteredAddContacts.map(contact =>

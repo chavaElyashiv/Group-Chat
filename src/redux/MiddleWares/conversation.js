@@ -68,7 +68,7 @@ export const getUidByUserName = ({ dispatch, getState }) => next => action => {
 }
 export const addNewWave = ({ dispatch, getState }) => next => action => {
     if (action.type === 'ADD_NEW_WAVE') {
-        return fetch(`https://chat.leader.codes/api/' + ${getState().uid} + '/' +  ${getState().hangout} + '/addWave`, {
+        return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/addWave`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,
@@ -82,6 +82,78 @@ export const addNewWave = ({ dispatch, getState }) => next => action => {
         })
             .then((res) => {
                 dispatch(actions.addWave(res.newWave))
+            })
+
+    }
+    return next(action);
+}
+export const newHangout = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'NEW_HANGOUT') {
+        debugger
+        return fetch(`https://chat.leader.codes/api/${getState().uid}/newHangout`, {
+            method: 'POST',
+            headers: {
+                Authentication: getState().jwt,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ hangout: action.payload })
+        }).then((res) => {
+            return res.json()
+
+        })
+            .then((res) => {
+                debugger
+                dispatch(actions.addNewHangout(res.newHangout))
+            })
+
+    }
+    return next(action);
+}
+
+export const getUsernameReturnEmail = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'GET_USERNAME_RETURN_EMAIL') {
+        debugger
+        return fetch(`https://chat.leader.codes/api/${getState().uid}/getUsernameReturnEmail`, {
+            method: 'POST',
+            headers: {
+                Authentication: getState().jwt,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: action.payload })
+        }).then((res) => {
+            return res.json()
+
+        })
+            .then((res) => {
+                debugger
+                return res.email
+               // dispatch(actions.addNewHangout(res.hangout))
+            })
+
+    }
+    return next(action);
+}
+export const returnUsersId = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'RETURN_USERS_ID') {
+        debugger
+        return fetch(`https://chat.leader.codes/api/${getState().uid}/getContactsReturnUsers`, {
+            method: 'POST',
+            headers: {
+                Authentication: getState().jwt,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ contacts: action.payload.members })
+        }).then((res) => {
+            return res.json()
+
+        })
+            .then((res) => {
+                debugger
+                let hangout={members:res.users,name:action.payload.name}
+                dispatch(actions.newHangout(hangout))
             })
 
     }
