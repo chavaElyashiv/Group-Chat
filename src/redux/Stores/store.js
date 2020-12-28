@@ -7,6 +7,7 @@ import { getContactsForUser, AddContactsToHangout, getAllHangoutMembers } from '
 const initalStaste = {
      listConvesation: [],
      hangouts: [],
+     filteredHangouts:[],
      contacts: [],
      userName: (window.location.pathname.split('/')[1]),
      hangout: (window.location.pathname.split('/')[3]),
@@ -14,8 +15,9 @@ const initalStaste = {
      jwt: '',
      showContactList: false,
      showMembersList: false,
-
-     members: []
+     members: [],
+     messageInput:''
+    
 }
 
 
@@ -77,6 +79,10 @@ const reducer = produce((state, action) => {
                //debugger;
                state.members = action.payload;
                break;
+               case "SET_MESSAGE_INPUT":
+                    //debugger;
+                    state.messageInput = action.payload;
+                    break;
      }
 
 }, initalStaste)

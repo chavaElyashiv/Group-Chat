@@ -6,7 +6,6 @@ import ContactList from '../ContactList';
 import Messenger from '../Messenger';
 
 
-const io=require('socket.io-client')
 export default function App() {
     return (
         <Provider store={store}>

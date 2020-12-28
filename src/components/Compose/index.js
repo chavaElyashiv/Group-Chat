@@ -1,12 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Compose.css';
 import $ from 'jquery';
+import { actions } from '../../redux/Actions/actions'
+import InputEmoji from "react-input-emoji";
 import 'font-awesome/css/font-awesome.min.css';
 // import io from 'https://socket.chat.leader.codes';
 import socketIOClient from "socket.io-client";
+import { connect } from 'react-redux'
+function mapStateToProps(state) {
+  return {
+    messageInput:state.messageInput
+  }
 
-export default function Compose(props) {
-  // const socket = socketIOClient("https://socket.chat.leader.codes", { transports: ['websocket']});
+}
+
+
+const mapDispatchToProps = (dispatch) => ({
+  SetMessageInput: (messageInput) =>
+    dispatch(actions.setMessageInput(messageInput)),
+
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)( function Compose(props) {
+
+  const [text, setText] = useState("");
+ 
+  function handleOnChange(text) {
+    // console.log("enter", text);
+    props.SetMessageInput(text)
+  }
+// const socket = socketIOClient("https://socket.chat.leader.codes", { transports: ['websocket']});
 // useEffect(()=>{
 //   socket.on('send_message', function (msg) {
 
@@ -42,25 +65,39 @@ export default function Compose(props) {
   // })
   // let ioConect = 'https://socket.chat.leader.codes'
   // let socket = io.connect(ioConect)
+  
+    // document.getElementById('inputVal').value=''
+    // document.getElementById('inputVal').placeholder= e.target.value
+    // props.setEmoji(e.key)
+  
  
-
     return (
       <div className="compose">
-        <input
+    <InputEmoji
+    className="compose-input"
+     id="inputVal"
+      value={props.messageInput}
+      onChange={setText,handleOnChange}
+      // onChange={()=>{setText(); loger()}}
+      cleanOnEnter
+      onEnter={handleOnChange}
+      placeholder="Type a message"
+    />
+        {/* <input
+        id="inputVal"
           type="text"
+          onKeyUp={(e)=>changeVal(e)}
           className="compose-input"
-          placeholder="Type a message, @name"
-         
-        />
-       
-      
-        {
-          
+          // placeholder={props.currentEmoji}
+          value={props.currentEmoji?props.currentEmoji:inputValue}
+        /> */}
+        {  
           props.rightItems
         }
+
       </div>
     );
-}
+})
 
 
 

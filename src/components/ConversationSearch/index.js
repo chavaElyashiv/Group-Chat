@@ -27,14 +27,10 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Conversation
         console.log(eve);
         searchConversations(eve)
     } else {
-      console.log("press somthing ");
-      
       filteredHangouts=conversations 
       setSearchReasult(filteredHangouts)
     }
 }
-
-
 
 function searchConversations(searchText) {
  
@@ -43,7 +39,7 @@ function searchConversations(searchText) {
     // filteredHangouts = []
     conversations.forEach(item => {
     
-        //if the subject contains the searchTxt
+        //if the groupChat contains the searchTxt
         if (item.name != undefined && item.name.toLowerCase().indexOf(searchText) > -1) {
            console.log(item.name);
            filteredHangouts.push(item);
