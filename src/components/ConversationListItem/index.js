@@ -3,6 +3,7 @@ import shave from 'shave';
 import './ConversationListItem.css';
 import { connect } from 'react-redux'
 import { actions } from '../../redux/Actions/actions'
+import { blueGrey, red } from '@material-ui/core/colors';
 
 function mapStateToProps(state) {
   return {
@@ -21,37 +22,22 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
 
   const { stateConversation, setCurrentConversation, AddContacts } = props;
 
-  //debugger;
   const getConversations = props.onClick;
+
   function contactList(_id) {
-    //debugger;
     getConversations(_id);
   }
   console.log("getConversations", getConversations);
 
 
-  //   const activateLasers=async()=>{
-  //     alert(_id)
-  //    let data = await ConvesationsService.getHangoutByID(_id);
-  //     setCurrentConversation(data)
-
-
-  // useEffect(() => {
-   
-  // },[props.data])
-
-
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
   return (
 
-    <div className="conversation-list-item" onClick={(e) => getConversations ? contactList(_id) : console.log(getConversations)} >
+    <div  className="conversation-list-item"   onClick={(e) => getConversations ? contactList(_id)  : console.log(getConversations)} >
 
       {profileGroup && <img className="conversation-photo" src={require("../../images/" + profileGroup)} alt="conversation" />}
       {thumbnail && <img className="conversation-photo" src={require("../../images/" + thumbnail)} alt="conversation" />}
-      {/* {AddContacts?AddContacts:'jhkji'} */}
-      {/* {AddContacts? AddContacts.map((item, index) => (
-        <React.Fragment key={index} item={item} />
-      )):'km'} */}
+    
       <div className="conversation-info">
         <h1 className="conversation-title">{name}</h1>
         <p className="conversation-snippet">{text}</p>

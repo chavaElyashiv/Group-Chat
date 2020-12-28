@@ -1,23 +1,18 @@
-
-
 import React, { useState, useEffect } from 'react';
-// import ConversationSearch from '../ConversationSearch';
 import ConversationListItem from '../ConversationListItem';
-// import Toolbar from '../Toolbar';
-// import ToolbarButton from '../ToolbarButton';
-// import axios from 'axios';
 import { actions } from '../../redux/Actions/actions'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import ConversationSearch from '../ConversationSearch/index'
 
-// import '../ConversationList/ConversationList.css'
+
 
 function mapStateToProps(state) {
     return {
-        contacts: state.contacts,
-        members:state.members
-        // stateConversation:state.listConvesation,
+        contacts: state.hangoutsContacts,
+        members: state.members,
+        filteredAddContacts:state.filteredAddContacts
     }
 
 }
@@ -32,15 +27,15 @@ const mapDispatchToProps = (dispatch) => ({
 
     AddContactsToHangout: (AddContacts) =>
         dispatch(actions.addContactsToHangout(AddContacts)),
-        setShowContactList: () => dispatch(actions.setShowContactList())
+    setShowContactList: () => dispatch(actions.setShow("members"))
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function ContactList(props) {
-    const { contacts, AddContactsToHangout,members,setShowContactList } = props;
+    const { filteredAddContacts,contacts, AddContactsToHangout, members, setShowContactList } = props;
     const classes = useStyles();
     var [AddContacts, setAddContacts] = useState([]);
     var [con, setCon] = useState([]);
-    
+
     const addContactsToList = function (contact) {
 
         if (AddContacts.includes(contact)) {
@@ -54,23 +49,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(function ContactList
         console.log("AddContacts", AddContacts)
 
     }
-    const clearList = function () {
-        setAddContacts([]);
-        AddContactsToHangout(AddContacts);
-        setShowContactList();
-
-    }
+  
     console.log("contact-contactList", contacts);
     return (
         <div className="conversation-list" >
+           <ConversationSearch list={contacts} kindList="filteredAddContacts"/>
 
             {AddContacts ? AddContacts.map((item, index) => (
                 console.log("item", item.email),
                 <> {item.email} , </>
             )) : 'null'}
-           
+
             {
-                contacts.map(contact =>
+                filteredAddContacts.map(contact =>
                     <ConversationListItem key={contact._id}
                         data={contact}
                         onClick={() => addContactsToList(contact)
@@ -80,7 +71,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function ContactList
                 )
             }
 
-            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { clearList() }}>ADD CONTACTS</Button></div>
+            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { setShowContactList() }}>ADD CONTACTS</Button></div>
         </div>
 
     );

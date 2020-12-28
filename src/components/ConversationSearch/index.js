@@ -4,51 +4,68 @@ import { connect } from 'react-redux'
 import {actions} from '../../redux/Actions/actions'
 function mapStateToProps(state) {
   return {
-      hangouts: state.hangouts,
-      filteredHangouts: state.filteredHangouts
+     // hangouts: state.hangouts,
+     // filteredList: state.filteredList
   }
 
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setSearchReasult: (filteredHangouts) => dispatch(actions.setFilteredHangouts(filteredHangouts))
+  setSearchReasult: (list,kindList) => dispatch(actions.setFilteredList({list,kindList}))
   
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(function ConversationSearch(props) {
-  const conversations=props.hangouts;
-  const {setSearchReasult} = props
-  let filteredHangouts=props.filteredHangouts
+  const conversations=props.list;
+  const {setSearchReasult,kindList} = props
+  let filteredList=props.list;
+  console.log("l;l;",props.list);
   
-  filteredHangouts=conversations;
+  filteredList=conversations;
+  setSearchReasult(filteredList,kindList);
   function search (eve) {
   
     if (eve != "") {
         console.log(eve);
         searchConversations(eve)
     } else {
-      filteredHangouts=conversations 
-      setSearchReasult(filteredHangouts)
+      console.log("press somthing ");
+      
+      filteredList=conversations 
+     // if(kindList=="filteredHangouts")
+      setSearchReasult(filteredList,kindList)
     }
 }
 
 function searchConversations(searchText) {
  
-  filteredHangouts=[];
-  setSearchReasult(filteredHangouts)
-    // filteredHangouts = []
+  filteredList=[];
+  
+  //if(kindList=="filteredHangouts")
+  setSearchReasult(filteredList,kindList)
+  
+    // filteredList = []
     conversations.forEach(item => {
+   //   "kindList=="filteredHangouts" && "
     
-        //if the groupChat contains the searchTxt
-        if (item.name != undefined && item.name.toLowerCase().indexOf(searchText) > -1) {
-           console.log(item.name);
-           filteredHangouts.push(item);
-           setSearchReasult(filteredHangouts)
+        //if the subject contains the searchTxt
+        if (kindList=="filteredMessages" && item.body != undefined && item.body.toLowerCase().indexOf(searchText) > -1) {
+           filteredList.push(item);
+           setSearchReasult(filteredList,kindList)
         }
+        if (kindList=="filteredMembers" && item.email != undefined && item.email.toLowerCase().indexOf(searchText) > -1) {
+            filteredList.push(item);
+            setSearchReasult(filteredList,kindList)
+         }
+      else  if (item.name != undefined && item.name.toLowerCase().indexOf(searchText) > -1) {
+          console.log(item.name);
+          filteredList.push(item);
+          setSearchReasult(filteredList,kindList)
+       }
         
     });
 
-    console.log(filteredHangouts);
+    console.log(filteredList);
 }
    
     return (

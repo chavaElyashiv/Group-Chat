@@ -9,27 +9,42 @@ import { actions } from '../../redux/Actions/actions'
 
 import './ConversationList.css';
 import ContactList from '../ContactList';
+import { red } from '@material-ui/core/colors';
 
 function mapStateToProps(state) {
     return {
         hangouts: state.hangouts,
         filteredHangouts: state.filteredHangouts
-        
+
     }
 
 }
-  const mapDispatchToProps =(dispatch)=>({
-    setCurrentConversation:(_id)=>
-    dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false)),dispatch(actions.setShowMembersList(false))), 
-  })
-export default connect(mapStateToProps,mapDispatchToProps)(function ConversationList(props) {
-  
-    const { setCurrentConversation } = props;
-  
-    const filteredHangouts = props.filteredHangouts;
+const mapDispatchToProps = (dispatch) => ({
+    setCurrentConversation: (_id) => dispatch(actions.getHangoutById(_id)
+        , dispatch(actions.setShow("messages"))),
+    
 
-  
-   
+    NewHanghout: () => dispatch(actions.setShow("newHangout"))
+
+
+})
+export default connect(mapStateToProps, mapDispatchToProps)(function ConversationList(props) {
+    const { setCurrentConversation, NewHanghout,hangouts } = props;
+    const conversations = props.hangouts;
+    const filteredHangouts = props.filteredHangouts;
+ 
+    const getConversations = () => {
+        axios.get('https://randomuser.me/api/?results=20').then(response => {
+            let newConversations = response.data.results.map(result => {
+                return {
+                    photo: result.picture.large,
+                    name: `${result.name.first} ${result.name.last}`,
+                    text: 'Hello world! This is a long message that needs to be truncated.'
+                };
+            });
+        });
+    }
+
     return (<div className="conversation-list" >
         <Toolbar title="Messenger"
             leftItems={
@@ -39,17 +54,17 @@ export default connect(mapStateToProps,mapDispatchToProps)(function Conversation
             }
             rightItems={
                 [<ToolbarButton key="add"
-                    icon="ion-ios-add-circle-outline" />
+                    icon="ion-ios-add-circle-outline" onClick={NewHanghout} />
                 ]
             }
-        /> <ConversationSearch />
+        /> <ConversationSearch list={hangouts} kindList="filteredHangouts"/>
         {
           filteredHangouts && filteredHangouts.length > 0 ?
                 filteredHangouts.map(conversation =>
-
-                    <ConversationListItem key={conversation._id}
-                        data={conversation} onClick={setCurrentConversation}
-                    />
+<div >
+                    <ConversationListItem key={conversation._id} className="color"
+                        data={conversation} onClick={setCurrentConversation} 
+                    /></div>
                 ) : <div className="no-result">No results found</div>
         }
        

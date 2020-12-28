@@ -8,12 +8,12 @@ import Message from '../Message';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import './MessageList.css';
-import { actions } from '../../redux/Actions/actions';
-import ContactList from '../ContactList/index';
+import { actions } from '../../redux/Actions/actions'
+import ContactList from '../ContactList/index'
+import ConversationSearch from '../ConversationSearch/index'
 import io from "socket.io-client";
 import MembersList from '../MembersList/index'
-// import { AiOutlineUserAdd } from "react-icons/ai";
-// npm install --save-dev @iconify/react @iconify-icons/mdi
+import NewHangout from '../NewHangout/index'
 import { Icon, InlineIcon } from '@iconify/react';
 import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
 function mapStateToProps(state) {
@@ -21,24 +21,36 @@ function mapStateToProps(state) {
     stateConversation: state.listConvesation,
     showContactList: state.showContactList,
     showMembersList: state.showMembersList,
-    messageInput:state.messageInput
+    messageInput:state.messageInput,
+    showNewHangout: state.showNewHangout,
+    showMessagesList: state.showMessagesList,
+    filteredMessages: state.filteredMessages,
+    //  filteredContacts:state.filteredContacts
   }
 
 }
 const mapDispatchToProps = (dispatch) => ({
   setCurrentConversation: (conversation) => dispatch(actions.setConversation(conversation)),
-  showContact: () => dispatch(actions.setShowContactList()),
-  showMembers: () => dispatch(actions.setShowMembersList()),
+ 
   SetMessageInput: (messageInput) =>
   dispatch(actions.setMessageInput(messageInput)),
+  showMembers: () => dispatch(actions.setShow("members"))
+
+
 
 })
 const MY_USER_ID = 'apple';
 export default connect(mapStateToProps, mapDispatchToProps)(function MessageList(props) {
+
   const ENDPOINT = 'https://socket.chat.leader.codes';
-  const messages = props.stateConversation;
+  const messages = props.filteredMessages;
+
+
+  const { showMessagesList, showNewHangout, stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers } = props;
+
   let socket;
-  const { stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers } = props;
+  // let list;
+  // let kindList;
   const [messages2, setMessages] = useState([])
   const [showMyComponent, setShowMyComponent] = useState(false)
 
@@ -80,6 +92,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
  
 
 
+
   const renderMessages = () => {
     console.log("messages", messages);
     let i = 0;
@@ -88,8 +101,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
 
     while (i < messageCount) {
       if (messages[i].body) {
-
-      
         let previous = messages[i - 1];
         let current = messages[i];
         let next = messages[i + 1];
@@ -127,7 +138,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
         tempMessages.push(
 
           <Message
-             
+            // messages={messages}
+            //  name={name} 
             key={i}
           
             startsSequence={startsSequence}
@@ -144,47 +156,50 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
 
     return tempMessages;
   }
- 
+
   function h() {
     showMembers()
-    if (showContactList == true)
-      showContact()
   }
  
   
 
   return (
     <div className="message-list">
-      <Toolbar
-        title="Conversation Title"
+      {showMessagesList || showMembersList || showContactList ? <Toolbar
+        title={showMessagesList ? "Conversation Title" : ""}
         rightItems={[
-          <>
-            <Icon key="pop" className="tool" icon={accountMultiplePlus} onClick={h} />
+          // {/* <ToolbarButton key="123e" icon="ion-ios-person-add-sharp" /> */}
+
+          // {/* <span class="iconify" data-icon="ion:person-add-sharp" data-inline="false"></span> */}
+
+          <>  <Icon key="pop" className="tool" icon={accountMultiplePlus} onClick={h} />
+
             <ToolbarButton key="video" icon="ion-ios-videocam" />
             <ToolbarButton key="phone" icon="ion-ios-call" />
           </>
+
+
         ]}
-      />
-      
-      
+      /> : ''}
+
 
       <div className="message-list-container">
-        {!showMembersList && !showContactList ? renderMessages() : ''}
+        {showMessagesList ? <ConversationSearch list={stateConversation} kindList="filteredMessages" /> : ''}
+        {showMessagesList ? renderMessages() : ''}
         {showMembersList ? <MembersList /> : ''}
         {showContactList ? <ContactList /> : ''}
+        {showNewHangout ? <NewHangout /> : ''}
       </div>
 
-      <Compose rightItems={[
+      {showMessagesList ? <Compose rightItems={[
         <button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
         <ToolbarButton key="photo" icon="ion-ios-camera" />,
         <ToolbarButton key="image" icon="ion-ios-image"  />,
         <ToolbarButton key="audio" icon="ion-ios-mic" />,
         <ToolbarButton key="money" icon="ion-ios-card" />,
         <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
-        // <ToolbarButton className="emojiButton" key="emoji" icon="ion-ios-happy"
-      
-        // } />
-      ]} />
+        // <ToolbarButton key="emoji" icon="ion-ios-happy" />
+      ]} /> : ''}
     </div>
   );
 })
