@@ -96,7 +96,6 @@ export const getContactsForUser = ({ dispatch, getState }) => next => action => 
             .then((res) => {
                 console.log("contacts", res)
                 dispatch(actions.setContacts(res.contacts));
-                debugger;
                 dispatch(actions.setFilteredList({ list: res.contacts, kindList: "filteredContacts" }));
                 // SET_FILTERED_LIST
 
@@ -137,7 +136,6 @@ export const AddContactsToHangout = ({ dispatch, getState }) => next => action =
 }
 
 export const getAllHangoutMembers = ({ dispatch, getState }) => next => action => {
-    debugger
     if (action.type === 'GET_ALL_HANGOUT_MEMBERS') {
 
         return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/getAllHangoutMembers`, {
@@ -154,7 +152,6 @@ export const getAllHangoutMembers = ({ dispatch, getState }) => next => action =
         })
             .then((res) => {
                 console.log("contacts", res)
-                debugger;
                 dispatch(actions.setMembers(res.memberList));
                 dispatch(actions.setFilteredList({ list: res.memberList, kindList: "filteredMembers" }));
 

@@ -13,19 +13,19 @@ function mapStateToProps(state) {
     return {
         contacts: state.contacts,
         members: state.members,
-        filteredContacts: state.filteredContacts
-
+        filteredContacts: state.filteredContacts,
+        userName: state.userName
     }
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      },
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+        },
     },
-  }));
+}));
 
 // const useStyles = makeStyles((theme) => ({
 //     root: {
@@ -36,21 +36,21 @@ const useStyles = makeStyles((theme) => ({
 // }));
 
 const mapDispatchToProps = (dispatch) => ({
-    returnUsersId:(hangout)=>dispatch(actions.returnUsersId(hangout)),
+    returnUsersId: (hangout) => dispatch(actions.returnUsersId(hangout)),
     AddContactsToHangout: (AddContacts) => dispatch(actions.addContactsToHangout(AddContacts)),
     setShow: () => dispatch(actions.setShow("newHangout"))
-  //  setShowContactList: () => dispatch(actions.setShowContactList()),
+    //  setShowContactList: () => dispatch(actions.setShowContactList()),
     // setFilteredContacts:()=> dispatch(actions.setShowContactList())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(props) {
-    debugger;
-    const { setShow,contacts,returnUsersId, AddContactsToHangout, members, setShowContactList, filteredContacts } = props;
+
+    const { setShow, contacts, returnUsersId, AddContactsToHangout, members, setShowContactList, filteredContacts, userName } = props;
     console.log("*****", contacts);
     const classes = useStyles();
     var [AddContacts, setAddContacts] = useState([]);
     var [groupName, setGroupName] = useState('');
-   // var [con, setCon] = useState([]);
+    // var [con, setCon] = useState([]);
     // setShowContactList
 
     const addContactsToList = function (contact) {
@@ -64,9 +64,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
         console.log("AddContacts", AddContacts)
     }
     const clearList = function () {
-        if(AddContacts.length>0 && groupName!=''){
+        if (AddContacts.length > 0 && groupName != '') {
+            var hangout = { members: AddContacts, name: groupName, manager: userName }
             setAddContacts([]);
-            var hangout={members:AddContacts,name:groupName}
             returnUsersId(hangout);
             setShow();
 
@@ -82,7 +82,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
             <ConversationSearch list={contacts} kindList="filteredContacts" />
 
             <form className={classes.root} noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Fill Group Name" variant="outlined" onChange={e=>{setGroupName(e.target.value)}}/></form>
+                <TextField id="outlined-basic" label="Fill Group Name" variant="outlined" onChange={e => { setGroupName(e.target.value) }} /></form>
             {AddContacts ? AddContacts.map((item, index) => (
                 console.log("item", item.email),
                 <> {item.email} , </>

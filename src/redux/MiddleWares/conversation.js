@@ -41,7 +41,6 @@ export const getHangoutsForUser = ({ dispatch, getState }) => next => action => 
 
 export const getUidByUserName = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_UID_BY_USER_NAME') {
-        debugger
         return fetch(`https://chat.leader.codes/api/getUser/${getState().userName}`, {
             method: 'GET',
             headers: {
@@ -50,15 +49,12 @@ export const getUidByUserName = ({ dispatch, getState }) => next => action => {
                 'Content-Type': 'application/json'
             }
         }).then((res) => {
-            debugger
             return res.json()
 
         })
             .then((res) => {
-                debugger
                 dispatch(actions.setUid(res.uid))
             }).then(() => {
-                debugger;
                 dispatch(actions.getHangoutsForUser())
                 dispatch(actions.getContactsForUser())
             })
@@ -89,7 +85,6 @@ export const addNewWave = ({ dispatch, getState }) => next => action => {
 }
 export const newHangout = ({ dispatch, getState }) => next => action => {
     if (action.type === 'NEW_HANGOUT') {
-        debugger
         return fetch(`https://chat.leader.codes/api/${getState().uid}/newHangout`, {
             method: 'POST',
             headers: {
@@ -103,8 +98,7 @@ export const newHangout = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
-                debugger
-                dispatch(actions.addNewHangout(res.newHangout))
+                dispatch(actions.addNewHangout(res.newHangout));
             })
 
     }
@@ -113,7 +107,6 @@ export const newHangout = ({ dispatch, getState }) => next => action => {
 
 export const getUsernameReturnEmail = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_USERNAME_RETURN_EMAIL') {
-        debugger
         return fetch(`https://chat.leader.codes/api/${getState().uid}/getUsernameReturnEmail`, {
             method: 'POST',
             headers: {
@@ -127,9 +120,8 @@ export const getUsernameReturnEmail = ({ dispatch, getState }) => next => action
 
         })
             .then((res) => {
-                debugger
                 return res.email
-               // dispatch(actions.addNewHangout(res.hangout))
+                // dispatch(actions.addNewHangout(res.hangout))
             })
 
     }
@@ -137,7 +129,6 @@ export const getUsernameReturnEmail = ({ dispatch, getState }) => next => action
 }
 export const returnUsersId = ({ dispatch, getState }) => next => action => {
     if (action.type === 'RETURN_USERS_ID') {
-        debugger
         return fetch(`https://chat.leader.codes/api/${getState().uid}/getContactsReturnUsers`, {
             method: 'POST',
             headers: {
@@ -151,8 +142,7 @@ export const returnUsersId = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
-                debugger
-                let hangout={members:res.users,name:action.payload.name}
+                let hangout = { members: res.users, name: action.payload.name, manager: action.payload.manager }
                 dispatch(actions.newHangout(hangout))
             })
 
@@ -178,9 +168,9 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
             dispatch(actions.setConversation(res.waves));
             dispatch(actions.setFilteredList({ list: res.waves, kindList: "filteredMessages" }));
             dispatch(actions.setCurrentHangout(action.payload));
+            dispatch(actions.setManager(res.manager));
 
         }).then(() => {
-            debugger
             dispatch(actions.getAllHangoutMembers())
             dispatch(actions.getAllContactsExceptMembers())
 

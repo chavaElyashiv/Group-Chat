@@ -28,7 +28,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
   } = props;
   const friendlyTimestamp = moment(data.timestamp).format('LLLL');
   async function func() {
-    debugger;
     var contactEmail = await getUsernameReturnEmail(data.from);
     window.location = `https://contacts.leader.codes/${userName}?c="${contactEmail}"`
 
@@ -57,7 +56,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
 
           <div class="from2" >{data.from}</div> </a>
 
-
+          
       </div>
     );
   }

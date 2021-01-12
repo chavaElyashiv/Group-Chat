@@ -11,6 +11,7 @@ export default function App() {
         <Provider store={store}>
         <div className = "App" >
         <Messenger/>
+        
         </div>
       </Provider>
     );

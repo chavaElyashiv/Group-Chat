@@ -8,6 +8,7 @@ import { blueGrey, red } from '@material-ui/core/colors';
 function mapStateToProps(state) {
   return {
     stateConversation: state.listConvesation,
+
   }
 
 }
@@ -20,7 +21,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps)(function ConversationListItem(props) {
 
-  const { stateConversation, setCurrentConversation, AddContacts } = props;
+  const { stateConversation, setCurrentConversation, AddContacts} = props;
 
   const getConversations = props.onClick;
 
@@ -42,6 +43,7 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
         <h1 className="conversation-title">{name}</h1>
         <p className="conversation-snippet">{text}</p>
         <p className="conversation-snippet">{email}</p>
+        
 
       </div>
     </div>

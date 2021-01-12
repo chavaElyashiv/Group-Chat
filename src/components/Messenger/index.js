@@ -5,9 +5,9 @@ import MessageList from '../MessageList';
 import './Messenger.css';
 
 export default function Messenger(props) {
-    return (
-      <div className="messenger">
-        {/* <Toolbar
+  return (
+    <div className="messenger">
+      {/* <Toolbar
           title="Messenger"
           leftItems={[
             <ToolbarButton key="cog" icon="ion-ios-cog" />
@@ -17,7 +17,7 @@ export default function Messenger(props) {
           ]}
         /> */}
 
-        {/* <Toolbar
+      {/* <Toolbar
           title="Conversation Title"
           rightItems={[
             <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
@@ -26,15 +26,16 @@ export default function Messenger(props) {
           ]}
         /> */}
 
-        <div className="scrollable sidebar">
-          <ConversationList />
-        </div>
+      <div className="scrollable sidebar">
+        <ConversationList />
 
-        <div className="scrollable content">
-          
-          <MessageList />
-        </div>
-        {/* <div maxwidth="mm"><ContactList/></div> */}
       </div>
-    );
+
+      <div className="scrollable content">
+
+        <MessageList />
+      </div>
+      {/* <div maxwidth="mm"><ContactList/></div> */}
+    </div>
+  );
 }
