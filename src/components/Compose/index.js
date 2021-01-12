@@ -9,16 +9,17 @@ import socketIOClient from "socket.io-client";
 import { connect } from 'react-redux'
 function mapStateToProps(state) {
   return {
-    messageInput:state.messageInput
+    messageInput:state.messageInput,
+    userName:state.userName,
+  
   }
-
 }
 
 
 const mapDispatchToProps = (dispatch) => ({
   SetMessageInput: (messageInput) =>
     dispatch(actions.setMessageInput(messageInput)),
-
+    addNewWave:(wave)=> dispatch(actions.addNewWave(wave))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)( function Compose(props) {
@@ -29,6 +30,18 @@ export default connect(mapStateToProps,mapDispatchToProps)( function Compose(pro
     // console.log("enter", text);
     props.SetMessageInput(text)
   }
+function sendMessage(text){
+  const wave={
+    body:text,
+    from:props.userName
+  }
+  props.addNewWave(wave)
+}
+
+  //  useEffect(() => {
+  // if(props.messageInput=="")
+  //    $('#inputVal').val("")
+  // }, [props.messageInput]);
 // const socket = socketIOClient("https://socket.chat.leader.codes", { transports: ['websocket']});
 // useEffect(()=>{
 //   socket.on('send_message', function (msg) {
@@ -80,7 +93,7 @@ export default connect(mapStateToProps,mapDispatchToProps)( function Compose(pro
       onChange={setText,handleOnChange}
       // onChange={()=>{setText(); loger()}}
       cleanOnEnter
-      onEnter={handleOnChange}
+      onEnter={sendMessage}
       placeholder="Type a message"
     />
         {/* <input

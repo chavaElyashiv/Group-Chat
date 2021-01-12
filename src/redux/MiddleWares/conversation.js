@@ -68,6 +68,7 @@ export const getUidByUserName = ({ dispatch, getState }) => next => action => {
 }
 export const addNewWave = ({ dispatch, getState }) => next => action => {
     if (action.type === 'ADD_NEW_WAVE') {
+        debugger
         return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/addWave`, {
             method: 'POST',
             headers: {
@@ -81,6 +82,7 @@ export const addNewWave = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
+                
                 dispatch(actions.addWave(res.newWave))
             })
 

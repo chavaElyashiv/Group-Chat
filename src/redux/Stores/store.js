@@ -25,7 +25,8 @@ const initalStaste = {
      filteredMembers: [],
      filteredAddContacts: [],
      members: [],
-     messageInput:''
+     messageInput:'',
+     pictures: []
 }
 
 
@@ -63,7 +64,8 @@ const reducer = produce((state, action) => {
                state.filteredHangouts = action.payload;
                break;
           case "ADD_WAVE":
-               state.hangouts.push(action.payload);
+               debugger
+               state.listConvesation.push(action.payload);
                break;
           case "ADD_NEW_HANGOUT":
                debugger
