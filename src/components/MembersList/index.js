@@ -14,7 +14,7 @@ function mapStateToProps(state) {
         showContactList: state.showContactList,
         filteredMembers: state.filteredMembers,
         manager: state.manager,
-        userName: state.userName
+        owner: state.owner
     }
 
 }
@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function MembersList(props) {
-    const { members, setShowContactList, filteredMembers, userName, manager } = props;
+    const { members, setShowContactList, filteredMembers, owner, manager } = props;
     const classes = useStyles();
 
     return (
@@ -49,7 +49,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MembersList
             }
 
             <div className={classes.root}>
-                {manager == userName && <Button variant="contained" color="primary" onClick={() => { setShowContactList() }}>ADD CONTACT!</Button>}
+
+                {(owner == true || manager == true) && <Button variant="contained" color="primary" onClick={() => { setShowContactList() }}>ADD CONTACT!</Button>}
             </div>
 
         </div>

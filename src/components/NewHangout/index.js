@@ -65,7 +65,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
     }
     const clearList = function () {
         if (AddContacts.length > 0 && groupName != '') {
-            var hangout = { members: AddContacts, name: groupName, manager: userName }
+            var hangout = { members: AddContacts, name: groupName, owner: userName }
             setAddContacts([]);
             returnUsersId(hangout);
             setShow();

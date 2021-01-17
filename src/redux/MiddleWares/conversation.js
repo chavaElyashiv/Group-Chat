@@ -62,6 +62,24 @@ export const getUidByUserName = ({ dispatch, getState }) => next => action => {
     }
     return next(action);
 }
+
+export const getIdByUserName = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'GET_ID_BY_USER_NAME') {
+        return fetch(`https://chat.leader.codes/api/getUser/${getState().userName}`, {
+            method: 'GET',
+            headers: {
+                Authentication: getState().jwt,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => {
+            return res.json()
+        }).then((res) => {
+            dispatch(actions.setId(res._id))
+        })
+    }
+    return next(action);
+}
 export const addNewWave = ({ dispatch, getState }) => next => action => {
     if (action.type === 'ADD_NEW_WAVE') {
         return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/addWave`, {
@@ -142,7 +160,7 @@ export const returnUsersId = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
-                let hangout = { members: res.users, name: action.payload.name, manager: action.payload.manager }
+                let hangout = { members: res.users, name: action.payload.name, owner: action.payload.owner }
                 dispatch(actions.newHangout(hangout))
             })
 
@@ -163,13 +181,20 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
             return res.json()
 
 
-        }).then((res) => {
+        }).then(async (res) => {
             console.log("waves", res.waves)
             dispatch(actions.setConversation(res.waves));
             dispatch(actions.setFilteredList({ list: res.waves, kindList: "filteredMessages" }));
             dispatch(actions.setCurrentHangout(action.payload));
-            dispatch(actions.setManager(res.manager));
-
+            if (res.owner == getState().userName)
+                dispatch(actions.setOwner(true));
+            else
+                dispatch(actions.setOwner(false));
+            await dispatch(actions.getIdByUserName(getState().userName))
+            if (res.managers.includes(getState()._id))
+                dispatch(actions.setManager(true))
+            else
+                dispatch(actions.setManager(false))
         }).then(() => {
             dispatch(actions.getAllHangoutMembers())
             dispatch(actions.getAllContactsExceptMembers())
