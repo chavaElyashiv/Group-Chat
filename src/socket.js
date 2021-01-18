@@ -24,8 +24,8 @@
 //             socket.chatBox_Id = chatBox_Id;
 //             socket.join(chatBox_Id)
 
-const port = process.env.PORT || 4001;
-const index = require("./routes/index");
+// const port = process.env.PORT || 4001;
+// const index = require("./routes/index");
 
 //             socket.broadcast.to(socket.chatBox_Id).emit('is_online', '<br> <i class="text-info small">' + username + ' join the chat</i>', 'join');
 //         });
@@ -38,7 +38,7 @@ const index = require("./routes/index");
 //         socket.on('chat_message', function (message) {
 //             if (message != '') {
 //                 socket.emit('chat_message', `<div class="chat__msg chat__msg_reply"  >
-    
+
 //                 <div class="chat__wrap">
 //                     <div class="chat__comment"style="background-color:rgb(139,141,139);">${message}</div>
 //                     <div class="chat__time">${moment().tz(location).format('HH:mm')} </div> </div></div>`);
@@ -52,7 +52,7 @@ const index = require("./routes/index");
 //             }
 
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
 //         });
 
@@ -66,7 +66,7 @@ const server = http.createServer(app);
 
 //                 socket.emit('send_message',
 //                     `<div class="chat__msg chat__msg_reply"  >
-    
+
 //                         <div class="chat__wrap">
 //                             <div  id="msg" class="chat__comment"style="background-color:rgb(139,141,139);">${message}</div>
 //                             <div class="chat__time">${moment().tz(location).format('HH:mm')}${socket.username} </div> </div></div>`);
@@ -82,3 +82,52 @@ const server = http.createServer(app);
 //     });
 // }
 // module.exports = { startSocket };
+// const express = require("express");
+// const http = require("http");
+// const socketIo = require("socket.io");
+
+// const port = process.env.PORT || 4000;
+// //const index = require("../routes/index");
+
+// const app = express();
+// //app.use(index);
+
+// const server = http.createServer(app);
+
+// const io = socketIo(server);
+
+// let interval;
+
+// io.on("connection", (socket) => {
+//     console.log("New client connected", socket.handshake.headers.origin);
+//     if (interval) {
+//         console.log("interval");
+//         clearInterval(interval);
+//     }
+//     interval = setInterval(() => getApiAndEmit(socket), 1000);
+//     // socket.on("disconnect", () => {
+//     //     console.log("Client disconnected");
+//     //     clearInterval(interval);
+//     // });
+//     socket.on('FromAPI1', function (message) {
+//         console.log("hello", message)
+//         socket.emit('Message', message)
+//     });
+// });
+
+// const getApiAndEmit = socket => {
+//     const response = new Date();
+//     // Emitting a new message. Will be consumed by the client
+//     socket.emit("FromAPI", response);
+//     console.log("emit FromAPI");
+// };
+
+// server.listen(port, () => console.log(`Listening on port ${port}!!!`));
+
+// import openSocket from 'socket.io-client';
+// const socket = openSocket('http://localhost:8000');
+// function subscribeToTimer(cb) {
+//     socket.on('timer', timestamp => cb(null, timestamp));
+//     socket.emit('subscribeToTimer', 1000);
+// }
+// export { subscribeToTimer };

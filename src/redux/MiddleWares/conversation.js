@@ -41,7 +41,6 @@ export const getHangoutsForUser = ({ dispatch, getState }) => next => action => 
 
 export const getUidByUserName = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_UID_BY_USER_NAME') {
-        debugger
         return fetch(`https://chat.leader.codes/api/getUser/${getState().userName}`, {
             method: 'GET',
             headers: {
@@ -50,19 +49,34 @@ export const getUidByUserName = ({ dispatch, getState }) => next => action => {
                 'Content-Type': 'application/json'
             }
         }).then((res) => {
-            debugger
             return res.json()
 
         })
             .then((res) => {
-                debugger
                 dispatch(actions.setUid(res.uid))
             }).then(() => {
-                debugger;
                 dispatch(actions.getHangoutsForUser())
                 dispatch(actions.getContactsForUser())
             })
 
+    }
+    return next(action);
+}
+
+export const getIdByUserName = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'GET_ID_BY_USER_NAME') {
+        return fetch(`https://chat.leader.codes/api/getUser/${getState().userName}`, {
+            method: 'GET',
+            headers: {
+                Authentication: getState().jwt,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => {
+            return res.json()
+        }).then((res) => {
+            dispatch(actions.setId(res._id))
+        })
     }
     return next(action);
 }
@@ -91,7 +105,6 @@ export const addNewWave = ({ dispatch, getState }) => next => action => {
 }
 export const newHangout = ({ dispatch, getState }) => next => action => {
     if (action.type === 'NEW_HANGOUT') {
-        debugger
         return fetch(`https://chat.leader.codes/api/${getState().uid}/newHangout`, {
             method: 'POST',
             headers: {
@@ -105,8 +118,7 @@ export const newHangout = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
-                debugger
-                dispatch(actions.addNewHangout(res.newHangout))
+                dispatch(actions.addNewHangout(res.newHangout));
             })
 
     }
@@ -115,7 +127,6 @@ export const newHangout = ({ dispatch, getState }) => next => action => {
 
 export const getUsernameReturnEmail = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_USERNAME_RETURN_EMAIL') {
-        debugger
         return fetch(`https://chat.leader.codes/api/${getState().uid}/getUsernameReturnEmail`, {
             method: 'POST',
             headers: {
@@ -129,9 +140,8 @@ export const getUsernameReturnEmail = ({ dispatch, getState }) => next => action
 
         })
             .then((res) => {
-                debugger
                 return res.email
-               // dispatch(actions.addNewHangout(res.hangout))
+                // dispatch(actions.addNewHangout(res.hangout))
             })
 
     }
@@ -139,7 +149,6 @@ export const getUsernameReturnEmail = ({ dispatch, getState }) => next => action
 }
 export const returnUsersId = ({ dispatch, getState }) => next => action => {
     if (action.type === 'RETURN_USERS_ID') {
-        debugger
         return fetch(`https://chat.leader.codes/api/${getState().uid}/getContactsReturnUsers`, {
             method: 'POST',
             headers: {
@@ -153,8 +162,7 @@ export const returnUsersId = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
-                debugger
-                let hangout={members:res.users,name:action.payload.name}
+                let hangout = { members: res.users, name: action.payload.name, owner: action.payload.owner }
                 dispatch(actions.newHangout(hangout))
             })
 
@@ -175,14 +183,21 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
             return res.json()
 
 
-        }).then((res) => {
+        }).then(async (res) => {
             console.log("waves", res.waves)
             dispatch(actions.setConversation(res.waves));
             dispatch(actions.setFilteredList({ list: res.waves, kindList: "filteredMessages" }));
             dispatch(actions.setCurrentHangout(action.payload));
-
+            if (res.owner == getState().userName)
+                dispatch(actions.setOwner(true));
+            else
+                dispatch(actions.setOwner(false));
+            await dispatch(actions.getIdByUserName(getState().userName))
+            if (res.managers.includes(getState()._id))
+                dispatch(actions.setManager(true))
+            else
+                dispatch(actions.setManager(false))
         }).then(() => {
-            debugger
             dispatch(actions.getAllHangoutMembers())
             dispatch(actions.getAllContactsExceptMembers())
 

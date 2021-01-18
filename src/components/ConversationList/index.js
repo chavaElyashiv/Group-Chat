@@ -51,7 +51,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                 [<ToolbarButton key="cog"
                     icon="ion-ios-cog" />
                 ]
-            }
+            } 
             rightItems={
                 [<ToolbarButton key="add"
                     icon="ion-ios-add-circle-outline" onClick={NewHanghout} />
@@ -62,6 +62,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
           filteredHangouts && filteredHangouts.length > 0 ?
                 filteredHangouts.map(conversation =>
 <div >
+
                     <ConversationListItem key={conversation._id} className="color"
                         data={conversation} onClick={setCurrentConversation} 
                     /></div>

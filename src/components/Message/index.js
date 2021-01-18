@@ -36,7 +36,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
   } = props;
   const friendlyTimestamp = moment(data.timestamp).format('LLLL');
   async function func() {
-    debugger;
     var contactEmail = await getUsernameReturnEmail(data.from);
     window.location = `https://contacts.leader.codes/${userName}?c="${contactEmail}"`
 
@@ -61,11 +60,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
           {/* <p class="sentText pr-10">{name}</p> */}
         </div>
         {/* `https://contacts.leader.codes/${userName}` */}
-        <a href="#"onClick={(e)=>{func(); return false;}} class="active">
+        <a href="#" onClick={(e) => { func(); return false; }} class="active">
 
           <div class="from2" >{data.from}</div> </a>
 
-
+          
       </div>
     );
   }
@@ -92,11 +91,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
             {/* <div>{data.from}</div>   */}
 
           </div>
-          <a href="#"onClick={(e)=>{func(); return false;}} class="active">
+          {/* <a href="#"onClick={(e)=>{func(); return false;}} class="active">
 
-            <div class="from" >{data.from}</div> </a>
+            <div class="from" >{data.from}</div> </a> */}
 
-          {/* <div  class="from" >{data.from}</div>  */}
+          <div class="from" >ME</div>
 
         </div>
 
