@@ -8,6 +8,10 @@
   background: #eeeef1;
   cursor: pointer;
 }
+.option:hover{
+  background-color: cornsilk;
+  
+}
 .conversation-list-item:focus-visible {
   background:chartreuse;
   cursor: pointer;

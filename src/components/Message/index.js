@@ -1,12 +1,15 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+
 import './Message.css';
 import { connect } from 'react-redux';
 import { actions } from '../../redux/Actions/actions'
 function mapStateToProps(state) {
   return {
     stateConversation: state.listConvesation,
-    userName: state.userName
+    userName: state.userName,
+    listConvesation:state.listConvesation
   }
 }
 
@@ -16,7 +19,12 @@ const mapDispatchToProps = (dispatch) => ({
   getUsernameReturnEmail: (username) => dispatch(actions.getUsernameReturnEmail(username))
 
 })
+
+
 export default connect(mapStateToProps, mapDispatchToProps)(function Message(props) {
+  // useEffect(() => {
+  // debugger;
+  // },[props.listConvesation])
   const { getUsernameReturnEmail, stateConversation, userName, setCurrentConversation } = props;
   const {
     data,

@@ -1,11 +1,13 @@
 
-.conversation-search {
+/* .conversation-search {
     padding: 35px;
     display: flex;
     flex-direction: column;
+  } */
+  .none{
+    display: none;
   }
-  
-  .conversation-search-input {
+  /* .conversation-search-input {
     background: #f4f4f8;
     padding: 8px 10px;
     border-radius: 10px;
@@ -19,4 +21,4 @@
   
   .conversation-search-input:focus::placeholder {
     text-align: left;
-  }
+  } */
