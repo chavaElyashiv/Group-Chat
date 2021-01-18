@@ -12,7 +12,9 @@ function mapStateToProps(state) {
     return {
         members: state.members,
         showContactList: state.showContactList,
-        filteredMembers:state.filteredMembers
+        filteredMembers: state.filteredMembers,
+        manager: state.manager,
+        owner: state.owner
     }
 
 }
@@ -24,29 +26,33 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const mapDispatchToProps = (dispatch) => ({
-    
+
     setShowContactList: () => dispatch(actions.setShow("contacts"))
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function MembersList(props) {
-    const { members, setShowContactList,filteredMembers } = props;
+    const { members, setShowContactList, filteredMembers, owner, manager } = props;
     const classes = useStyles();
 
     return (
         <div className="conversation-list" >
 
-<ConversationSearch list={members} kindList="filteredMembers"/>
-         
+            <ConversationSearch list={members} kindList="filteredMembers" />
+
             {
                 filteredMembers.map(member =>
                     <ConversationListItem key={member._id}
                         data={member}
-                   
+
                     />
                 )
             }
 
-            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { setShowContactList() }}>ADD CONTACT!</Button></div>
+            <div className={classes.root}>
+
+                {(owner == true || manager == true) && <Button variant="contained" color="primary" onClick={() => { setShowContactList() }}>ADD CONTACT!</Button>}
+            </div>
+
         </div>
 
     );
