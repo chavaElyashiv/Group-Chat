@@ -9,11 +9,6 @@ import io from "socket.io-client";
 const ENDPOINT2 = "http://127.0.0.1:4001"
 const ENDPOINT = "http://chat.leader.codes:4000";
 
-<<<<<<< HEAD
-=======
-//export default App;
-
->>>>>>> d86bb25499fc4bc528a6bbc308b801141b0087e4
 export default function App() {
   const [response, setResponse] = useState("");
 

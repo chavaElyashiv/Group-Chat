@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(props) {
 
-    const { jwtFromCookie, uid, setShow, contacts, returnUsersId, AddContactsToHangout, members, setShowContactList, filteredContacts } = props;
+    const { jwtFromCookie, uid, setShow, contacts, returnUsersId, AddContactsToHangout, members, setShowContactList, filteredContacts, userName } = props;
     console.log("*****", contacts);
     const classes = useStyles();
     var [AddContacts, setAddContacts] = useState([]);
