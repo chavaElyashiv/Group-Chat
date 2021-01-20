@@ -14,7 +14,8 @@ function mapStateToProps(state) {
         showContactList: state.showContactList,
         filteredMembers: state.filteredMembers,
         manager: state.manager,
-        owner: state.owner
+        owner: state.owner,
+        managersList: state.managersList
     }
 
 }
@@ -31,9 +32,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function MembersList(props) {
-    const { members, setShowContactList, filteredMembers, owner, manager } = props;
+    const { members, setShowContactList, filteredMembers, owner, manager, managersList } = props;
     const classes = useStyles();
-
     return (
         <div className="conversation-list" >
 
@@ -41,8 +41,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MembersList
 
             {
                 filteredMembers.map(member =>
+
                     <ConversationListItem key={member._id}
-                        data={member}
+                        data={member} showButton={!managersList.includes(member._id)}
 
                     />
                 )

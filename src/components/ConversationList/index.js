@@ -22,17 +22,17 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
     setCurrentConversation: (_id) => dispatch(actions.getHangoutById(_id)
         , dispatch(actions.setShow("messages"))),
-    
+
 
     NewHanghout: () => dispatch(actions.setShow("newHangout"))
 
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationList(props) {
-    const { setCurrentConversation, NewHanghout,hangouts } = props;
+    const { setCurrentConversation, NewHanghout, hangouts } = props;
     const conversations = props.hangouts;
     const filteredHangouts = props.filteredHangouts;
- 
+
     const getConversations = () => {
         axios.get('https://randomuser.me/api/?results=20').then(response => {
             let newConversations = response.data.results.map(result => {
@@ -51,24 +51,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                 [<ToolbarButton key="cog"
                     icon="ion-ios-cog" />
                 ]
-            } 
+            }
             rightItems={
                 [<ToolbarButton key="add"
                     icon="ion-ios-add-circle-outline" onClick={NewHanghout} />
                 ]
             }
-        /> <ConversationSearch list={hangouts} kindList="filteredHangouts"/>
+        /> <ConversationSearch list={hangouts} kindList="filteredHangouts" />
         {
-          filteredHangouts && filteredHangouts.length > 0 ?
+            filteredHangouts && filteredHangouts.length > 0 ?
                 filteredHangouts.map(conversation =>
-<div >
+                    <div >
 
-                    <ConversationListItem key={conversation._id} className="color"
-                        data={conversation} onClick={setCurrentConversation} 
-                    /></div>
+                        <ConversationListItem key={conversation._id} className="color"
+                            data={conversation} onClick={setCurrentConversation}
+                        /></div>
                 ) : <div className="no-result">No results found</div>
         }
-       
+
     </div>
     );
 })
