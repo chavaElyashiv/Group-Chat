@@ -1,12 +1,15 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+
 import './Message.css';
 import { connect } from 'react-redux';
 import { actions } from '../../redux/Actions/actions'
 function mapStateToProps(state) {
   return {
     stateConversation: state.listConvesation,
-    userName: state.userName
+    userName: state.userName,
+    listConvesation:state.listConvesation
   }
 }
 
@@ -16,7 +19,12 @@ const mapDispatchToProps = (dispatch) => ({
   getUsernameReturnEmail: (username) => dispatch(actions.getUsernameReturnEmail(username))
 
 })
+
+
 export default connect(mapStateToProps, mapDispatchToProps)(function Message(props) {
+  // useEffect(() => {
+  // debugger;
+  // },[props.listConvesation])
   const { getUsernameReturnEmail, stateConversation, userName, setCurrentConversation } = props;
   const {
     data,
@@ -52,7 +60,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
           {/* <p class="sentText pr-10">{name}</p> */}
         </div>
         {/* `https://contacts.leader.codes/${userName}` */}
-        <a href="#"onClick={(e)=>{func(); return false;}} class="active">
+        <a href="#" onClick={(e) => { func(); return false; }} class="active">
 
           <div class="from2" >{data.from}</div> </a>
 
@@ -83,11 +91,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
             {/* <div>{data.from}</div>   */}
 
           </div>
-          <a href="#"onClick={(e)=>{func(); return false;}} class="active">
+          {/* <a href="#"onClick={(e)=>{func(); return false;}} class="active">
 
-            <div class="from" >{data.from}</div> </a>
+            <div class="from" >{data.from}</div> </a> */}
 
-          {/* <div  class="from" >{data.from}</div>  */}
+          <div class="from" >ME</div>
 
         </div>
 

@@ -12,12 +12,14 @@ import { actions } from '../../redux/Actions/actions'
 import ContactList from '../ContactList/index'
 import ConversationSearch from '../ConversationSearch/index'
 import io from "socket.io-client";
-import MembersList from '../MembersList/index'
-import NewHangout from '../NewHangout/index'
+import MembersList from '../MembersList/index';
+import NewHangout from '../NewHangout/index';
 import { Icon, InlineIcon } from '@iconify/react';
 import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
+
 function mapStateToProps(state) {
   return {
+    userName: state.userName,
     stateConversation: state.listConvesation,
     showContactList: state.showContactList,
     showMembersList: state.showMembersList,
@@ -25,6 +27,7 @@ function mapStateToProps(state) {
     showNewHangout: state.showNewHangout,
     showMessagesList: state.showMessagesList,
     filteredMessages: state.filteredMessages,
+    listConvesation: state.listConvesation
     //  filteredContacts:state.filteredContacts
   }
 
@@ -34,7 +37,8 @@ const mapDispatchToProps = (dispatch) => ({
 
   SetMessageInput: (messageInput) =>
     dispatch(actions.setMessageInput(messageInput)),
-  showMembers: () => dispatch(actions.setShow("members"))
+  showMembers: () => dispatch(actions.setShow("members")),
+  addNewWave: (wave) => dispatch(actions.addNewWave(wave))
 
 
 
@@ -64,6 +68,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   //   console.log("emoji");
   // })
   useEffect(() => {
+<<<<<<< HEAD
     const name = "mindy"
     const room = 210
     socket = io(ENDPOINT, { transports: ['websocket'] });
@@ -78,14 +83,45 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
       setUsers(users);
     });
   }, []);
+=======
+
+  },[props.listConvesation])
+  // useEffect(() => {
+  //   const name = "mindy"
+  //   const room = 210
+  //   socket = io(ENDPOINT,{transports:['websocket']});
+  //   socket.emit('user', name, room);
+  //   socket.on('chat_message', message => {
+  //     $(".compose-input").val("helllo")
+  //     console.log("emitt");
+  //     setMessages(msgs => [...msgs, message]);
+  //   });
+
+  //   socket.on("roomData", ({ users }) => {
+  //   setUsers(users);
+  //   });
+  // }, []);
+>>>>>>> dev
 
   const sendMessage = (event) => {
+    const wave = {
+      body: props.messageInput,
+      from: props.userName
+    }
     event.preventDefault();
     console.log(socket);
     console.log("message to send" + props.messageInput);
     if (props.messageInput) {
+<<<<<<< HEAD
       socket.emit('chat_message', props.messageInput);
 
+=======
+      debugger
+    props.addNewWave(wave)
+      props.SetMessageInput("")
+      // socket.emit('chat_message', props.messageInput);
+
+>>>>>>> dev
     }
   }
 

@@ -29,7 +29,8 @@ const initalStaste = {
      messageInput: '',
      manager: false,
      managersList: [],
-     owner: false
+     owner: false,
+     pictures: []
 }
 
 
@@ -65,7 +66,8 @@ const reducer = produce((state, action) => {
                state.filteredHangouts = action.payload;
                break;
           case "ADD_WAVE":
-               state.hangouts.push(action.payload);
+               debugger
+               state.listConvesation.push(action.payload);
                break;
           case "ADD_NEW_HANGOUT":
                state.hangouts.push(action.payload);
