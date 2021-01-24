@@ -3,7 +3,7 @@
 
 import { createStore, applyMiddleware } from 'redux';
 import produce from 'immer';
-import { getUsernameReturnEmail, returnUsersId, newHangout, getHangoutById, setJwt, getHangoutsForUser, getUidByUserName, addNewWave, getIdByUserName, getManagerPermission } from '../MiddleWares/conversation'
+import { getUsernameReturnEmail, returnUsersId, newHangout, getHangoutById, setJwt, getHangoutsForUser, getUidByUserName, addNewWave, getIdByUserName, getManagerPermission, removeMemberByManager } from '../MiddleWares/conversation'
 import { getContactsForUser, getAllContactsExceptMembers, AddContactsToHangout, getAllHangoutMembers, setShow } from '../MiddleWares/contact'
 
 
@@ -139,7 +139,7 @@ const reducer = produce((state, action) => {
      }
 
 }, initalStaste)
-const store = createStore(reducer, applyMiddleware(setJwt, getUsernameReturnEmail, returnUsersId, getUidByUserName, newHangout, getHangoutById, getHangoutsForUser, getAllContactsExceptMembers, getContactsForUser, AddContactsToHangout, getAllHangoutMembers, addNewWave, setShow, getIdByUserName, getManagerPermission))
+const store = createStore(reducer, applyMiddleware(setJwt, getUsernameReturnEmail, returnUsersId, getUidByUserName, newHangout, getHangoutById, getHangoutsForUser, getAllContactsExceptMembers, getContactsForUser, AddContactsToHangout, getAllHangoutMembers, addNewWave, setShow, getIdByUserName, getManagerPermission, removeMemberByManager))
 window.store = store
 
 export default store;

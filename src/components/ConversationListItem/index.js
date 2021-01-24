@@ -10,6 +10,7 @@ function mapStateToProps(state) {
   return {
     stateConversation: state.listConvesation,
     owner: state.owner,
+    manager: state.manager,
     showMembers: state.showMembersList
 
   }
@@ -18,7 +19,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
 
   GivePermission: (_id) =>
-    dispatch(actions.getManagerPermission(_id))
+    dispatch(actions.getManagerPermission(_id)),
+  removeMember: (_id) => dispatch(actions.removeMemberByManager(_id), dispatch(actions.getManagerPermission(_id)))
 })
 
 //   setCurrentConversation:(_id)=>
@@ -28,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationListItem(props) {
 
-  const { stateConversation, setCurrentConversation, AddContacts, GivePermission, showMembers, owner, showButton } = props;
+  const { stateConversation, setCurrentConversation, AddContacts, GivePermission, removeMember, showMembers, owner, manager, showButton, isManager } = props;
 
   const getConversations = props.onClick;
 
@@ -51,8 +53,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
           <p className="conversation-snippet">{email}</p>
 
         </div>
+        {owner && showButton && <Button variant="contained" color="primary" onClick={(e) => GivePermission(_id)}> {isManager ? "remove permission" : "Manager permission"}</Button>}
+        {owner && showButton && <Button variant="contained" color="primary" onClick={(e) => removeMember(_id)}>remove member</Button>}
       </div >
-      {owner && showButton && <Button variant="contained" color="primary" onClick={(e) => GivePermission(_id)}> Manager permission</Button>}
 
     </>
   );

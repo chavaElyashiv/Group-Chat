@@ -43,7 +43,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MembersList
                 filteredMembers.map(member =>
 
                     <ConversationListItem key={member._id}
-                        data={member} showButton={!managersList.includes(member._id)}
+                        data={member}
+                        showButton={true}
+                        isManager={managersList.includes(member._id)}
 
                     />
                 )

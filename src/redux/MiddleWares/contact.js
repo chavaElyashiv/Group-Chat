@@ -14,14 +14,14 @@ export const setShow = ({ dispatch, getState }) => next => action => {
                 dispatch(actions.setShowMembersList());
         }
         else if (action.payload == 'members') {
-            if(getState().showMembersList==true){
-            dispatch(actions.setShowMessagesList());
+            if (getState().showMembersList == true) {
+                dispatch(actions.setShowMessagesList());
             }
-            else  if (getState().showMessagesList == true)
-            dispatch(actions.setShowMessagesList());
+            else if (getState().showMessagesList == true)
+                dispatch(actions.setShowMessagesList());
 
             dispatch(actions.setShowMembersList());
-          
+
             if (getState().showContactList == true)
                 dispatch(actions.setShowContactList());
             if (getState().showNewHangout == true)
@@ -39,13 +39,13 @@ export const setShow = ({ dispatch, getState }) => next => action => {
                 dispatch(actions.setShowNewHangout());
         }
         else if (action.payload == 'newHangout') {
-            if(getState().showNewHangout==true){
+            if (getState().showNewHangout == true) {
                 dispatch(actions.setShowMessagesList());
-                }
-           else if (getState().showMessagesList == true)
+            }
+            else if (getState().showMessagesList == true)
                 dispatch(actions.setShowMessagesList());
             dispatch(actions.setShowNewHangout());
-           
+
             if (getState().showContactList == true)
                 dispatch(actions.setShowContactList());
             if (getState().showMembersList == true)
