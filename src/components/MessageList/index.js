@@ -68,24 +68,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   //   console.log("emoji");
   // })
   useEffect(() => {
-<<<<<<< HEAD
-    const name = "mindy"
-    const room = 210
-    socket = io(ENDPOINT, { transports: ['websocket'] });
-    socket.emit('user', name, room);
-    socket.on('chat_message', message => {
-      $(".compose-input").val("helllo")
-      console.log("emitt");
-      setMessages(msgs => [...msgs, message]);
-    });
 
-    socket.on("roomData", ({ users }) => {
-      setUsers(users);
-    });
-  }, []);
-=======
+    //     const name = "mindy"
+    //     const room = 210
+    //     socket = io(ENDPOINT, { transports: ['websocket'] });
+    //     socket.emit('user', name, room);
+    //     socket.on('chat_message', message => {
+    //       $(".compose-input").val("helllo")
+    //       console.log("emitt");
+    //       setMessages(msgs => [...msgs, message]);
+    //     });
 
-  },[props.listConvesation])
+    //     socket.on("roomData", ({ users }) => {
+    //       setUsers(users);
+    //     });
+    //   }, []);
+    // =======
+
+  }, [props.listConvesation])
   // useEffect(() => {
   //   const name = "mindy"
   //   const room = 210
@@ -101,7 +101,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   //   setUsers(users);
   //   });
   // }, []);
->>>>>>> dev
 
   const sendMessage = (event) => {
     const wave = {
@@ -112,16 +111,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
     console.log(socket);
     console.log("message to send" + props.messageInput);
     if (props.messageInput) {
-<<<<<<< HEAD
-      socket.emit('chat_message', props.messageInput);
-
-=======
       debugger
-    props.addNewWave(wave)
+      props.addNewWave(wave)
       props.SetMessageInput("")
       // socket.emit('chat_message', props.messageInput);
 
->>>>>>> dev
     }
   }
 
