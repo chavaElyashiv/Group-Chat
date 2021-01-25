@@ -7,7 +7,7 @@ import './ConversationListItem.css';
 import { connect } from 'react-redux'
 import { actions } from '../../redux/Actions/actions'
 import { blueGrey, red } from '@material-ui/core/colors';
-import Button from '@material-ui/core/Button';
+import Button1 from '@material-ui/core/Button';
 
 
 function mapStateToProps(state) {
@@ -58,8 +58,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
 
 
       </div>
-      {owner && showButton && <Button variant="contained" color="primary" onClick={(e) => GivePermission(_id)}> {isManager ? "remove permission" : "Manager permission"}</Button>}
-      {owner && showButton && <Button variant="contained" color="primary" onClick={(e) => removeMember(_id)}>remove member</Button>}
+      {owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => GivePermission(_id)}> {isManager ? "remove permission" : "Manager permission"}</Button1>}
+      {owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => removeMember(_id)}>remove member</Button1>}
 
       <>
         <Button variant="danger" ref={target} style={{

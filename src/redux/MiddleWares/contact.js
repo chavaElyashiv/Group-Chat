@@ -58,7 +58,7 @@ export const setShow = ({ dispatch, getState }) => next => action => {
 //getAllContactsExceptMembers
 export const getAllContactsExceptMembers = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_ALL_CONTACTS_EXCEPT_MEMBERS') {
-        return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/getAllContactsExceptMembers`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userName}/${getState().hangout}/getAllContactsExceptMembers`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,
@@ -81,7 +81,7 @@ export const getAllContactsExceptMembers = ({ dispatch, getState }) => next => a
 }
 export const getContactsForUser = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_CONTACTS_FOR_USER') {
-        return fetch(`https://chat.leader.codes/api/${getState().uid}/getAllContacts`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userName}/getAllContacts`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,
@@ -109,7 +109,7 @@ export const getContactsForUser = ({ dispatch, getState }) => next => action => 
 export const AddContactsToHangout = ({ dispatch, getState }) => next => action => {
     if (action.type === 'ADD_CONTACTS_TO_HANGOUT') {
         action.payload.forEach(element => {
-            return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/addNewMember`, {
+            return fetch(`https://chat.leader.codes/api/${getState().userName}/${getState().hangout}/addNewMember`, {
                 method: 'POST',
                 body: JSON.stringify({ contactID: element._id }),
                 headers: {
@@ -138,7 +138,7 @@ export const AddContactsToHangout = ({ dispatch, getState }) => next => action =
 export const getAllHangoutMembers = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_ALL_HANGOUT_MEMBERS') {
 
-        return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/getAllHangoutMembers`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userName}/${getState().hangout}/getAllHangoutMembers`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,

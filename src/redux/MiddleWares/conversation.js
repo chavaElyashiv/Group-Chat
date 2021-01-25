@@ -18,7 +18,7 @@ export const setJwt = ({ dispatch, getState }) => next => action => {
 
 export const getHangoutsForUser = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_HANGOUTS_FOR_USER') {
-        return fetch(`https://chat.leader.codes/api/${getState().uid}/getAllHangouts`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userName}/getAllHangouts`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,
@@ -83,7 +83,7 @@ export const getIdByUserName = ({ dispatch, getState }) => next => action => {
 export const addNewWave = ({ dispatch, getState }) => next => action => {
     if (action.type === 'ADD_NEW_WAVE') {
         debugger
-        return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/addWave`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userName}/${getState().hangout}/addWave`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,
@@ -96,7 +96,7 @@ export const addNewWave = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
-                
+
                 dispatch(actions.addWave(res.newWave))
             })
 
@@ -105,7 +105,7 @@ export const addNewWave = ({ dispatch, getState }) => next => action => {
 }
 export const newHangout = ({ dispatch, getState }) => next => action => {
     if (action.type === 'NEW_HANGOUT') {
-        return fetch(`https://chat.leader.codes/api/${getState().uid}/newHangout`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userName}/newHangout`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,
@@ -127,7 +127,7 @@ export const newHangout = ({ dispatch, getState }) => next => action => {
 
 export const getUsernameReturnEmail = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_USERNAME_RETURN_EMAIL') {
-        return fetch(`https://chat.leader.codes/api/${getState().uid}/getUsernameReturnEmail`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userName}/getUsernameReturnEmail`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,
@@ -149,7 +149,7 @@ export const getUsernameReturnEmail = ({ dispatch, getState }) => next => action
 }
 export const returnUsersId = ({ dispatch, getState }) => next => action => {
     if (action.type === 'RETURN_USERS_ID') {
-        return fetch(`https://chat.leader.codes/api/${getState().uid}/getContactsReturnUsers`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userName}/getContactsReturnUsers`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,
@@ -210,7 +210,7 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
 
 export const getManagerPermission = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_MANAGER_PERMISSION') {
-        return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/managerPermission`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userName}/${getState().hangout}/managerPermission`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,
@@ -231,7 +231,7 @@ export const getManagerPermission = ({ dispatch, getState }) => next => action =
 
 export const removeMemberByManager = ({ dispatch, getState }) => next => action => {
     if (action.type === 'REMOVE_MEMBER_BY_MANAGER') {
-        return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/exitHangout`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userName}/${getState().hangout}/exitHangout`, {
             method: 'POST',
             headers: {
                 Authentication: getState().jwt,
