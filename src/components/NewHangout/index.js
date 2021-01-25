@@ -115,9 +115,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
     }
     const clearList = function () {
         if (AddContacts.length > 0 && groupName != '') {
-            var hangout = { members: AddContacts, name: groupName, owner: userName }
+            // var hangout = { members: AddContacts, name: groupName, owner: userName }
             setAddContacts([]);
-            var hangout = { members: AddContacts, name: groupName, profileGroup: img }
+            var hangout = { members: AddContacts, name: groupName, profileGroup: img, owner: userName }
             returnUsersId(hangout);
             setShow();
 
