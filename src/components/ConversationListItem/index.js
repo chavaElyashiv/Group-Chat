@@ -7,26 +7,35 @@ import './ConversationListItem.css';
 import { connect } from 'react-redux'
 import { actions } from '../../redux/Actions/actions'
 import { blueGrey, red } from '@material-ui/core/colors';
+import Button from '@material-ui/core/Button';
 
 
 function mapStateToProps(state) {
   return {
     stateConversation: state.listConvesation,
+    owner: state.owner,
+    manager: state.manager,
+    showMembers: state.showMembersList
 
   }
 
 }
-// const mapDispatchToProps =(dispatch)=>({
+const mapDispatchToProps = (dispatch) => ({
+
+  GivePermission: (_id) =>
+    dispatch(actions.getManagerPermission(_id)),
+  removeMember: (_id) => dispatch(actions.removeMemberByManager(_id), dispatch(actions.getManagerPermission(_id)))
+})
 
 //   setCurrentConversation:(_id)=>
 //   dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false))), 
 
 // })
 
-export default connect(mapStateToProps)(function ConversationListItem(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(function ConversationListItem(props) {
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  const { stateConversation, setCurrentConversation, AddContacts } = props;
+  const { stateConversation, setCurrentConversation, AddContacts, GivePermission, removeMember, showMembers, owner, manager, showButton, isManager } = props;
 
   const getConversations = props.onClick;
 
@@ -35,10 +44,8 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
   }
   console.log("getConversations", getConversations);
 
-
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
   return (
-
     <div className="conversation-list-item" onClick={(e) => getConversations ? contactList(_id) : console.log(getConversations)} >
 
       {profileGroup && <img className="conversation-photo" src={require("../../images/" + profileGroup)} alt="conversation" />}
@@ -51,6 +58,9 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
 
 
       </div>
+      {owner && showButton && <Button variant="contained" color="primary" onClick={(e) => GivePermission(_id)}> {isManager ? "remove permission" : "Manager permission"}</Button>}
+      {owner && showButton && <Button variant="contained" color="primary" onClick={(e) => removeMember(_id)}>remove member</Button>}
+
       <>
         <Button variant="danger" ref={target} style={{
           border: 'none',

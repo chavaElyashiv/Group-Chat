@@ -188,8 +188,10 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
             dispatch(actions.setConversation(res.waves));
             dispatch(actions.setFilteredList({ list: res.waves, kindList: "filteredMessages" }));
             dispatch(actions.setCurrentHangout(action.payload));
-            if (res.owner == getState().userName)
+            if (res.owner == getState().userName) {
                 dispatch(actions.setOwner(true));
+                dispatch(actions.setManagersList(res.managers))
+            }
             else
                 dispatch(actions.setOwner(false));
             await dispatch(actions.getIdByUserName(getState().userName))
@@ -200,6 +202,49 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
         }).then(() => {
             dispatch(actions.getAllHangoutMembers())
             dispatch(actions.getAllContactsExceptMembers())
+
+        })
+    }
+    return next(action);
+}
+
+export const getManagerPermission = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'GET_MANAGER_PERMISSION') {
+        return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/managerPermission`, {
+            method: 'POST',
+            headers: {
+                Authentication: getState().jwt,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ _id: action.payload })
+
+        }).then((res) => {
+            return res.json()
+
+        }).then((res) => {
+            dispatch(actions.setManagersList(res.hangout.managers))
+        })
+    }
+    return next(action);
+}
+
+export const removeMemberByManager = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'REMOVE_MEMBER_BY_MANAGER') {
+        return fetch(`https://chat.leader.codes/api/${getState().uid}/${getState().hangout}/exitHangout`, {
+            method: 'POST',
+            headers: {
+                Authentication: getState().jwt,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ _id: action.payload })
+
+        }).then((res) => {
+            return res.json()
+
+        }).then((res) => {
+            dispatch(actions.getAllHangoutMembers())
 
         })
     }
