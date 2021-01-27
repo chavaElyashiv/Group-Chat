@@ -9,9 +9,9 @@ import socketIOClient from "socket.io-client";
 import { connect } from 'react-redux'
 function mapStateToProps(state) {
   return {
-    messageInput:state.messageInput,
-    userName:state.userName,
-  
+    messageInput: state.hangoutReducer.messageInput,
+    userName: state.userReducer.userName,
+
   }
 }
 
@@ -19,84 +19,84 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
   SetMessageInput: (messageInput) =>
     dispatch(actions.setMessageInput(messageInput)),
-    addNewWave:(wave)=> dispatch(actions.addNewWave(wave))
+  addNewWave: (wave) => dispatch(actions.addNewWave(wave))
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)( function Compose(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(function Compose(props) {
 
   const [text, setText] = useState("");
- 
+
   function handleOnChange(text) {
     // console.log("enter", text);
     props.SetMessageInput(text)
   }
-function sendMessage(text){
-  const wave={
-    body:text,
-    from:props.userName
+  function sendMessage(text) {
+    const wave = {
+      body: text,
+      from: props.userName
+    }
+    props.addNewWave(wave)
   }
-  props.addNewWave(wave)
-}
 
   //  useEffect(() => {
   // if(props.messageInput=="")
   //    $('#inputVal').val("")
   // }, [props.messageInput]);
-// const socket = socketIOClient("https://socket.chat.leader.codes", { transports: ['websocket']});
-// useEffect(()=>{
-//   socket.on('send_message', function (msg) {
+  // const socket = socketIOClient("https://socket.chat.leader.codes", { transports: ['websocket']});
+  // useEffect(()=>{
+  //   socket.on('send_message', function (msg) {
 
-//     console.log("send", msg);
-//     $('.compose-input').append($('<div>').html(msg+"111"));
-//     // localStorageSave(msg);
-//   });
-  
-//       // append text if someone is online
-//       socket.on('is_online', function (msg, type) {
-//           console.log(type);
-          
-         
-//           if (type == 'left') {
-//           }
-  
-//       });
-//       let username = "mindy";
-     
-//       let hangoutID = "318412160";
+  //     console.log("send", msg);
+  //     $('.compose-input').append($('<div>').html(msg+"111"));
+  //     // localStorageSave(msg);
+  //   });
 
-  
-//       if (username != '' && username != undefined && hangoutID != '' && hangoutID != undefined) {
-//            console.log("huu");
-  
-//           socket.emit('user', username, hangoutID);
-//       } 
-// },[])
- 
+  //       // append text if someone is online
+  //       socket.on('is_online', function (msg, type) {
+  //           console.log(type);
+
+
+  //           if (type == 'left') {
+  //           }
+
+  //       });
+  //       let username = "mindy";
+
+  //       let hangoutID = "318412160";
+
+
+  //       if (username != '' && username != undefined && hangoutID != '' && hangoutID != undefined) {
+  //            console.log("huu");
+
+  //           socket.emit('user', username, hangoutID);
+  //       } 
+  // },[])
+
   // socket.on("connection", data => 
   // {
   //  //do function
   // })
   // let ioConect = 'https://socket.chat.leader.codes'
   // let socket = io.connect(ioConect)
-  
-    // document.getElementById('inputVal').value=''
-    // document.getElementById('inputVal').placeholder= e.target.value
-    // props.setEmoji(e.key)
-  
- 
-    return (
-      <div className="compose">
-    <InputEmoji
-    className="compose-input"
-     id="inputVal"
-      value={props.messageInput}
-      onChange={setText,handleOnChange}
-      // onChange={()=>{setText(); loger()}}
-      cleanOnEnter
-      onEnter={sendMessage}
-      placeholder="Type a message"
-    />
-        {/* <input
+
+  // document.getElementById('inputVal').value=''
+  // document.getElementById('inputVal').placeholder= e.target.value
+  // props.setEmoji(e.key)
+
+
+  return (
+    <div className="compose">
+      <InputEmoji
+        className="compose-input"
+        id="inputVal"
+        value={props.messageInput}
+        onChange={setText, handleOnChange}
+        // onChange={()=>{setText(); loger()}}
+        cleanOnEnter
+        onEnter={sendMessage}
+        placeholder="Type a message"
+      />
+      {/* <input
         id="inputVal"
           type="text"
           onKeyUp={(e)=>changeVal(e)}
@@ -104,12 +104,12 @@ function sendMessage(text){
           // placeholder={props.currentEmoji}
           value={props.currentEmoji?props.currentEmoji:inputValue}
         /> */}
-        {  
-          props.rightItems
-        }
+      {
+        props.rightItems
+      }
 
-      </div>
-    );
+    </div>
+  );
 })
 
 

@@ -13,8 +13,8 @@ import { red } from '@material-ui/core/colors';
 
 function mapStateToProps(state) {
     return {
-        hangouts: state.hangouts,
-        filteredHangouts: state.filteredHangouts
+        hangouts: state.hangoutReducer.hangouts,
+        filteredHangouts: state.filteredListReducer.filteredHangouts
 
     }
 
