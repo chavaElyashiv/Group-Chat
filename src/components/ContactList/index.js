@@ -10,9 +10,9 @@ import ConversationSearch from '../ConversationSearch/index'
 
 function mapStateToProps(state) {
     return {
-        contacts: state.hangoutsContacts,
-        members: state.members,
-        filteredAddContacts: state.filteredAddContacts
+        contacts: state.contactsReducer.hangoutsContacts,
+        members: state.hangoutReducer.members,
+        filteredAddContacts: state.filteredListReducer.filteredAddContacts
     }
 
 }

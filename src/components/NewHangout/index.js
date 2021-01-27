@@ -12,12 +12,12 @@ import './NewHangout.css';
 
 function mapStateToProps(state) {
     return {
-        contacts: state.contacts,
-        members: state.members,
-        filteredContacts: state.filteredContacts,
-        userName: state.userName,
-        uid: state.uid,
-        jwtFromCookie: state.jwt
+        contacts: state.contactsReducer.contacts,
+        members: state.hangoutReducer.members,
+        filteredContacts: state.filteredListReducer.filteredContacts,
+        userName: state.userReducer.userName,
+        uid: state.userReducer.uid,
+        jwtFromCookie: state.userReducer.jwt
 
     }
 }

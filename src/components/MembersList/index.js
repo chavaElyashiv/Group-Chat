@@ -10,12 +10,12 @@ import ConversationSearch from '../ConversationSearch/index'
 
 function mapStateToProps(state) {
     return {
-        members: state.members,
-        showContactList: state.showContactList,
-        filteredMembers: state.filteredMembers,
-        manager: state.manager,
-        owner: state.owner,
-        managersList: state.managersList
+        members: state.hangoutReducer.members,
+        showContactList: state.contactsReducer.showContactList,
+        filteredMembers: state.filteredListReducer.filteredMembers,
+        manager: state.hangoutReducer.manager,
+        owner: state.hangoutReducer.owner,
+        managersList: state.hangoutReducer.managersList
     }
 
 }

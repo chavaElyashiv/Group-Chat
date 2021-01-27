@@ -13,7 +13,6 @@ export const actions = new Proxy(
     {
 
         get: function (target, prop) {
-            ////debugger
             if (target[prop] === undefined) {
                 return function (args) {
                     return {
