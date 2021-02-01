@@ -20,15 +20,15 @@ import Compose2 from '../Compose2';
 
 function mapStateToProps(state) {
   return {
-    userName: state.userName,
-    stateConversation: state.listConvesation,
-    showContactList: state.showContactList,
-    showMembersList: state.showMembersList,
-    messageInput: state.messageInput,
-    showNewHangout: state.showNewHangout,
-    showMessagesList: state.showMessagesList,
-    filteredMessages: state.filteredMessages,
-    listConvesation: state.listConvesation
+    userName: state.userReducer.userName,
+    stateConversation: state.hangoutReducer.listConvesation,
+    showContactList: state.contactsReducer.showContactList,
+    showMembersList: state.hangoutReducer.showMembersList,
+    messageInput: state.hangoutReducer.messageInput,
+    showNewHangout: state.hangoutReducer.showNewHangout,
+    showMessagesList: state.hangoutReducer.showMessagesList,
+    filteredMessages: state.filteredListReducer.filteredMessages,
+    listConvesation: state.hangoutReducer.listConvesation
     //  filteredContacts:state.filteredContacts
   }
 
@@ -69,6 +69,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   //   console.log("emoji");
   // })
   useEffect(() => {
+
+    //     const name = "mindy"
+    //     const room = 210
+    //     socket = io(ENDPOINT, { transports: ['websocket'] });
+    //     socket.emit('user', name, room);
+    //     socket.on('chat_message', message => {
+    //       $(".compose-input").val("helllo")
+    //       console.log("emitt");
+    //       setMessages(msgs => [...msgs, message]);
+    //     });
+
+    //     socket.on("roomData", ({ users }) => {
+    //       setUsers(users);
+    //     });
+    //   }, []);
+    // =======
 
   }, [props.listConvesation])
   // useEffect(() => {

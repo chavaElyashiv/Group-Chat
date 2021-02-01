@@ -6,49 +6,49 @@ export const setShow = ({ dispatch, getState }) => next => action => {
 
         if (action.payload == 'messages') {
             dispatch(actions.setShowMessagesList(true));
-            if (getState().showContactList == true)
+            if (getState().contactsReducer.showContactList == true)
                 dispatch(actions.setShowContactList());
-            if (getState().showNewHangout == true)
+            if (getState().hangoutReducer.showNewHangout == true)
                 dispatch(actions.setShowNewHangout());
-            if (getState().showMembersList == true)
+            if (getState().hangoutReducer.showMembersList == true)
                 dispatch(actions.setShowMembersList());
         }
         else if (action.payload == 'members') {
-            if (getState().showMembersList == true) {
+            if (getState().hangoutReducer.showMembersList == true) {
                 dispatch(actions.setShowMessagesList());
             }
-            else if (getState().showMessagesList == true)
+            else if (getState().hangoutReducer.showMessagesList == true)
                 dispatch(actions.setShowMessagesList());
 
             dispatch(actions.setShowMembersList());
 
-            if (getState().showContactList == true)
+            if (getState().contactsReducer.showContactList == true)
                 dispatch(actions.setShowContactList());
-            if (getState().showNewHangout == true)
+            if (getState().hangoutReducer.showNewHangout == true)
                 dispatch(actions.setShowNewHangout());
             // if (getState().showNewHangout == false &&getState().showContactList == false &&getState().showMessagesList == false)
             // dispatch(actions.setShowMessagesList());
         }
         else if (action.payload == 'contacts') {
             dispatch(actions.setShowContactList());
-            if (getState().showMessagesList == true)
+            if (getState().hangoutReducer.showMessagesList == true)
                 dispatch(actions.setShowMessagesList());
-            if (getState().showMembersList == true)
+            if (getState().hangoutReducer.showMembersList == true)
                 dispatch(actions.setShowMembersList());
-            if (getState().showNewHangout == true)
+            if (getState().hangoutReducer.showNewHangout == true)
                 dispatch(actions.setShowNewHangout());
         }
         else if (action.payload == 'newHangout') {
-            if (getState().showNewHangout == true) {
+            if (getState().hangoutReducer.showNewHangout == true) {
                 dispatch(actions.setShowMessagesList());
             }
-            else if (getState().showMessagesList == true)
+            else if (getState().hangoutReducer.showMessagesList == true)
                 dispatch(actions.setShowMessagesList());
             dispatch(actions.setShowNewHangout());
 
-            if (getState().showContactList == true)
+            if (getState().contactsReducer.showContactList == true)
                 dispatch(actions.setShowContactList());
-            if (getState().showMembersList == true)
+            if (getState().hangoutReducer.showMembersList == true)
                 dispatch(actions.setShowMembersList());
         }
     }
@@ -58,10 +58,10 @@ export const setShow = ({ dispatch, getState }) => next => action => {
 //getAllContactsExceptMembers
 export const getAllContactsExceptMembers = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_ALL_CONTACTS_EXCEPT_MEMBERS') {
-        return fetch(`https://chat.leader.codes/api/${getState().userName}/${getState().hangout}/getAllContactsExceptMembers`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/${getState().hangoutReducer.hangout}/getAllContactsExceptMembers`, {
             method: 'POST',
             headers: {
-                Authentication: getState().jwt,
+                Authentication: getState().userReducer.jwt,
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             }
@@ -82,10 +82,10 @@ export const getAllContactsExceptMembers = ({ dispatch, getState }) => next => a
 }
 export const getContactsForUser = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_CONTACTS_FOR_USER') {
-        return fetch(`https://chat.leader.codes/api/${getState().userName}/getAllContacts`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/getAllContacts`, {
             method: 'POST',
             headers: {
-                Authentication: getState().jwt,
+                Authentication: getState().userReducer.jwt,
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             }
@@ -99,7 +99,6 @@ export const getContactsForUser = ({ dispatch, getState }) => next => action => 
                 console.log("contacts", res)
                 dispatch(actions.setContacts(res.contacts));
                 dispatch(actions.setFilteredList({ list: res.contacts, kindList: "filteredContacts" }));
-                // SET_FILTERED_LIST
 
             })
 
@@ -111,11 +110,11 @@ export const getContactsForUser = ({ dispatch, getState }) => next => action => 
 export const AddContactsToHangout = ({ dispatch, getState }) => next => action => {
     if (action.type === 'ADD_CONTACTS_TO_HANGOUT') {
         action.payload.forEach(element => {
-            return fetch(`https://chat.leader.codes/api/${getState().userName}/${getState().hangout}/addNewMember`, {
+            return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/${getState().hangoutReducer.hangout}/addNewMember`, {
                 method: 'POST',
                 body: JSON.stringify({ contactID: element._id }),
                 headers: {
-                    Authentication: getState().jwt,
+                    Authentication: getState().userReducer.jwt,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 }
@@ -141,10 +140,10 @@ export const AddContactsToHangout = ({ dispatch, getState }) => next => action =
 export const getAllHangoutMembers = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_ALL_HANGOUT_MEMBERS') {
 
-        return fetch(`https://chat.leader.codes/api/${getState().userName}/${getState().hangout}/getAllHangoutMembers`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/${getState().hangoutReducer.hangout}/getAllHangoutMembers`, {
             method: 'POST',
             headers: {
-                Authentication: getState().jwt,
+                Authentication: getState().userReducer.jwt,
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             }
@@ -156,7 +155,6 @@ export const getAllHangoutMembers = ({ dispatch, getState }) => next => action =
             .then((res) => {
                 //      checkPermission(res).then((ifOk) => {
                 console.log("contacts", res)
-                dispatch(actions.setMembers(res.memberList));
                 dispatch(actions.setFilteredList({ list: res.memberList, kindList: "filteredMembers" }));
 
 

@@ -10,11 +10,12 @@ import ConversationSearch from '../ConversationSearch/index'
 
 function mapStateToProps(state) {
     return {
-        members: state.members,
-        showContactList: state.showContactList,
-        filteredMembers: state.filteredMembers,
-        manager: state.manager,
-        owner: state.owner
+        members: state.hangoutReducer.members,
+        showContactList: state.contactsReducer.showContactList,
+        filteredMembers: state.filteredListReducer.filteredMembers,
+        manager: state.hangoutReducer.manager,
+        owner: state.hangoutReducer.owner,
+        managersList: state.hangoutReducer.managersList
     }
 
 }
@@ -31,9 +32,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function MembersList(props) {
-    const { members, setShowContactList, filteredMembers, owner, manager } = props;
+    const { members, setShowContactList, filteredMembers, owner, manager, managersList } = props;
     const classes = useStyles();
-
     return (
         <div className="conversation-list" >
 
@@ -41,8 +41,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MembersList
 
             {
                 filteredMembers.map(member =>
+
                     <ConversationListItem key={member._id}
                         data={member}
+                        showButton={true}
+                        isManager={managersList.includes(member._id)}
 
                     />
                 )

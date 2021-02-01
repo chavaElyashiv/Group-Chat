@@ -3,7 +3,7 @@ import React from 'react';
 import ImageUploader from 'react-images-upload';
 
 export default class UploadImage extends React.Component {
-   
+
     constructor(props) {
         super(props);
         this.state = { pictures: [] };
@@ -26,8 +26,8 @@ export default class UploadImage extends React.Component {
                 imgExtension={['.jpg', '.gif', '.png', '.gif']}
                 maxFileSize={5242880}
             />
-            <img src={this.state.pictures[0]}/>
-</>
+            <img src={this.state.hangoutReducer.pictures[0]} />
+        </>
 
         );
     }

@@ -7,9 +7,9 @@ import { connect } from 'react-redux';
 import { actions } from '../../redux/Actions/actions'
 function mapStateToProps(state) {
   return {
-    stateConversation: state.listConvesation,
-    userName: state.userName,
-    listConvesation:state.listConvesation
+    stateConversation: state.hangoutReducer.listConvesation,
+    userName: state.userReducer.userName,
+    listConvesation: state.hangoutReducer.listConvesation
   }
 }
 
@@ -64,7 +64,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
 
           <div class="from2" >{data.from}</div> </a>
 
-          
+
       </div>
     );
   }

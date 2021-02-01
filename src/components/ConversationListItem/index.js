@@ -7,26 +7,36 @@ import './ConversationListItem.css';
 import { connect } from 'react-redux'
 import { actions } from '../../redux/Actions/actions'
 import { blueGrey, red } from '@material-ui/core/colors';
+import Button1 from '@material-ui/core/Button';
 
 
 function mapStateToProps(state) {
   return {
-    stateConversation: state.listConvesation,
+    stateConversation: state.hangoutReducer.listConvesation,
+    owner: state.hangoutReducer.owner,
+    manager: state.hangoutReducer.manager,
+    showMembers: state.hangoutReducer.showMembersList
 
   }
 
 }
-// const mapDispatchToProps =(dispatch)=>({
+const mapDispatchToProps = (dispatch) => ({
+
+  GivePermission: (_id) =>
+    dispatch(actions.getManagerPermission(_id)),
+  removeMember: (_id) => dispatch(actions.removeMemberByManager(_id), dispatch(actions.getManagerPermission(_id))),
+  exitHangout: () => dispatch(actions.exitHangout())
+})
 
 //   setCurrentConversation:(_id)=>
 //   dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false))), 
 
 // })
 
-export default connect(mapStateToProps)(function ConversationListItem(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(function ConversationListItem(props) {
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  const { stateConversation, setCurrentConversation, AddContacts } = props;
+  const { stateConversation, setCurrentConversation, AddContacts, GivePermission, removeMember, exitHangout, showMembers, owner, manager, showButton, isManager } = props;
 
   const getConversations = props.onClick;
 
@@ -35,10 +45,8 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
   }
   console.log("getConversations", getConversations);
 
-
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
   return (
-
     <div className="conversation-list-item" onClick={(e) => getConversations ? contactList(_id) : console.log(getConversations)} >
       {/* Group-Chat\src\images */}
       {/* C:\Users\User\OneDrive\Desktop\Group Chat\Group-Chat\src\images */}
@@ -52,6 +60,9 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
 
 
       </div>
+      {owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => GivePermission(_id)}> {isManager ? "remove permission" : "Manager permission"}</Button1>}
+      {owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => removeMember(_id)}>remove member</Button1>}
+
       <>
         <Button variant="danger" ref={target} style={{
           border: 'none',
@@ -76,7 +87,7 @@ export default connect(mapStateToProps)(function ConversationListItem(props) {
                 ...props.style,
               }}
             >
-              <option className="option" value="">exit</option>
+              <option className="option" value="" onClick={(e) => exitHangout()} >exit</option>
               <option className="option" value="">archive</option>
 
             </div>
