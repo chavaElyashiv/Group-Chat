@@ -11,9 +11,9 @@ import { socketRef } from "../../socket";
 
 function mapStateToProps(state) {
     return {
-        messageInput: state.messageInput,
-        userName: state.userName,
-        hangout: state.hangout
+        // messageInput: state.messageInput,
+        userName: state.userReducer.userName,
+        hangout: state.hangoutReducer.hangout
 
     }
 }
