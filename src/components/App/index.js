@@ -3,24 +3,35 @@ import { Socket } from 'socket.io-client';
 import store from '../../redux/Stores/store';
 import ContactList from '../ContactList';
 import Messenger from '../Messenger';
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import socketIOClient from "socket.io-client";
 import io from "socket.io-client";
 const ENDPOINT2 = "http://127.0.0.1:4001"
 const ENDPOINT = "http://chat.leader.codes:4000";
+const SOCKET_SERVER_URL = "https://socket.chat.leader.codes"
 
 export default function App() {
   const [response, setResponse] = useState("");
 
-  useEffect(() => {
-    debugger;
-    const socket = socketIOClient(ENDPOINT);
-    // const socket = socketIOClient(ENDPOINT, {transports: ['websocket']});
 
-    socket.on("FromAPI", data => {
-      setResponse(data);
-    });
-  }, []);
+  // const socketRef = useRef();
+  // useEffect(() => {
+  //   debugger
+  //   socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
+  //     transports: ['websocket'],
+  //     // query: { roomId },
+  //     // connected: true,
+  //     // disconnected: false
+  //   });
+  //   debugger
+
+  //   socketRef.current.on('connect', () => {
+  //     debugger
+  //     console.log("arrive to connect");
+  //     console.log(socketRef.current.id, "socket3", socketRef)
+  //   });
+  //   socketRef.current.emit('send_message', "uyuyuy")
+  // }, [])
 
   return (
     <Provider store={store}>

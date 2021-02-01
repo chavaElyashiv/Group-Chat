@@ -22,6 +22,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
     setCurrentConversation: (_id) => dispatch(actions.getHangoutById(_id)
         , dispatch(actions.setShow("messages"))),
+    setHangoutID: (_id) => dispatch(actions.setCurrentHangout(_id)),
 
 
     NewHanghout: () => dispatch(actions.setShow("newHangout"))
@@ -29,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationList(props) {
-    const { setCurrentConversation, NewHanghout, hangouts } = props;
+    const { setCurrentConversation, NewHanghout, hangouts, setHangoutID } = props;
     const conversations = props.hangouts;
     const filteredHangouts = props.filteredHangouts;
 
@@ -64,7 +65,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                     <div >
 
                         <ConversationListItem key={conversation._id} className="color"
-                            data={conversation} onClick={setCurrentConversation}
+                            data={conversation} onClick={setHangoutID, setCurrentConversation}
                         /></div>
                 ) : <div className="no-result">No results found</div>
         }

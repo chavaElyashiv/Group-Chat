@@ -9,7 +9,9 @@ export const setJwt = ({ dispatch, getState }) => next => action => {
             getState().userReducer.jwt = document.cookie ? document.cookie.split(";")
                 .filter(s => s.includes('jwt'))[0].split("=").pop() : null;
         } catch (error) {
-            getState().userReducer.jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJhUERrUlFmU01rU3BrU1FWSlRQWHFRVlQ3SWkyIiwiZW1haWwiOiJtaW5kaWZyQGdtYWlsLmNvbSIsImlwIjoiMTk1LjYwLjIzNS4xNDEiLCJpYXQiOjE2MDUxNzg4NjZ9.fm0jv-pQbTve2DPIskk0wqMNkrBSuGpGv_kLRw44lvM"
+            //debugger
+            dispatch(actions.setJwtStore("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJhUERrUlFmU01rU3BrU1FWSlRQWHFRVlQ3SWkyIiwiZW1haWwiOiJtaW5kaWZyQGdtYWlsLmNvbSIsImlwIjoiMTk1LjYwLjIzNS4xNDEiLCJpYXQiOjE2MDUxNzg4NjZ9.fm0jv-pQbTve2DPIskk0wqMNkrBSuGpGv_kLRw44lvM"));
+            //   getState().jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJhUERrUlFmU01rU3BrU1FWSlRQWHFRVlQ3SWkyIiwiZW1haWwiOiJtaW5kaWZyQGdtYWlsLmNvbSIsImlwIjoiMTk1LjYwLjIzNS4xNDEiLCJpYXQiOjE2MDUxNzg4NjZ9.fm0jv-pQbTve2DPIskk0wqMNkrBSuGpGv_kLRw44lvM"
         }
 
     }
@@ -29,14 +31,23 @@ export const getHangoutsForUser = ({ dispatch, getState }) => next => action => 
             return res.json()
 
 
-        }).then((res) => {
-            console.log(res.hangouts)
-            dispatch(actions.setHangouts(res.hangouts));
-            //dispatch(actions.setFilteredHangouts(res.hangouts));
+        })
+            .then((res) => {
+                // checkPermission(res).then((ifOk) => {
+                //debugger;
 
-        });
+                console.log(res.hangouts)
+                dispatch(actions.setHangouts(res.hangouts));
+                dispatch(actions.setFilteredHangouts(res.hangouts));
+            })
+        // .catch((err) => {
+        //     console.log(err)
+        // })
+        //  })
+
     }
     return next(action);
+
 }
 
 export const getUidByUserName = ({ dispatch, getState }) => next => action => {
@@ -53,12 +64,14 @@ export const getUidByUserName = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
+                //    checkPermission(res).then((ifOk) => {
                 dispatch(actions.setUid(res.uid))
+
             }).then(() => {
                 dispatch(actions.getHangoutsForUser())
                 dispatch(actions.getContactsForUser())
             })
-
+        //      })
     }
     return next(action);
 }
@@ -75,8 +88,10 @@ export const getIdByUserName = ({ dispatch, getState }) => next => action => {
         }).then((res) => {
             return res.json()
         }).then((res) => {
+            // checkPermission(res).then((ifOk) => {
             dispatch(actions.setId(res._id))
         })
+        //  })
     }
     return next(action);
 }
@@ -96,9 +111,11 @@ export const addNewWave = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
+                //     checkPermission(res).then((ifOk) => {
 
                 dispatch(actions.addWave(res.newWave))
             })
+        //     })
 
     }
     return next(action);
@@ -118,8 +135,10 @@ export const newHangout = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
+                //     checkPermission(res).then((ifOk) => {
                 dispatch(actions.addNewHangout(res.newHangout));
             })
+        //   })
 
     }
     return next(action);
@@ -140,9 +159,11 @@ export const getUsernameReturnEmail = ({ dispatch, getState }) => next => action
 
         })
             .then((res) => {
+                //      checkPermission(res).then((ifOk) => {
                 return res.email
                 // dispatch(actions.addNewHangout(res.hangout))
             })
+        //   })
 
     }
     return next(action);
@@ -162,10 +183,12 @@ export const returnUsersId = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
+                //    checkPermission(res).then((ifOk) => {
                 const name = `#${action.payload.name}`
                 let hangout = { members: res.users, name: name, owner: action.payload.owner }
                 dispatch(actions.newHangout(hangout))
             })
+        //   })
 
     }
     return next(action);
@@ -185,10 +208,12 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
 
 
         }).then(async (res) => {
+            //   checkPermission(res).then(async (ifOk) => {
+            dispatch(actions.setCurrentHangout(action.payload));
+
             console.log("waves", res.waves)
             dispatch(actions.setConversation(res.waves));
             dispatch(actions.setFilteredList({ list: res.waves, kindList: "filteredMessages" }));
-            dispatch(actions.setCurrentHangout(action.payload));
             if (res.owner == getState().userReducer.userName) {
                 dispatch(actions.setOwner(true));
                 dispatch(actions.setManagersList(res.managers))
@@ -205,9 +230,11 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
             dispatch(actions.getAllContactsExceptMembers())
 
         })
+        //   })
     }
     return next(action);
 }
+
 
 export const getManagerPermission = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_MANAGER_PERMISSION') {
@@ -271,3 +298,17 @@ export const exitHangout = ({ dispatch, getState }) => next => action => {
     }
     return next(action);
 }
+// function checkPermission(result) {
+//     //debugger
+//     return new Promise((resolve, reject) => {
+//         if (result.status == "401") {
+//             result.routes ?
+//                 window.location.assign(`https://dev.leader.codes/login?des=${result.des}'&routes='${result.routes}`) :
+//                 window.location.assign(`https://dev.leader.codes/login?des=${result.des}`)
+//             reject(false)
+
+//         }
+//         resolve(true)
+
+//     })
+// }

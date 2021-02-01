@@ -24,6 +24,7 @@ const hangout = {
         state.hangouts = action.payload;
     },
     addWave(state, action) {
+        debugger
         state.listConvesation.push(action.payload);
     },
     addNewHangout(state, action) {

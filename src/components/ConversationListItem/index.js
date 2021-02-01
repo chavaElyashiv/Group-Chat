@@ -48,7 +48,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
   return (
     <div className="conversation-list-item" onClick={(e) => getConversations ? contactList(_id) : console.log(getConversations)} >
-
+      {/* Group-Chat\src\images */}
+      {/* C:\Users\User\OneDrive\Desktop\Group Chat\Group-Chat\src\images */}
       {profileGroup && <img className="conversation-photo" src={require("../../images/" + profileGroup)} alt="conversation" />}
       {thumbnail && <img className="conversation-photo" src={require("../../images/" + thumbnail)} alt="conversation" />}
 

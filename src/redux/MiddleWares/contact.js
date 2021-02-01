@@ -71,11 +71,12 @@ export const getAllContactsExceptMembers = ({ dispatch, getState }) => next => a
 
         })
             .then((res) => {
+                //  checkPermission(res).then((ifOk) => {
                 console.log("contacts", res)
                 dispatch(actions.setHangoutsContacts(res.contacts));
                 dispatch(actions.setFilteredList({ list: res.contacts, kindList: "filteredAddContacts" }));
-
             })
+        //  })
     }
     return next(action);
 }
@@ -94,13 +95,14 @@ export const getContactsForUser = ({ dispatch, getState }) => next => action => 
 
         })
             .then((res) => {
+                //     checkPermission(res).then((ifOk) => {
                 console.log("contacts", res)
                 dispatch(actions.setContacts(res.contacts));
                 dispatch(actions.setFilteredList({ list: res.contacts, kindList: "filteredContacts" }));
 
-
-
             })
+
+        // })
     }
     return next(action);
 }
@@ -122,14 +124,15 @@ export const AddContactsToHangout = ({ dispatch, getState }) => next => action =
 
             })
                 .then((res) => {
+                    //      checkPermission(res).then((ifOk) => {
                     console.log("contacts", res)
                     if (res.contact)
                         dispatch(actions.addMember(res.contact));
-
-
                 })
 
-        });
+        })
+
+        // });
     }
     return next(action);
 }
@@ -150,15 +153,29 @@ export const getAllHangoutMembers = ({ dispatch, getState }) => next => action =
 
         })
             .then((res) => {
+                //      checkPermission(res).then((ifOk) => {
                 console.log("contacts", res)
                 dispatch(actions.setFilteredList({ list: res.memberList, kindList: "filteredMembers" }));
 
 
 
-
             })
+        //   })
 
 
     }
     return next(action);
 }
+// function checkPermission(result) {
+//     return new Promise((resolve, reject) => {
+//         if (result.status == "401") {
+//             result.routes ?
+//                 window.location.assign(`https://dev.leader.codes/login?des=${result.des}'&routes='${result.routes}`) :
+//                 window.location.assign(`https://dev.leader.codes/login?des=${result.des}`)
+//             reject(false)
+
+//         }
+//         resolve(true)
+
+//     })
+// }
