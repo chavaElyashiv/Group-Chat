@@ -1,6 +1,3 @@
-
-
-
 import { createStore, applyMiddleware } from 'redux';
 import produce from 'immer';
 import { getUsernameReturnEmail, returnUsersId, newHangout, getHangoutById, setJwt, getHangoutsForUser, getUidByUserName, addNewWave, getIdByUserName } from '../MiddleWares/conversation'
@@ -13,7 +10,7 @@ const initalStaste = {
      hangoutsContacts: [],
      contacts: [],
      userName: (window.location.pathname.split('/')[1]),
-     hangout: (window.location.pathname.split('/')[3]),
+     hangout: null,
      uid: '',
      _id: '',
      jwt: '',
@@ -25,6 +22,7 @@ const initalStaste = {
      filteredMessages: [],
      filteredMembers: [],
      filteredAddContacts: [],
+     filteredHangouts: [],
      members: [],
      messageInput: '',
      manager: false,
@@ -43,6 +41,7 @@ const reducer = produce((state, action) => {
                state.listConvesation = action.payload;
                break;
           case "SET_HANGOUTS":
+               //debugger;
                state.hangouts = action.payload;
                break;
 
@@ -65,7 +64,7 @@ const reducer = produce((state, action) => {
                state.filteredHangouts = action.payload;
                break;
           case "ADD_WAVE":
-               debugger
+               //debugger
                state.listConvesation.push(action.payload);
                break;
           case "ADD_NEW_HANGOUT":
@@ -113,7 +112,7 @@ const reducer = produce((state, action) => {
                     state.showMembersList = !state.showMembersList;
                break;
           case "SET_CURRENT_HANGOUT":
-
+               //debugger
                state.hangout = action.payload;
                break;
           case "SET_MEMBERS":
@@ -133,6 +132,10 @@ const reducer = produce((state, action) => {
           case "SET_ID":
                state._id = action.payload;
                break;
+          case "SET_JWT_STORE":
+               //debugger
+               state.jwt = action.payload;
+               break;
 
      }
 
@@ -141,7 +144,7 @@ const store = createStore(reducer, applyMiddleware(setJwt, getUsernameReturnEmai
 window.store = store
 
 export default store;
-
+//debugger;
 store.dispatch({ type: 'SET_JWT' })
 store.dispatch({ type: 'GET_UID_BY_USER_NAME' })
 

@@ -16,36 +16,37 @@ import MembersList from '../MembersList/index';
 import NewHangout from '../NewHangout/index';
 import { Icon, InlineIcon } from '@iconify/react';
 import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
+import Compose2 from '../Compose2';
 
 function mapStateToProps(state) {
   return {
-    userName:state.userName,
+    userName: state.userName,
     stateConversation: state.listConvesation,
     showContactList: state.showContactList,
     showMembersList: state.showMembersList,
-    messageInput:state.messageInput,
+    messageInput: state.messageInput,
     showNewHangout: state.showNewHangout,
     showMessagesList: state.showMessagesList,
     filteredMessages: state.filteredMessages,
-    listConvesation:state.listConvesation
+    listConvesation: state.listConvesation
     //  filteredContacts:state.filteredContacts
   }
 
 }
 const mapDispatchToProps = (dispatch) => ({
   setCurrentConversation: (conversation) => dispatch(actions.setConversation(conversation)),
- 
+
   SetMessageInput: (messageInput) =>
-  dispatch(actions.setMessageInput(messageInput)),
+    dispatch(actions.setMessageInput(messageInput)),
   showMembers: () => dispatch(actions.setShow("members")),
-  addNewWave:(wave)=> dispatch(actions.addNewWave(wave))
+  addNewWave: (wave) => dispatch(actions.addNewWave(wave))
 
 
 
 })
 const MY_USER_ID = 'apple';
 export default connect(mapStateToProps, mapDispatchToProps)(function MessageList(props) {
- 
+
   const ENDPOINT = 'https://socket.chat.leader.codes';
   const messages = props.filteredMessages;
 
@@ -62,14 +63,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
- 
+
   // $('.emojiButton').click(function(){
   //   debugger;
   //   console.log("emoji");
   // })
   useEffect(() => {
-  
-  },[props.listConvesation])
+
+  }, [props.listConvesation])
   // useEffect(() => {
   //   const name = "mindy"
   //   const room = 210
@@ -87,23 +88,23 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   // }, []);
 
   const sendMessage = (event) => {
-    const wave={
-      body:props.messageInput,
-      from:props.userName
+    const wave = {
+      body: props.messageInput,
+      from: props.userName
     }
     event.preventDefault();
     console.log(socket);
-    console.log("message to send"+props.messageInput);
+    console.log("message to send" + props.messageInput);
     if (props.messageInput) {
       debugger
-    props.addNewWave(wave)
+      props.addNewWave(wave)
       props.SetMessageInput("")
       // socket.emit('chat_message', props.messageInput);
-     
+
     }
   }
 
- 
+
 
 
 
@@ -118,7 +119,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
         let previous = messages[i - 1];
         let current = messages[i];
         let next = messages[i + 1];
-    
+
         let currentMoment = moment(current.timestamp);
         let prevBySameAuthor = false;
         let nextBySameAuthor = false;
@@ -129,7 +130,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
         if (previous) {
           let previousMoment = moment(previous.timestamp);
           let previousDuration = moment.duration(currentMoment.diff(previousMoment));
-        
+
 
           if (previousDuration.as('hours') < 1) {
             startsSequence = false;
@@ -155,7 +156,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
             // messages={messages}
             //  name={name} 
             key={i}
-          
+
             startsSequence={startsSequence}
             endsSequence={endsSequence}
             showTimestamp={showTimestamp}
@@ -163,7 +164,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
           />
         );
       }
-     
+
       i += 1;
 
     }
@@ -174,8 +175,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   function h() {
     showMembers()
   }
- 
-  
+
+
 
   return (
     <div className="message-list">
@@ -205,10 +206,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
         {showNewHangout ? <NewHangout /> : ''}
       </div>
 
-      {showMessagesList ? <Compose rightItems={[
+      {showMessagesList ? <Compose2 rightItems={[
         <button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
         <ToolbarButton key="photo" icon="ion-ios-camera" />,
-        <ToolbarButton key="image" icon="ion-ios-image"  />,
+        <ToolbarButton key="image" icon="ion-ios-image" />,
         <ToolbarButton key="audio" icon="ion-ios-mic" />,
         <ToolbarButton key="money" icon="ion-ios-card" />,
         <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
