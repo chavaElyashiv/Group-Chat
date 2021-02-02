@@ -15,8 +15,7 @@ function mapStateToProps(state) {
     stateConversation: state.hangoutReducer.listConvesation,
     owner: state.hangoutReducer.owner,
     manager: state.hangoutReducer.manager,
-    showMembers: state.hangoutReducer.showMembersList
-
+    showMembers: state.hangoutReducer.showMembersList,
   }
 
 }
@@ -36,7 +35,17 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationListItem(props) {
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  const { stateConversation, setCurrentConversation, AddContacts, GivePermission, removeMember, exitHangout, showMembers, owner, manager, showButton, isManager } = props;
+  const { stateConversation,
+    setCurrentConversation,
+    AddContacts,
+    GivePermission,
+    removeMember,
+    exitHangout,
+    showMembers,
+    owner,
+    manager,
+    showButton,
+    isManager } = props;
 
   const getConversations = props.onClick;
 
@@ -48,7 +57,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
   return (
     <div className="conversation-list-item" onClick={(e) => getConversations ? contactList(_id) : console.log(getConversations)} >
-
+      {/* Group-Chat\src\images */}
+      {/* C:\Users\User\OneDrive\Desktop\Group Chat\Group-Chat\src\images */}
       {profileGroup && <img className="conversation-photo" src={require("../../images/" + profileGroup)} alt="conversation" />}
       {thumbnail && <img className="conversation-photo" src={require("../../images/" + thumbnail)} alt="conversation" />}
 
@@ -63,7 +73,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
       {owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => removeMember(_id)}>remove member</Button1>}
 
       <>
-        <Button variant="danger" ref={target} style={{
+
+        {!showButton && <Button variant="danger" ref={target} style={{
           border: 'none',
           background: 'none'
         }} onClick={() => setShow(!show)}>
@@ -72,7 +83,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
           <div>
             <i variant="danger" ref={target} onClick={() => setShow(!show)} className="fa fa-ellipsis-v" />
           </div>
-        </Button>
+        </Button>}
 
         <Overlay target={target.current} show={show} placement="right">
           {({ placement, arrowProps, show: _show, popper, ...props }) => (

@@ -271,3 +271,25 @@ export const exitHangout = ({ dispatch, getState }) => next => action => {
     }
     return next(action);
 }
+
+export const deleteHangout = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'DELETE_HANGOUT') {
+        return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/deleteHangout`, {
+            method: 'POST',
+            headers: {
+                Authentication: getState().userReducer.jwt,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ hangoutID: action.payload })
+
+        }).then((res) => {
+            return res.json()
+
+        }).then((res) => {
+            dispatch(actions.getHangoutsForUser())
+            dispatch(actions.setShow('messages'))
+        })
+    }
+    return next(action);
+}

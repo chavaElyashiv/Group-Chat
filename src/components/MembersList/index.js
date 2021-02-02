@@ -15,7 +15,8 @@ function mapStateToProps(state) {
         filteredMembers: state.filteredListReducer.filteredMembers,
         manager: state.hangoutReducer.manager,
         owner: state.hangoutReducer.owner,
-        managersList: state.hangoutReducer.managersList
+        managersList: state.hangoutReducer.managersList,
+        hangoutId: state.hangoutReducer.hangout
     }
 
 }
@@ -28,11 +29,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 const mapDispatchToProps = (dispatch) => ({
 
-    setShowContactList: () => dispatch(actions.setShow("contacts"))
-
+    setShowContactList: () => dispatch(actions.setShow("contacts")),
+    deleteHangout: (hangoutId) => dispatch(actions.deleteHangout(hangoutId))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function MembersList(props) {
-    const { members, setShowContactList, filteredMembers, owner, manager, managersList } = props;
+    const { members, setShowContactList, deleteHangout, filteredMembers, owner, manager, managersList, hangoutId } = props;
     const classes = useStyles();
     return (
         <div className="conversation-list" >
@@ -54,6 +55,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MembersList
             <div className={classes.root}>
 
                 {(owner == true || manager == true) && <Button variant="contained" color="primary" onClick={() => { setShowContactList() }}>ADD CONTACT!</Button>}
+                {owner && <Button variant="contained" color="primary" onClick={(e) => deleteHangout(hangoutId)}>delete channel</Button>}
+
             </div>
 
         </div>
