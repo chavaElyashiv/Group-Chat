@@ -10,9 +10,9 @@ import ConversationSearch from '../ConversationSearch/index'
 
 function mapStateToProps(state) {
     return {
-        contacts: state.hangoutsContacts,
-        members: state.members,
-        filteredAddContacts:state.filteredAddContacts
+        contacts: state.contactsReducer.hangoutsContacts,
+        members: state.hangoutReducer.members,
+        filteredAddContacts: state.filteredListReducer.filteredAddContacts
     }
 
 }
@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function ContactList(props) {
-    const { filteredAddContacts,contacts, AddContactsToHangout, members, setShowContactList } = props;
+    const { filteredAddContacts, contacts, AddContactsToHangout, members, setShowContactList } = props;
     const classes = useStyles();
     var [AddContacts, setAddContacts] = useState([]);
     var [con, setCon] = useState([]);
@@ -49,11 +49,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function ContactList
         console.log("AddContacts", AddContacts)
 
     }
-  
+
     console.log("contact-contactList", contacts);
     return (
         <div className="conversation-list" >
-           <ConversationSearch list={contacts} kindList="filteredAddContacts"/>
+            <ConversationSearch list={contacts} kindList="filteredAddContacts" />
 
             {AddContacts ? AddContacts.map((item, index) => (
                 console.log("item", item.email),

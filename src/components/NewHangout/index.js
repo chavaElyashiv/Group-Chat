@@ -12,12 +12,12 @@ import './NewHangout.css';
 
 function mapStateToProps(state) {
     return {
-        contacts: state.contacts,
-        members: state.members,
-        filteredContacts: state.filteredContacts,
-        userName: state.userName,
-        uid: state.uid,
-        jwtFromCookie: state.jwt
+        contacts: state.contactsReducer.contacts,
+        members: state.hangoutReducer.members,
+        filteredContacts: state.filteredListReducer.filteredContacts,
+        userName: state.userReducer.userName,
+        uid: state.userReducer.uid,
+        jwtFromCookie: state.userReducer.jwt
 
     }
 }
@@ -115,9 +115,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
     }
     const clearList = function () {
         if (AddContacts.length > 0 && groupName != '') {
-            var hangout = { members: AddContacts, name: groupName, owner: userName }
+            // var hangout = { members: AddContacts, name: groupName, owner: userName }
             setAddContacts([]);
-            var hangout = { members: AddContacts, name: groupName, profileGroup: img }
+            var hangout = { members: AddContacts, name: groupName, profileGroup: img, owner: userName }
             returnUsersId(hangout);
             setShow();
 
