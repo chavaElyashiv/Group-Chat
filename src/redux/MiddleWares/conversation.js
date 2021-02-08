@@ -196,6 +196,9 @@ export const returnUsersId = ({ dispatch, getState }) => next => action => {
 
 export const getHangoutById = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_HANGOUT_BY_ID') {
+        debugger
+        dispatch(actions.setCurrentHangout(action.payload));
+
         return fetch(`https://chat.leader.codes/api/${userID}/${action.payload}/getHangout`, {
             method: 'POST',
             headers: {
