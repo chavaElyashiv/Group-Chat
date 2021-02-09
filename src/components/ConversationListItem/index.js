@@ -15,8 +15,8 @@ function mapStateToProps(state) {
     stateConversation: state.hangoutReducer.listConvesation,
     owner: state.hangoutReducer.owner,
     manager: state.hangoutReducer.manager,
-    showMembers: state.hangoutReducer.showMembersList
-
+    showMembers: state.hangoutReducer.showMembersList,
+    // showNewHangout: state.hangoutReducer.showNewHangout
   }
 
 }
@@ -36,9 +36,28 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationListItem(props) {
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  const { stateConversation, setCurrentConversation, AddContacts, GivePermission, removeMember, exitHangout, showMembers, owner, manager, showButton, isManager } = props;
+  const { stateConversation,
+    setCurrentConversation,
+    AddContacts,
+    GivePermission,
+    removeMember,
+    exitHangout,
+    showMembers,
+    // showNewHangout,
+    owner,
+    manager,
+    showButton,
+    isManager } = props;
 
   const getConversations = props.onClick;
+  // const conversationsEndRef = useRef(null)
+  // const scrollToBottom = () => {
+  //   conversationsEndRef.current?.scrollIntoView()
+  // }
+
+  // useEffect(() => {
+  //   scrollToBottom()
+  // }, [showNewHangout]);
 
   function contactList(_id) {
     getConversations(_id);
@@ -64,7 +83,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
       {owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => removeMember(_id)}>remove member</Button1>}
 
       <>
-        <Button variant="danger" ref={target} style={{
+
+        {!showButton && <Button variant="danger" ref={target} style={{
           border: 'none',
           background: 'none'
         }} onClick={() => setShow(!show)}>
@@ -73,7 +93,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
           <div>
             <i variant="danger" ref={target} onClick={() => setShow(!show)} className="fa fa-ellipsis-v" />
           </div>
-        </Button>
+        </Button>}
 
         <Overlay target={target.current} show={show} placement="right">
           {({ placement, arrowProps, show: _show, popper, ...props }) => (
@@ -95,6 +115,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
           )}
         </Overlay>
       </>
+      {/* {!showButton && <div ref={conversationsEndRef} />} */}
     </div>
   );
 
