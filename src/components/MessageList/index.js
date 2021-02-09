@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 
@@ -49,6 +49,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
 
   const ENDPOINT = 'https://socket.chat.leader.codes';
   const messages = props.filteredMessages;
+  const messagesEndRef = useRef(null)
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView()
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages]);
 
 
   const { showMessagesList, showNewHangout, stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers } = props;
@@ -215,11 +223,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
 
 
       <div className="message-list-container">
+
         {showMessagesList ? <ConversationSearch list={stateConversation} kindList="filteredMessages" /> : ''}
         {showMessagesList ? renderMessages() : ''}
         {showMembersList ? <MembersList /> : ''}
         {showContactList ? <ContactList /> : ''}
         {showNewHangout ? <NewHangout /> : ''}
+        <div ref={messagesEndRef} />
       </div>
 
       {showMessagesList ? <Compose2 rightItems={[
@@ -231,6 +241,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
         <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
         // <ToolbarButton key="emoji" icon="ion-ios-happy" />
       ]} /> : ''}
+
     </div>
   );
 })
