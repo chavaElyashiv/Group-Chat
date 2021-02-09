@@ -16,6 +16,7 @@ function mapStateToProps(state) {
     owner: state.hangoutReducer.owner,
     manager: state.hangoutReducer.manager,
     showMembers: state.hangoutReducer.showMembersList,
+    // showNewHangout: state.hangoutReducer.showNewHangout
   }
 
 }
@@ -42,12 +43,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     removeMember,
     exitHangout,
     showMembers,
+    // showNewHangout,
     owner,
     manager,
     showButton,
     isManager } = props;
 
   const getConversations = props.onClick;
+  // const conversationsEndRef = useRef(null)
+  // const scrollToBottom = () => {
+  //   conversationsEndRef.current?.scrollIntoView()
+  // }
+
+  // useEffect(() => {
+  //   scrollToBottom()
+  // }, [showNewHangout]);
 
   function contactList(_id) {
     getConversations(_id);
@@ -104,6 +114,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
           )}
         </Overlay>
       </>
+      {/* {!showButton && <div ref={conversationsEndRef} />} */}
     </div>
   );
 
