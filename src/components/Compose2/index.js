@@ -138,6 +138,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose2(pr
 
     }
     function onEnter(e) {
+        debugger
         if (e.key === 'Enter') {
             emitMessage(e.target.value);
             //   setMessage1(e.target.value)
@@ -158,7 +159,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose2(pr
                 onChange={(e) => { setMessage1(e.target.value) }}
                 //   onEnter={(e) => { setMessage(e.target.value) }}
                 //cleanOnEnter
-                //   onKeyDown={(e) => { onEnter(e) }}
+                //  onKeyDown={(e) => { onEnter(e) }}
                 //    onChange={handleNewMessageChange}
                 placeholder="Write message..."
             // onEnter={sendMessage}
