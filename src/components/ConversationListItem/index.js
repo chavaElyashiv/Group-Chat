@@ -107,6 +107,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                 ...props.style,
               }}
             >
+              <option className="option" value="">delete</option>
               <option className="option" value="" onClick={(e) => exitHangout()} >exit</option>
               <option className="option" value="">archive</option>
 
