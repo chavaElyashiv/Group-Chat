@@ -4,9 +4,12 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.2",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "all": "0.0.0",
     "axios": "^0.18.1",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.0.0-beta1",
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "install": "^0.13.0",
@@ -14,19 +17,24 @@
     "moment": "^2.23.0",
     "package.json": "^2.0.1",
     "path": "^0.12.7",
-    "react": "^16.14.0",
+    "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
-    "react-dom": "^16.10.1",
+    "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
     "react-images-upload": "^1.2.8",
     "react-input-emoji": "^2.1.1",
     "react-redux": "^7.2.2",
-    "react-scripts": "^2.1.8",
+    "react-scripts": "^4.0.1",
+    "react-tooltip": "^4.2.13",
+    "readux": "^1.0.0",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "request": "^2.88.2",
     "serve": "^11.3.2",
     "socket.io": "^3.0.4",
-    "socket.io-client": "^3.0.5"
+    "socket.io-client": "^2.1.1",
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,14 +43,23 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
     "@iconify-icons/mdi": "^1.1.2",
     "@iconify/icons-mdi": "^1.1.2",

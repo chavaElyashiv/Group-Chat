@@ -15,8 +15,8 @@ function mapStateToProps(state) {
     stateConversation: state.hangoutReducer.listConvesation,
     owner: state.hangoutReducer.owner,
     manager: state.hangoutReducer.manager,
-    showMembers: state.hangoutReducer.showMembersList
-
+    showMembers: state.hangoutReducer.showMembersList,
+    // showNewHangout: state.hangoutReducer.showNewHangout
   }
 
 }
@@ -36,9 +36,28 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationListItem(props) {
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  const { stateConversation, setCurrentConversation, AddContacts, GivePermission, removeMember, exitHangout, showMembers, owner, manager, showButton, isManager } = props;
+  const { stateConversation,
+    setCurrentConversation,
+    AddContacts,
+    GivePermission,
+    removeMember,
+    exitHangout,
+    showMembers,
+    // showNewHangout,
+    owner,
+    manager,
+    showButton,
+    isManager } = props;
 
   const getConversations = props.onClick;
+  // const conversationsEndRef = useRef(null)
+  // const scrollToBottom = () => {
+  //   conversationsEndRef.current?.scrollIntoView()
+  // }
+
+  // useEffect(() => {
+  //   scrollToBottom()
+  // }, [showNewHangout]);
 
   function contactList(_id) {
     getConversations(_id);
@@ -89,6 +108,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                 ...props.style,
               }}
             >
+              <option className="option" value="">delete</option>
               <option className="option" value="" onClick={(e) => exitHangout()} >exit</option>
               <option className="option" value="">archive</option>
 
@@ -96,6 +116,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
           )}
         </Overlay>
       </>
+      {/* {!showButton && <div ref={conversationsEndRef} />} */}
     </div>
   );
 

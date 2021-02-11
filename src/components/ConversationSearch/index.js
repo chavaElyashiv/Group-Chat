@@ -22,8 +22,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
   console.log("l;l;", props.list);
 
   filteredList = conversations;
-  setSearchReasult(filteredList, kindList);
+  //setSearchReasult(filteredList, kindList);
   function search(eve) {
+    debugger
 
     if (eve != "") {
       console.log(eve);
@@ -42,7 +43,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     filteredList = [];
 
     //if(kindList=="filteredHangouts")
-    setSearchReasult(filteredList, kindList)
+    // setSearchReasult(filteredList, kindList)
 
     // filteredList = []
     conversations.forEach(item => {
@@ -51,19 +52,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
       //if the subject contains the searchTxt
       if (kindList == "filteredMessages" && item.body != undefined && item.body.toLowerCase().indexOf(searchText) > -1) {
         filteredList.push(item);
-        setSearchReasult(filteredList, kindList)
+        // setSearchReasult(filteredList, kindList)
       }
       if (kindList == "filteredMembers" && item.email != undefined && item.email.toLowerCase().indexOf(searchText) > -1) {
+        debugger
         filteredList.push(item);
-        setSearchReasult(filteredList, kindList)
+        //  setSearchReasult(filteredList, kindList)
       }
       else if (item.name != undefined && item.name.toLowerCase().indexOf(searchText) > -1) {
         console.log(item.name);
         filteredList.push(item);
-        setSearchReasult(filteredList, kindList)
+        // setSearchReasult(filteredList, kindList)
       }
 
     });
+    setSearchReasult(filteredList, kindList)
+
 
     console.log(filteredList);
   }

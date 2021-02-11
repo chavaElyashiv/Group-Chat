@@ -34,11 +34,13 @@ export const getHangoutsForUser = ({ dispatch, getState }) => next => action => 
         })
             .then((res) => {
                 // checkPermission(res).then((ifOk) => {
-                //debugger;
+                debugger;
 
                 console.log(res.hangouts)
                 dispatch(actions.setHangouts(res.hangouts));
-                dispatch(actions.setFilteredHangouts(res.hangouts));
+                dispatch(actions.setFilteredList({ list: res.hangouts, kindList: "filteredHangouts" }));
+
+                // dispatch(actions.setFilteredHangouts(res.hangouts));
             })
         // .catch((err) => {
         //     console.log(err)
@@ -135,8 +137,12 @@ export const newHangout = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
+                debugger
                 //     checkPermission(res).then((ifOk) => {
                 dispatch(actions.addNewHangout(res.newHangout));
+                dispatch(actions.setFilteredList({ list: getState().hangoutReducer.hangouts, kindList: "filteredHangouts" }));
+
+
             })
         //   })
 
@@ -196,6 +202,9 @@ export const returnUsersId = ({ dispatch, getState }) => next => action => {
 
 export const getHangoutById = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_HANGOUT_BY_ID') {
+        debugger
+        dispatch(actions.setCurrentHangout(action.payload));
+
         return fetch(`https://chat.leader.codes/api/${userID}/${action.payload}/getHangout`, {
             method: 'POST',
             headers: {
@@ -259,6 +268,7 @@ export const getManagerPermission = ({ dispatch, getState }) => next => action =
 
 export const removeMemberByManager = ({ dispatch, getState }) => next => action => {
     if (action.type === 'REMOVE_MEMBER_BY_MANAGER') {
+        debugger
         return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/${getState().hangoutReducer.hangout}/exitHangout`, {
             method: 'POST',
             headers: {
@@ -294,6 +304,28 @@ export const exitHangout = ({ dispatch, getState }) => next => action => {
 
         }).then((res) => {
             dispatch(actions.getHangoutsForUser())
+        })
+    }
+    return next(action);
+}
+
+export const deleteHangout = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'DELETE_HANGOUT') {
+        return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/deleteHangout`, {
+            method: 'POST',
+            headers: {
+                Authentication: getState().userReducer.jwt,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ hangoutID: action.payload })
+
+        }).then((res) => {
+            return res.json()
+
+        }).then((res) => {
+            dispatch(actions.getHangoutsForUser())
+            dispatch(actions.setShow('messages'))
         })
     }
     return next(action);

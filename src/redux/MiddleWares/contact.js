@@ -126,8 +126,12 @@ export const AddContactsToHangout = ({ dispatch, getState }) => next => action =
                 .then((res) => {
                     //      checkPermission(res).then((ifOk) => {
                     console.log("contacts", res)
-                    if (res.contact)
-                        dispatch(actions.addMember(res.contact));
+                    if (res.user) {
+                        debugger
+                        dispatch(actions.addMember(res.user));
+                        dispatch(actions.setFilteredList({ list: getState().hangoutReducer.members, kindList: "filteredMembers" }));
+
+                    }
                 })
 
         })
@@ -139,6 +143,8 @@ export const AddContactsToHangout = ({ dispatch, getState }) => next => action =
 
 export const getAllHangoutMembers = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_ALL_HANGOUT_MEMBERS') {
+        debugger
+
 
         return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/${getState().hangoutReducer.hangout}/getAllHangoutMembers`, {
             method: 'POST',
@@ -155,7 +161,9 @@ export const getAllHangoutMembers = ({ dispatch, getState }) => next => action =
             .then((res) => {
                 //      checkPermission(res).then((ifOk) => {
                 console.log("contacts", res)
+                debugger
                 dispatch(actions.setFilteredList({ list: res.memberList, kindList: "filteredMembers" }));
+                dispatch(actions.setMembers(res.memberList));
 
 
 

@@ -25,14 +25,23 @@ const hangout = {
     },
     addWave(state, action) {
         debugger
-        state.listConvesation.push(action.payload);
+        if (!action.payload.hangout)
+            state.listConvesation.push(action.payload);
+
+        else if (action.payload.hangout === state.hangout)
+            state.listConvesation.push(action.payload.wave);
     },
     addNewHangout(state, action) {
+        debugger
         state.hangouts.push(action.payload);
     },
     addMember(state, action) {
         state.members.push(action.payload);
     },
+    setMembers(state, action) {
+        state.members = action.payload;
+    },
+
     setShowNewHangout(state, action) {
         if (action.payload != undefined)
             state.showNewHangout = action.payload;
@@ -65,6 +74,10 @@ const hangout = {
     },
     setManagersList(state, action) {
         state.managersList = action.payload;
+    },
+    getCurrentHangoutID(state, action) {
+        debugger
+        return state.hangout;
     }
 
 

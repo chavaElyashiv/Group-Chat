@@ -60,9 +60,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
           {/* <p class="sentText pr-10">{name}</p> */}
         </div>
         {/* `https://contacts.leader.codes/${userName}` */}
-        <a href="#" onClick={(e) => { func(); return false; }} class="active">
+        <a href="#" onClick={(e) => { func(); return false; }} className="active">
 
-          <div class="from2" >{data.from}</div> </a>
+          <div className="from2" >{data.from}</div> </a>
 
 
       </div>
@@ -95,7 +95,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
 
             <div class="from" >{data.from}</div> </a> */}
 
-          <div class="from" >ME</div>
+          <div className="from" >ME</div>
 
         </div>
 
