@@ -46,38 +46,30 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
         });
     }
 
-    return (
-        <div class="container-fluid conversation-list p-0" >
-            <div class="row">
-                <div class="col title-new-conversations" onClick={NewHanghout}>
-                    + New Conversations
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <ConversationSearch list={hangouts} kindList="filteredHangouts" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h1 className="conversationsTitle">Conversations</h1>
-                </div>
-            </div>
-            <div class="row cli scrollable2">
-                <div class="col ">
-                    {
-                        filteredHangouts && filteredHangouts.length > 0 ?
-                            filteredHangouts.map(conversation =>
-                                <div >
+    return (<div className="conversation-list" >
+        <Toolbar title="Messenger"
+            leftItems={
+                [<ToolbarButton key="cog"
+                    icon="ion-ios-cog" />
+                ]
+            }
+            rightItems={
+                [<ToolbarButton key="add"
+                    icon="ion-ios-add-circle-outline" onClick={NewHanghout} />
+                ]
+            }
+        /> <ConversationSearch list={hangouts} kindList="filteredHangouts" />
+        {
+            filteredHangouts && filteredHangouts.length > 0 ?
+                filteredHangouts.map(conversation =>
+                    <div >
 
-                                    <ConversationListItem key={conversation._id} className="color"
-                                        data={conversation} onClick={setHangoutID, setCurrentConversation}
-                                    /></div>
-                            ) : <div className="no-result">No results found</div>
-                    }
-                </div>
-            </div>
+                        <ConversationListItem key={conversation._id} className="color"
+                            data={conversation} onClick={setHangoutID, setCurrentConversation}
+                        /></div>
+                ) : <div className="no-result">No results found</div>
+        }
 
-        </div>
+    </div>
     );
 })

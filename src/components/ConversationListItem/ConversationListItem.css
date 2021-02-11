@@ -2,12 +2,10 @@
   display: flex;
   align-items: center;
   padding: 10px;
-  color:#384364;
-  /* text-align: center; */
 }
 
 .conversation-list-item:hover {
-  background: #EEEEEE;
+  background: #eeeef1;
   cursor: pointer;
 }
 .option:hover{
@@ -36,6 +34,9 @@
 
 .conversation-snippet {
   font-size: 14px;
-  color: #384364;
+  color: #888;
   margin: 0;
+}
+.color{
+  background-color: brown;
 }

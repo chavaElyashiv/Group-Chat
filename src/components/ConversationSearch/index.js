@@ -77,9 +77,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
       <input
         type="search" onChange={(e) => { search(e.target.value) }}
         className="conversation-search-input"
+        placeholder="Search Messages"
       />
-
     </div>
-
   );
 })
