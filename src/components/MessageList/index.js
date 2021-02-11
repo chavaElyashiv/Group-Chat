@@ -50,7 +50,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const messages = props.filteredMessages;
   const messagesEndRef = useRef(null)
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView()
+    // messagesEndRef.current?.scrollIntoView()
   }
 
   useEffect(() => {
@@ -70,15 +70,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
-  const messagesEndRef = useRef(null)
-
-  const scrollToBottom = () => {
-    // messagesEndRef.current?.scrollIntoView();
-  }
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages]);
 
   // $('.emojiButton').click(function(){
   //   debugger;
