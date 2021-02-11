@@ -2,7 +2,6 @@ import { Provider } from 'react-redux';
 import { Socket } from 'socket.io-client';
 import store from '../../redux/Stores/store';
 import ContactList from '../ContactList';
-import Messenger from '../Messenger';
 import Messenger2 from '../Messenger2'
 import React, { useState, useEffect, useRef } from "react";
 import socketIOClient from "socket.io-client";

@@ -64,16 +64,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
       {owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => removeMember(_id)}>remove member</Button1>}
 
       <>
-        <Button variant="danger" ref={target} style={{
-          border: 'none',
-          background: 'none'
-        }} onClick={() => setShow(!show)}>
+        {!showButton && <button type="button" class="btn" ref={target}
+          style={{
+            border: 'none',
+            background: 'none'
+          }}
+          onClick={() => setShow(!show)}>
 
           <i className="la la-ellipsis-v" />
           <div>
             <i variant="danger" ref={target} onClick={() => setShow(!show)} className="fa fa-ellipsis-v" />
           </div>
-        </Button>
+        </button>}
 
         <Overlay target={target.current} show={show} placement="right">
           {({ placement, arrowProps, show: _show, popper, ...props }) => (

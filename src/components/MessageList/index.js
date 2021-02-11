@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 
@@ -63,6 +63,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    // messagesEndRef.current?.scrollIntoView();
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages]);
 
   // $('.emojiButton').click(function(){
   //   debugger;
@@ -220,6 +229,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
         {showMembersList ? <MembersList /> : ''}
         {showContactList ? <ContactList /> : ''}
         {showNewHangout ? <NewHangout /> : ''}
+        <div ref={messagesEndRef} />
       </div>
 
       {showMessagesList ? <Compose2 rightItems={[

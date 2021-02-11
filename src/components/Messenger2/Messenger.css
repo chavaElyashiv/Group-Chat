@@ -1,21 +1,42 @@
-.back,.profile,.cl {
+body {
     color: #E8EAEC;
   }
   .headerImg{
-height: 10vh;
-background-color: red;
-/* background-color: slateblue; */
+height: 20vh;
+
+background-image: url('../../assets/Mask Group 78.png') ;
   }
 .messageList{
   height: 94vh;
-  background: #FFFFFF
+}
+.ml{
+  height: 74vh;
+  background-color: #FFFFFF;
+}
+.profile{
+  height: 34vh;
+}
+.cl{
+  height: 57vh;
+}
+.profile,.cl{
+  background-color:  #FFFFFF;
+  border-radius: 10px;
+  border:none;
 }
 
-/* div>div:nth-child(1){
-  background-color: red;
-  height: 132px;
+*::-webkit-scrollbar {
+  width: 8px;
 }
-div>div:nth-child(2){
-  background-color: yellow;
-  height: 132px;
-} */
+
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: #00000033;
+}
+
+.scrollable {
+  position: relative;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
