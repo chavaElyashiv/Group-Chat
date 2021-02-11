@@ -50,7 +50,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const messages = props.filteredMessages;
   const messagesEndRef = useRef(null)
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView()
+    // messagesEndRef.current?.scrollIntoView()
   }
 
   useEffect(() => {
