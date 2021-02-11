@@ -34,11 +34,13 @@ export const getHangoutsForUser = ({ dispatch, getState }) => next => action => 
         })
             .then((res) => {
                 // checkPermission(res).then((ifOk) => {
-                //debugger;
+                debugger;
 
                 console.log(res.hangouts)
                 dispatch(actions.setHangouts(res.hangouts));
-                dispatch(actions.setFilteredHangouts(res.hangouts));
+                dispatch(actions.setFilteredList({ list: res.hangouts, kindList: "filteredHangouts" }));
+
+                // dispatch(actions.setFilteredHangouts(res.hangouts));
             })
         // .catch((err) => {
         //     console.log(err)
@@ -135,8 +137,12 @@ export const newHangout = ({ dispatch, getState }) => next => action => {
 
         })
             .then((res) => {
+                debugger
                 //     checkPermission(res).then((ifOk) => {
                 dispatch(actions.addNewHangout(res.newHangout));
+                dispatch(actions.setFilteredList({ list: getState().hangoutReducer.hangouts, kindList: "filteredHangouts" }));
+
+
             })
         //   })
 
@@ -262,6 +268,7 @@ export const getManagerPermission = ({ dispatch, getState }) => next => action =
 
 export const removeMemberByManager = ({ dispatch, getState }) => next => action => {
     if (action.type === 'REMOVE_MEMBER_BY_MANAGER') {
+        debugger
         return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/${getState().hangoutReducer.hangout}/exitHangout`, {
             method: 'POST',
             headers: {

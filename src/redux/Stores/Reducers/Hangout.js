@@ -32,11 +32,16 @@ const hangout = {
             state.listConvesation.push(action.payload.wave);
     },
     addNewHangout(state, action) {
+        debugger
         state.hangouts.push(action.payload);
     },
     addMember(state, action) {
         state.members.push(action.payload);
     },
+    setMembers(state, action) {
+        state.members = action.payload;
+    },
+
     setShowNewHangout(state, action) {
         if (action.payload != undefined)
             state.showNewHangout = action.payload;

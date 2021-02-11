@@ -16,7 +16,6 @@ import MembersList from '../MembersList/index';
 import NewHangout from '../NewHangout/index';
 import { Icon, InlineIcon } from '@iconify/react';
 import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
-import Compose2 from '../Compose2';
 
 function mapStateToProps(state) {
   return {
@@ -232,7 +231,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
         <div ref={messagesEndRef} />
       </div>
 
-      {showMessagesList ? <Compose2 rightItems={[
+      {showMessagesList ? <Compose rightItems={[
         <button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
         <ToolbarButton key="photo" icon="ion-ios-camera" />,
         <ToolbarButton key="image" icon="ion-ios-image" />,

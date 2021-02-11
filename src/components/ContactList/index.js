@@ -36,6 +36,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function ContactList
     var [AddContacts, setAddContacts] = useState([]);
     var [con, setCon] = useState([]);
 
+    function addNewContacts() {
+        AddContactsToHangout(AddContacts)
+        setShowContactList()
+
+    }
     const addContactsToList = function (contact) {
 
         if (AddContacts.includes(contact)) {
@@ -71,7 +76,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function ContactList
                 )
             }
 
-            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { setShowContactList() }}>ADD CONTACTS</Button></div>
+            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { addNewContacts() }}>ADD CONTACTS</Button></div>
         </div>
 
     );

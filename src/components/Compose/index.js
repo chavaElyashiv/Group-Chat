@@ -1,197 +1,179 @@
-// import React, { useEffect, useState, useRef } from 'react';
-// import './Compose.css';
-// import $ from 'jquery';
-// import { actions } from '../../redux/Actions/actions'
-// import InputEmoji from "react-input-emoji";
-// import 'font-awesome/css/font-awesome.min.css';
-// // import io from 'https://socket.chat.leader.codes';
-// import socketIOClient from "socket.io-client";
-// import { connect } from 'react-redux'
-// // import useChat from "../UseChat/index";
-
-// function mapStateToProps(state) {
-//   return {
-//     messageInput: state.messageInput,
-//     userName: state.userName,
-//     hangout: state.hangout
-
-//   }
-// }
-
-
-// const mapDispatchToProps = (dispatch) => ({
-//   SetMessageInput: (messageInput) =>
-//     dispatch(actions.setMessageInput(messageInput)),
-//   addNewWave: (wave) => dispatch(actions.addNewWave(wave))
-// })
-
-// export default connect(mapStateToProps, mapDispatchToProps)(function Compose(props) {
-//   debugger
-//   //while (props.hangout == undefined) {
-//   //  const { roomId } = props.hangout; // Gets roomId from URL
-
-//   const { messages, sendMessage } = useChat(props.hangout); // Creates a websocket and manages messaging
-//   // }
-//   const [newMessage, setNewMessage] = React.useState(""); // Message to be sent
-
-
-//   const { userName, hangout } = props;
-//   const [text, setText] = useState("");
-
-//   const handleNewMessageChange = (event) => {
-//     debugger
-//     setNewMessage(event.target.value);
-//   };
-
-//   const handleSendMessage = () => {
-//     sendMessage(newMessage);
-//     setNewMessage("");
-//   };
-//   function handleOnChange(value) {
-
-//     // if (e.key === "Enter") {
-//     debugger
-//     setText(value)
-//     // props.SetMessageInput(text)
-//     socketRef.current.emit('sendMessage', value)
-//     // }
-
-//     // console.log("enter", text);
-
-
-//   }
-//   // function sendMessage(text) {
-//   //   const wave = {
-//   //     body: text,
-//   //     from: props.userName
-//   //   }
-//   //   props.addNewWave(wave)
-//   // }
-//   const SOCKET_SERVER_URL = "https://socket.chat.leader.codes"
-
-//   const socketRef = useRef();
-//   // useEffect(() => {
-//   //   debugger
-
-//   //   if (props.hangout != null) {
-//   //     const { messages, sendMessage } = useChat(props.hangout);
-//   //   }
-//   // }, [props.hangout])
-
-
-//   useEffect(() => {
-//     debugger
-//     socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
-//       transports: ['websocket'],
-//       // query: { roomId },
-//       // connected: true,
-//       // disconnected: false
-//     });
-//     debugger
-
-//     socketRef.current.on('connect', () => {
-//       debugger
-//       socketRef.current.emit('user', userName, hangout);
-//       console.log("arrive to connect");
-//       console.log(socketRef.current.id, "socket3", socketRef)
-//       socketRef.current.emit('sendMessage', "uyuyuy")
-//     });
-//     debugger
-
-//     socketRef.current.on('Message', function (message) {
-//       debugger
-//       setText(message);
-//     })
-
-//   }, [])
+import React, { useEffect, useState, useRef, Component } from 'react';
+import './Compose.css';
+import $ from 'jquery';
+import { actions } from '../../redux/Actions/actions'
+import InputEmoji from "react-input-emoji";
+import 'font-awesome/css/font-awesome.min.css';
+import socketIOClient from "socket.io-client";
+import { connect } from 'react-redux'
+import { socketRef } from "../../socket";
+import { render } from 'react-dom';
 
 
 
-//   function emitMessage(message) {
-//     socketRef.current.emit('send_message', message);
-
-//   }
-//   //  useEffect(() => {
-//   // if(props.messageInput=="")
-//   //    $('#inputVal').val("")
-//   // }, [props.messageInput]);
-//   // const socket = socketIOClient("https://socket.chat.leader.codes", { transports: ['websocket']});
-//   // useEffect(()=>{
-//   //   socket.on('send_message', function (msg) {
-
-//   //     console.log("send", msg);
-//   //     $('.compose-input').append($('<div>').html(msg+"111"));
-//   //     // localStorageSave(msg);
-//   //   });
-
-//   //       // append text if someone is online
-//   //       socket.on('is_online', function (msg, type) {
-//   //           console.log(type);
+function mapStateToProps(state) {
+    return {
+        // messageInput: state.messageInput,
+        userName: state.userReducer.userName,
+        hangout: state.hangoutReducer.hangout
+    }
+}
 
 
-//   //           if (type == 'left') {
-//   //           }
+const mapDispatchToProps = (dispatch) => ({
+    SetMessageInput: (messageInput) =>
+        dispatch(actions.setMessageInput(messageInput)),
+    addNewWave: (wave) => dispatch(actions.addNewWave(wave)),
+    addWaveLocal: (wave, hangout) => dispatch(actions.addWave({ wave: wave, hangout: hangout })),
+    //getCurrentHangoutID to handle it!!
+    getCurrentHangoutID: () => dispatch(actions.getCurrentHangoutID())
+})
 
-//   //       });
-//   //       let username = "mindy";
-
-//   //       let hangoutID = "318412160";
-
-
-//   //       if (username != '' && username != undefined && hangoutID != '' && hangoutID != undefined) {
-//   //            console.log("huu");
-
-//   //           socket.emit('user', username, hangoutID);
-//   //       } 
-//   // },[])
-
-//   // socket.on("connection", data => 
-//   // {
-//   //  //do function
-//   // })
-//   // let ioConect = 'https://socket.chat.leader.codes'
-//   // let socket = io.connect(ioConect)
-
-//   // document.getElementById('inputVal').value=''
-//   // document.getElementById('inputVal').placeholder= e.target.value
-//   // props.setEmoji(e.key)
+export default connect(mapStateToProps, mapDispatchToProps)(function Compose(props) {
+    // const { hangout } = props;
+    const { addNewWave, addWaveLocal, userName, getCurrentHangoutID } = props;
+    const [message1, setMessage1] = useState("");
 
 
-//   return (
-//     <div className="compose">
-//       {/* <InputEmoji */}
-//       <input
-//         className="compose-input"
-//         id="inputVal"
-//         type="text"
-//         // onEnter={(value) => handleOnChange(value)}
-//         //  value={props.messageInput}
-//         value={newMessage}
-//         //  onChange={setText, handleOnChange}
-//         // onChange={()=>{setText(); loger()}}
-//         cleanOnEnter
-//         onChange={handleNewMessageChange}
-//         placeholder="Write message..."
-//         // onEnter={sendMessage}
-//         placeholder="Type a message"
-//       />
-//       {/* <input
-//         id="inputVal"
-//           type="text"
-//           onKeyUp={(e)=>changeVal(e)}
-//           className="compose-input"
-//           // placeholder={props.currentEmoji}
-//           value={props.currentEmoji?props.currentEmoji:inputValue}
-//         /> */}
-//       {
-//         props.rightItems
-//       }
-//       <button onClick={handleSendMessage} className="send-message-button">
-//         Send
-//       </button>
-//     </div>
-//   );
-// })
+    // const SOCKET_SERVER_URL = "https://socket.chat.leader.codes"
+
+    // const socketRef = useRef();
+    // const socketRef = useRef(socketRef);
+
+    useEffect(() => {
+        debugger
+        socketRef.emit('user', props.userName, props.hangout, (response) => {
+            console.log(response.status); // ok
+        })
+
+        // socketRef.emit('connection', socketRef)
+
+    }, [props.hangout])
+    useEffect(() => {
+        socketRef.on('connect', (message) => {
+            debugger
+            console.log("someone connected");
+            // var h = await getCurrentHangoutID();
+            // var h = props.hangout;
+            // // componentDidUpdate()
+            // console.log("props.hangout", props.hangout);
+            // if (props.hangout != null) {
+            //     debugger
+            //     console.log("props.userName", props.userName);
+            //     console.log("props.hangout", props.hangout);
+            //     // socketRef.emit('user', props.userName, props.hangout)
+            //         socketRef.emit('user', props.userName, props.hangout)
+
+            //     //     console.log("message", message);
+            // }
+
+        });
+
+        // componentDidUpdate(){
+        //     console.log("props.hangout", props.hangout);
+
+        // }
+        // socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
+        //     transports: ['websocket'],
+
+        // });
+        socketRef.on('message', (message, from, hangout) => {
+
+            debugger
+            //    if (hangout === props.hangout) {
+            let wave = {
+                body: message,
+                from: from
+            }
+            addWaveLocal(wave, hangout)
+            debugger
+
+            console.log("message", message);
+            //    }
+
+
+
+
+            debugger
+
+        })
+        socketRef.on('is_online', (message) => {
+            console.log("is_online", message);
+        })
+        // socketRef.on('connect', (message) => {
+        //     // componentDidUpdate()
+        //     console.log("props.hangout", props.hangout);
+        //     if (props.hangout != null) {
+        //         debugger
+        //         console.log("props.userName", props.userName);
+        //         console.log("props.hangout", props.hangout);
+        //         // socketRef.emit('user', props.userName, props.hangout)
+        //         socketRef.emit('user', props.userName, props.hangout)
+
+        //         //     console.log("message", message);
+        //     }
+        ////till here
+
+        // });
+        // socketRef.emit('user', props.userName, props.hangout)
+        socketRef.on('new member', (data) => {
+            console.log("new member", data);
+
+        })
+
+    }, [])
+
+
+
+    function emitMessage(message) {
+        debugger
+
+        //   if (!socketRef.current || socketRef.current.readyState !== 1) return;
+        socketRef.emit('send_message', message, userName, props.hangout);
+        const wave = {
+            body: message,
+            from: userName
+        }
+        addNewWave(wave)
+
+    }
+    function onEnter(e) {
+        debugger
+        if (e.key === 'Enter') {
+            emitMessage(e.target.value);
+            //   setMessage1(e.target.value)
+        }
+    }
+
+    return (
+        <div className="compose">
+
+            <input
+                className="compose-input"
+                id="inputVal"
+                type="text"
+                // onEnter={(value) => handleOnChange(value)}
+                //  value={props.messageInput}
+                //   value={message}
+                //  onChange={setText, handleOnChange}
+                onChange={(e) => { setMessage1(e.target.value) }}
+                //   onEnter={(e) => { setMessage(e.target.value) }}
+                //cleanOnEnter
+                //  onKeyDown={(e) => { onEnter(e) }}
+                //    onChange={handleNewMessageChange}
+                placeholder="Write message..."
+            // onEnter={sendMessage}
+            // placeholder="Type a message"
+            />
+            {
+                props.rightItems
+            }
+            <button onClick={() => { emitMessage(message1) }} className="send-message-button">
+                Send
+      </button>
+        </div>
+    );
+})
 
 
 
