@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Compose2 from '../Compose2';
+import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 
 import $ from 'jquery';
@@ -231,7 +231,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
         <div ref={messagesEndRef} />
       </div>
 
-      {showMessagesList ? <Compose2 rightItems={[
+      {showMessagesList ? <Compose rightItems={[
         <button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
         <ToolbarButton key="photo" icon="ion-ios-camera" />,
         <ToolbarButton key="image" icon="ion-ios-image" />,
