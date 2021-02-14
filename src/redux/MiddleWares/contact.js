@@ -130,6 +130,7 @@ export const AddContactsToHangout = ({ dispatch, getState }) => next => action =
                         debugger
                         dispatch(actions.addMember(res.user));
                         dispatch(actions.setFilteredList({ list: getState().hangoutReducer.members, kindList: "filteredMembers" }));
+                        dispatch(actions.getAllContactsExceptMembers())
 
                     }
                 })

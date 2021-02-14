@@ -283,6 +283,7 @@ export const removeMemberByManager = ({ dispatch, getState }) => next => action 
 
         }).then((res) => {
             dispatch(actions.getAllHangoutMembers())
+            dispatch(actions.getAllContactsExceptMembers())
 
         })
     }

@@ -17,3 +17,19 @@
   color: #007aff;
   opacity: 0.25;
 }
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: #00000033;
+}
+
+.scrollable {
+  position: relative;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
