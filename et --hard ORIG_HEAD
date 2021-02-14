@@ -1,0 +1,77 @@
+[33m8ed2d8e[m[33m ([m[1;36mHEAD -> [m[1;32mSM_design[m[33m, [m[1;31morigin/SM_design[m[33m)[m HEAD@{0}: checkout: moving from dev to SM_design
+[33mb9d87bf[m[33m ([m[1;32mdev[m[33m)[m HEAD@{1}: checkout: moving from SM_design to dev
+[33m8ed2d8e[m[33m ([m[1;36mHEAD -> [m[1;32mSM_design[m[33m, [m[1;31morigin/SM_design[m[33m)[m HEAD@{2}: commit (merge): merge
+[33m19a334c[m HEAD@{3}: checkout: moving from dev to SM_design
+[33mb9d87bf[m[33m ([m[1;32mdev[m[33m)[m HEAD@{4}: checkout: moving from SM_design to dev
+[33m19a334c[m HEAD@{5}: checkout: moving from dev to SM_design
+[33mb9d87bf[m[33m ([m[1;32mdev[m[33m)[m HEAD@{6}: reset: moving to HEAD
+[33mb9d87bf[m[33m ([m[1;32mdev[m[33m)[m HEAD@{7}: checkout: moving from SM_design to dev
+[33m19a334c[m HEAD@{8}: commit: remove from contacts when added to members, add to contacts when remove from members, remove ... from contacts list
+[33m1964f6a[m HEAD@{9}: checkout: moving from dev to SM_design
+[33mb9d87bf[m[33m ([m[1;32mdev[m[33m)[m HEAD@{10}: reset: moving to HEAD
+[33mb9d87bf[m[33m ([m[1;32mdev[m[33m)[m HEAD@{11}: checkout: moving from SM_design to dev
+[33m1964f6a[m HEAD@{12}: reset: moving to HEAD
+[33m1964f6a[m HEAD@{13}: checkout: moving from dev to SM_design
+[33mb9d87bf[m[33m ([m[1;32mdev[m[33m)[m HEAD@{14}: reset: moving to HEAD
+[33mb9d87bf[m[33m ([m[1;32mdev[m[33m)[m HEAD@{15}: pull: Merge made by the 'recursive' strategy.
+[33med54bc7[m HEAD@{16}: commit: remove //
+[33m532cb9d[m HEAD@{17}: checkout: moving from SM_design to dev
+[33m1964f6a[m HEAD@{18}: checkout: moving from dev to SM_design
+[33m532cb9d[m HEAD@{19}: checkout: moving from SM_design to dev
+[33m1964f6a[m HEAD@{20}: reset: moving to HEAD
+[33m1964f6a[m HEAD@{21}: commit (merge): conflict for merge
+[33m30774aa[m HEAD@{22}: checkout: moving from dev to SM_design
+[33m532cb9d[m HEAD@{23}: commit: add React in app
+[33md571a1d[m HEAD@{24}: checkout: moving from SM_design to dev
+[33m30774aa[m HEAD@{25}: commit: compose2
+[33mc724276[m HEAD@{26}: checkout: moving from CE_deleteHangout to SM_design
+[33mb652426[m[33m ([m[1;31morigin/CE_deleteHangout[m[33m, [m[1;32mCE_deleteHangout[m[33m)[m HEAD@{27}: checkout: moving from SM_design to CE_deleteHangout
+[33mc724276[m HEAD@{28}: checkout: moving from CE_deleteHangout to SM_design
+[33mb652426[m[33m ([m[1;31morigin/CE_deleteHangout[m[33m, [m[1;32mCE_deleteHangout[m[33m)[m HEAD@{29}: reset: moving to HEAD
+[33mb652426[m[33m ([m[1;31morigin/CE_deleteHangout[m[33m, [m[1;32mCE_deleteHangout[m[33m)[m HEAD@{30}: checkout: moving from CE_socket to CE_deleteHangout
+[33m7f5ab53[m[33m ([m[1;31morigin/CE_socket[m[33m, [m[1;32mCE_socket[m[33m)[m HEAD@{31}: checkout: moving from SM_design to CE_socket
+[33mc724276[m HEAD@{32}: commit: sjk
+[33m56217dd[m HEAD@{33}: commit (merge): merge
+[33mb946a27[m HEAD@{34}: checkout: moving from dev to SM_design
+[33md571a1d[m HEAD@{35}: reset: moving to HEAD
+[33md571a1d[m HEAD@{36}: pull: Fast-forward
+[33mac406a2[m HEAD@{37}: checkout: moving from SM_design to dev
+[33mb946a27[m HEAD@{38}: commit: design the list of conversations (search, new conversation, the list..), remove the option of exit/archive from the members and contacts lists
+[33m0f4eb7a[m HEAD@{39}: checkout: moving from dev to SM_design
+[33mac406a2[m HEAD@{40}: reset: moving to HEAD
+[33mac406a2[m HEAD@{41}: checkout: moving from SM_linkChannel to dev
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{42}: checkout: moving from dev to SM_linkChannel
+[33mac406a2[m HEAD@{43}: checkout: moving from SM_design to dev
+[33m0f4eb7a[m HEAD@{44}: commit: design
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{45}: checkout: moving from dev to SM_design
+[33mac406a2[m HEAD@{46}: reset: moving to HEAD
+[33mac406a2[m HEAD@{47}: pull: Fast-forward
+[33mee41a93[m HEAD@{48}: checkout: moving from SM_design to dev
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{49}: reset: moving to HEAD
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{50}: checkout: moving from dev to SM_design
+[33mee41a93[m HEAD@{51}: reset: moving to HEAD
+[33mee41a93[m HEAD@{52}: pull: Fast-forward
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{53}: checkout: moving from SM_design to dev
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{54}: reset: moving to HEAD
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{55}: checkout: moving from dev to SM_design
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{56}: reset: moving to HEAD
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{57}: checkout: moving from SM_linkChannel to dev
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{58}: checkout: moving from SM_design to SM_linkChannel
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{59}: checkout: moving from dev to SM_design
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{60}: checkout: moving from SM_linkChannel to dev
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{61}: checkout: moving from dev to SM_linkChannel
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{62}: checkout: moving from SM_linkChannel to dev
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{63}: checkout: moving from dev to SM_linkChannel
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{64}: checkout: moving from SM_linkForChannel to dev
+[33mc83829c[m[33m ([m[1;31morigin/SM_addManager[m[33m, [m[1;32mSM_linkForChannel[m[33m, [m[1;32mSM_addManager[m[33m)[m HEAD@{65}: checkout: moving from SM_addManager to SM_linkForChannel
+[33mc83829c[m[33m ([m[1;31morigin/SM_addManager[m[33m, [m[1;32mSM_linkForChannel[m[33m, [m[1;32mSM_addManager[m[33m)[m HEAD@{66}: checkout: moving from dev to SM_addManager
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{67}: reset: moving to HEAD
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{68}: checkout: moving from SM_addManager to dev
+[33mc83829c[m[33m ([m[1;31morigin/SM_addManager[m[33m, [m[1;32mSM_linkForChannel[m[33m, [m[1;32mSM_addManager[m[33m)[m HEAD@{69}: commit (merge): scroll to buttom when new wave added
+[33m363b823[m HEAD@{70}: checkout: moving from dev to SM_addManager
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{71}: reset: moving to HEAD
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{72}: checkout: moving from SM_addManager to dev
+[33m363b823[m HEAD@{73}: checkout: moving from dev to SM_addManager
+[33madaabec[m[33m ([m[1;31morigin/SM_linkChannel[m[33m, [m[1;32mSM_linkChannel[m[33m)[m HEAD@{74}: checkout: moving from SM_addManager to dev
+[33m363b823[m HEAD@{75}: checkout: moving from master to SM_addManager
+[33m43309af[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{76}: clone: from https://github.com/chavaElyashiv/Group-Chat
