@@ -66,10 +66,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
 
                         <ConversationListItem key={conversation._id} className="color"
                             data={conversation} onClick={setHangoutID, setCurrentConversation}
+                            showExit={true}
                         /></div>
                 ) : <div className="no-result">No results found</div>
         }
-
     </div>
+
     );
 })

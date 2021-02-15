@@ -16,6 +16,8 @@ function mapStateToProps(state) {
     owner: state.hangoutReducer.owner,
     manager: state.hangoutReducer.manager,
     showMembers: state.hangoutReducer.showMembersList,
+    managersList: state.hangoutReducer.managersList,
+    userId: state.userReducer._id,
     // showNewHangout: state.hangoutReducer.showNewHangout
   }
 
@@ -24,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 
   GivePermission: (_id) =>
     dispatch(actions.getManagerPermission(_id)),
-  removeMember: (_id) => dispatch(actions.removeMemberByManager(_id), dispatch(actions.getManagerPermission(_id))),
+  removeMember: (_id) => dispatch(actions.removeMemberByManager(_id)),
   exitHangout: () => dispatch(actions.exitHangout())
 })
 
@@ -42,11 +44,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     GivePermission,
     removeMember,
     exitHangout,
+    managersList,
     showMembers,
     // showNewHangout,
     owner,
+    userId,
     manager,
     showButton,
+    showExit,
     isManager } = props;
 
   const getConversations = props.onClick;
@@ -57,12 +62,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
 
   // useEffect(() => {
   //   scrollToBottom()
-  // }, [showNewHangout]);
+  // }, [stateConversation]);
 
   function contactList(_id) {
     getConversations(_id);
   }
   console.log("getConversations", getConversations);
+
+  function checkMember(_id) {
+    removeMember(_id)
+    if (managersList.includes(_id))
+      GivePermission(_id)
+  }
 
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
   return (
@@ -79,21 +90,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
 
 
       </div>
-      {owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => GivePermission(_id)}> {isManager ? "remove permission" : "Manager permission"}</Button1>}
-      {owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => removeMember(_id)}>remove member</Button1>}
+      {(userId !== _id) && owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => GivePermission(_id)}> {isManager ? "remove permission" : "Manager permission"}</Button1>}
+      {(userId !== _id) && owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => checkMember(_id)}>remove member</Button1>}
 
       <>
-
-        {!showButton && <Button variant="danger" ref={target} style={{
-          border: 'none',
-          background: 'none'
-        }} onClick={() => setShow(!show)}>
+        {showExit && <button type="button" class="btn" ref={target}
+          style={{
+            border: 'none',
+            background: 'none'
+          }}
+          onClick={() => setShow(!show)}>
 
           <i className="la la-ellipsis-v" />
           <div>
             <i variant="danger" ref={target} onClick={() => setShow(!show)} className="fa fa-ellipsis-v" />
           </div>
-        </Button>}
+        </button>}
 
         <Overlay target={target.current} show={show} placement="right">
           {({ placement, arrowProps, show: _show, popper, ...props }) => (
@@ -115,7 +127,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
           )}
         </Overlay>
       </>
-      {/* {!showButton && <div ref={conversationsEndRef} />} */}
+      {/* <div ref={conversationsEndRef} /> */}
     </div>
   );
 
