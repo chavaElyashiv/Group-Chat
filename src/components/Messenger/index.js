@@ -1,41 +1,33 @@
-import React from 'react';
-import ContactList from '../ContactList';
+import React from 'react'
+import './Messenger.css'
 import ConversationList from '../ConversationList';
 import MessageList from '../MessageList';
-import './Messenger.css';
-
 export default function Messenger(props) {
   return (
-    <div className="messenger">
-      {/* <Toolbar
-          title="Messenger"
-          leftItems={[
-            <ToolbarButton key="cog" icon="ion-ios-cog" />
-          ]}
-          rightItems={[
-            <ToolbarButton key="add" icon="ion-ios-add-circle-outline" />
-          ]}
-        /> */}
-
-      {/* <Toolbar
-          title="Conversation Title"
-          rightItems={[
-            <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
-            <ToolbarButton key="video" icon="ion-ios-videocam" />,
-            <ToolbarButton key="phone" icon="ion-ios-call" />
-          ]}
-        /> */}
-
-      <div className="scrollable sidebar">
-        <ConversationList />
-
+    <div class="container-fluid b" >
+      <div class="row">
+        <div class="col-9 messageList  my-3 px-5">
+          <div class="row">
+            <div class="col headerImg">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col ml scrollable">
+              < MessageList />
+            </div>
+          </div>
+        </div>
+        <div class="col-3 conversationsList my-3 pr-5">
+          <div class="row profile  ">
+            <div class="col"></div>
+          </div>
+          <div class="row cl mt-3">
+            <div class="col p-0">
+              <ConversationList />
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div className="scrollable content">
-
-        <MessageList />
-      </div>
-      {/* <div maxwidth="mm"><ContactList/></div> */}
     </div>
-  );
+  )
 }

@@ -50,7 +50,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const messages = props.filteredMessages;
   const messagesEndRef = useRef(null)
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView()
+    // messagesEndRef.current?.scrollIntoView()
   }
 
   useEffect(() => {
@@ -202,7 +202,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
 
 
   return (
-    <div className="message-list">
+    <div class="container-fluid p-0 message-list">
       {showMessagesList || showMembersList || showContactList ? <Toolbar
         title={showMessagesList ? "Conversation Title" : ""}
         rightItems={[
