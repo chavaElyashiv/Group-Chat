@@ -33,6 +33,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
     // const { hangout } = props;
     const { addNewWave, addWaveLocal, userName, getCurrentHangoutID } = props;
     const [message1, setMessage1] = useState("");
+    const [input, setInput] = useState("");
 
 
     // const SOCKET_SERVER_URL = "https://socket.chat.leader.codes"
@@ -135,6 +136,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
             from: userName
         }
         addNewWave(wave)
+        // inputVal.value = null;
+        setMessage1('')
 
     }
     function onEnter(e) {
@@ -152,6 +155,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
                 className="compose-input"
                 id="inputVal"
                 type="text"
+                value={message1}
                 // onEnter={(value) => handleOnChange(value)}
                 //  value={props.messageInput}
                 //   value={message}
@@ -159,7 +163,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
                 onChange={(e) => { setMessage1(e.target.value) }}
                 //   onEnter={(e) => { setMessage(e.target.value) }}
                 //cleanOnEnter
-                //  onKeyDown={(e) => { onEnter(e) }}
+                onKeyDown={(e) => { onEnter(e) }}
                 //    onChange={handleNewMessageChange}
                 placeholder="Write message..."
             // onEnter={sendMessage}

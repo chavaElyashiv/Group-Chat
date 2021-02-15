@@ -116,6 +116,8 @@ export const addNewWave = ({ dispatch, getState }) => next => action => {
                 //     checkPermission(res).then((ifOk) => {
 
                 dispatch(actions.addWave(res.newWave))
+                dispatch(actions.setFilteredList({ list: getState().hangoutReducer.listConvesation, kindList: "filteredMessages" }));
+
             })
         //     })
 
