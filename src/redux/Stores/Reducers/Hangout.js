@@ -25,11 +25,13 @@ const hangout = {
     },
     addWave(state, action) {
         debugger
-        if (!action.payload.hangout)
+        if (!action.payload.hangout) {
             state.listConvesation.push(action.payload);
+        }
 
-        else if (action.payload.hangout === state.hangout)
+        else if (action.payload.hangout === state.hangout) {
             state.listConvesation.push(action.payload.wave);
+        }
     },
     addNewHangout(state, action) {
         debugger
