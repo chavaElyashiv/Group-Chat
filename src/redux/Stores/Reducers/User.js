@@ -5,7 +5,8 @@ const initalStaste = {
     userName: (window.location.pathname.split('/')[1]),
     uid: '',
     _id: '',
-    jwt: ''
+    jwt: '',
+    img: ''
 }
 
 const user = {
@@ -14,6 +15,9 @@ const user = {
     },
     setId(state, action) {
         state._id = action.payload;
+    },
+    setImg(state, action) {
+        state.img = action.payload;
     }
 }
 

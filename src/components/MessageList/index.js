@@ -203,44 +203,55 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
 
   return (
     <div class="container-fluid p-0 message-list">
-      {showMessagesList || showMembersList || showContactList ? <Toolbar
-        title={showMessagesList ? "Conversation Title" : ""}
-        rightItems={[
-          // {/* <ToolbarButton key="123e" icon="ion-ios-person-add-sharp" /> */}
+      <div class="row">
+        <div class="col">
+          {showMessagesList || showMembersList || showContactList ? <Toolbar
+            title={showMessagesList ? "Conversation Title" : ""}
+            rightItems={[
+              // {/* <ToolbarButton key="123e" icon="ion-ios-person-add-sharp" /> */}
 
-          // {/* <span class="iconify" data-icon="ion:person-add-sharp" data-inline="false"></span> */}
+              // {/* <span class="iconify" data-icon="ion:person-add-sharp" data-inline="false"></span> */}
 
-          <>  <Icon key="pop" className="tool" icon={accountMultiplePlus} onClick={h} />
+              <>  <Icon key="pop" className="tool" icon={accountMultiplePlus} onClick={h} />
 
-            <ToolbarButton key="video" icon="ion-ios-videocam" />
-            <ToolbarButton key="phone" icon="ion-ios-call" />
-          </>
-
-
-        ]}
-      /> : ''}
+                <ToolbarButton key="video" icon="ion-ios-videocam" />
+                <ToolbarButton key="phone" icon="ion-ios-call" />
+              </>
 
 
-      <div className="message-list-container">
+            ]}
+          /> : ''}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {showMessagesList ? <ConversationSearch list={stateConversation} kindList="filteredMessages" /> : ''}
 
-        {showMessagesList ? <ConversationSearch list={stateConversation} kindList="filteredMessages" /> : ''}
-        {showMessagesList ? renderMessages() : ''}
-        {showMembersList ? <MembersList /> : ''}
-        {showContactList ? <ContactList /> : ''}
-        {showNewHangout ? <NewHangout /> : ''}
-        <div ref={messagesEndRef} />
+        </div>
+      </div>
+      <div class="row scrollable ">
+        <div class="col message-list-container">
+          {showMessagesList ? renderMessages() : ''}
+          {showMembersList ? <MembersList /> : ''}
+          {showContactList ? <ContactList /> : ''}
+          {showNewHangout ? <NewHangout /> : ''}
+          <div ref={messagesEndRef} />
+        </div>
       </div>
 
-      {showMessagesList ? <Compose rightItems={[
-        <button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
-        <ToolbarButton key="photo" icon="ion-ios-camera" />,
-        <ToolbarButton key="image" icon="ion-ios-image" />,
-        <ToolbarButton key="audio" icon="ion-ios-mic" />,
-        <ToolbarButton key="money" icon="ion-ios-card" />,
-        <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
+      <div class="row">
+        {showMessagesList ? <Compose
+        // rightItems={[
+        //<button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
+        // <ToolbarButton key="photo" icon="ion-ios-camera" />,
+        // <ToolbarButton key="image" icon="ion-ios-image" />,
+        // <ToolbarButton key="audio" icon="ion-ios-mic" />,
+        // <ToolbarButton key="money" icon="ion-ios-card" />,
+        // <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
         // <ToolbarButton key="emoji" icon="ion-ios-happy" />
-      ]} /> : ''}
-
+        // ]} 
+        /> : ''}
+      </div>
     </div>
   );
 })

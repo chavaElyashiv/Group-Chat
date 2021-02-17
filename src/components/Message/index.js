@@ -1,6 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import conversation1 from '../../assets/conversation1.png'
+import conversation2 from '../../assets/conversation2.png'
 
 import './Message.css';
 import { connect } from 'react-redux';
@@ -52,17 +54,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
             {friendlyTimestamp}
           </div>
         }
+
         <div className="bubble-container">
+          <a href="#" onClick={(e) => { func(); return false; }} className="active">
+
+            <div className="from2" >{data.from}</div> </a>
           <div className="bubble" title={friendlyTimestamp}>
             {data.body}
 
           </div>
           {/* <p class="sentText pr-10">{name}</p> */}
+
         </div>
         {/* `https://contacts.leader.codes/${userName}` */}
-        <a href="#" onClick={(e) => { func(); return false; }} className="active">
 
-          <div className="from2" >{data.from}</div> </a>
 
 
       </div>
@@ -81,6 +86,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
           </div>
         }
         <div >
+
           <div className="bubble-container">
             <div className="bubble" title={friendlyTimestamp}>
               {data.body}
@@ -89,13 +95,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
             </div>
 
             {/* <div>{data.from}</div>   */}
-
+            <div className="from" >ME</div>
           </div>
           {/* <a href="#"onClick={(e)=>{func(); return false;}} class="active">
 
             <div class="from" >{data.from}</div> </a> */}
 
-          <div className="from" >ME</div>
+
 
         </div>
 

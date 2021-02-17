@@ -8,7 +8,8 @@ import socketIOClient from "socket.io-client";
 import { connect } from 'react-redux'
 import { socketRef } from "../../socket";
 import { render } from 'react-dom';
-
+import sendImg from '../../assets/send.png'
+import happiness from '../../assets/happiness.png'
 
 
 function mapStateToProps(state) {
@@ -146,31 +147,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
     }
 
     return (
-        <div className="compose">
+        <div class="col compose">
+            <div class="input-group input-icons mb-3">
+                <input type="text"
+                    className="form-control"
+                    placeholder="Type your message"
+                    onChange={(e) => { setMessage1(e.target.value) }} >
+                </input>
+                <div class="input-group-append">
+                    <img src={sendImg} className="send"
+                        onClick={() => { emitMessage(message1) }}></img>
+                </div>
+            </div>
 
-            <input
-                className="compose-input"
-                id="inputVal"
-                type="text"
-                // onEnter={(value) => handleOnChange(value)}
-                //  value={props.messageInput}
-                //   value={message}
-                //  onChange={setText, handleOnChange}
-                onChange={(e) => { setMessage1(e.target.value) }}
-                //   onEnter={(e) => { setMessage(e.target.value) }}
-                //cleanOnEnter
-                //  onKeyDown={(e) => { onEnter(e) }}
-                //    onChange={handleNewMessageChange}
-                placeholder="Write message..."
-            // onEnter={sendMessage}
-            // placeholder="Type a message"
-            />
             {
                 props.rightItems
             }
-            <button onClick={() => { emitMessage(message1) }} className="send-message-button">
-                Send
-      </button>
         </div>
     );
 })

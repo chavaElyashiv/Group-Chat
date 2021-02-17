@@ -1,0 +1,62 @@
+.picture{
+    height: 60px;
+    border-radius: 20px;
+    border:2px solid #8B5CFF;
+    margin:0px 107px 5px 107px;
+    background-color:#8B5CFF ;
+    color:white;
+    font-size: xx-large;
+    text-align: center;
+}
+
+.call{
+    background:#7CE7ACE3;
+    color:#ffffff;
+    border-radius: 8px;
+    height: auto;
+    margin-top: 8px;
+}
+.dropdown-toggle{
+    border-radius: 8px;
+    border:1px solid #B8B8C5 !important;
+    height: 25px;
+    width: 208px !important;
+    background:none ;
+
+
+    
+}
+.title, .name, .dropdown-toggle{
+    text-align: center !important;
+}
+.name{
+    font-size: 20px;
+    color: #3A405E;
+}
+
+.title{
+    font-size: 14px;
+    color:#B8B8C5;
+}
+
+.properties{
+    line-height: 30%;
+}
+
+.callIcon{
+    text-align: right;
+    padding-bottom: 4px;
+    
+
+}
+.callText{
+    text-align: left;
+}
+
+.bell, .gear{
+    height: 20px ;
+}
+
+.toolbar2{
+    height: 20px;
+}

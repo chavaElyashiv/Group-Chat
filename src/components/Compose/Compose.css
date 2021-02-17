@@ -1,14 +1,4 @@
-.compose {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    background: white;
-    border-top: 1px solid #eeeef1;
-    position: fixed;
-    width: 71%;
-    bottom: 0px;
-  }
-  
+
   @supports (backdrop-filter: blur(20px)) {
     .compose {
       /* border: none; */
@@ -16,33 +6,32 @@
       backdrop-filter: blur(20px);
     }
   }
-  .sendButton {
-    color: #2979FF;
-    text-decoration: none;
-    background:#fff ;
-    display: inline-block;
-    border: none;
-    font-size: 20px;
-    transition: all 0.1s;
-  
+  .input-group{
+    padding-left: 100px !important;
+    padding-right: 100px !important;
   }
-  .compose-input {
-    flex: 1;
-    border: none;
-    font-size: 14px;
-    height: 40px;
-    background: none;
+
+  .form-control{
+    font-size: 18px !important;
+    padding: 8px 50px !important;
+    color:#81888E !important; 
+    border-radius:36px 0px 0px 36px !important;
+    border-right: none !important;
+    /* background: #FDFDFD !important; */
+    border-left: 1px solid #D8D8D8 !important;
+    border-bottom: 1px solid #D8D8D8 !important;
+    border-top: 1px solid #D8D8D8 !important;
+    background: url('../../assets/happiness.png') no-repeat left !important;
+    background-size: 15px !important;
+    background-position-x: 15px  !important;
   }
-  
-  .compose-input::placeholder {
-    opacity: 0.3;
+
+  .form-control:focus{
+    box-shadow: none !important;
   }
-  
-  .compose .toolbar-button {
-    color: #bbbbbf;
-    margin-left: 15px;
+  .send{
+height: 35px;
+margin-left: 5px;
+margin-top: 3px;
   }
-  
-  .compose .toolbar-button:hover {
-    color: #99999c;
-  }
+

@@ -20,6 +20,8 @@
   color: #999;
   font-weight: 600;
   font-size: 12px;
+  padding-top: 40px;
+  padding-left:5px ;
 }
 
 .from2{
@@ -30,7 +32,8 @@
   color: #999;
   font-weight: 600;
   font-size: 12px;
- 
+  padding-top: 40px;
+  padding-right:5px ;
 }
 
 
@@ -73,7 +76,8 @@
 
 .message .bubble-container .bubble {
   margin: 1px 0px;
-  background: #f4f4f8;
+  background: #8B5CFF;
+  color: #FFFFFF;
   padding: 10px 15px;
   border-radius: 20px;
   max-width: 75%;
@@ -81,13 +85,15 @@
   border-bottom-left-radius: 2px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+ box-shadow:  0px 3px 6px #00000029;
 }
 
 .message.mine .bubble-container .bubble {
-  background: #007aff;
-  color: white;
+  background:#FFFFFF;
+  color:#707070;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }
+
