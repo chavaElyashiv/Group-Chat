@@ -155,7 +155,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
                 <input type="text"
                     className="form-control"
                     placeholder="Type your message"
-                    onChange={(e) => { setMessage1(e.target.value) }} >
+                    value={message1}
+                    onChange={(e) => { setMessage1(e.target.value) }}
+                    onKeyDown={(e) => { onEnter(e) }} >
                 </input>
                 <div class="input-group-append">
                     <img src={sendImg} className="send"
