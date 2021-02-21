@@ -71,12 +71,12 @@ export const getAllContactsExceptMembers = ({ dispatch, getState }) => next => a
 
         })
             .then((res) => {
-                //  checkPermission(res).then((ifOk) => {
-                console.log("contacts", res)
-                dispatch(actions.setHangoutsContacts(res.contacts));
-                dispatch(actions.setFilteredList({ list: res.contacts, kindList: "filteredAddContacts" }));
+                checkPermission(res).then((ifOk) => {
+                    console.log("contacts", res)
+                    dispatch(actions.setHangoutsContacts(res.contacts));
+                    dispatch(actions.setFilteredList({ list: res.contacts, kindList: "filteredAddContacts" }));
+                })
             })
-        //  })
     }
     return next(action);
 }
@@ -95,14 +95,14 @@ export const getContactsForUser = ({ dispatch, getState }) => next => action => 
 
         })
             .then((res) => {
-                //     checkPermission(res).then((ifOk) => {
-                console.log("contacts", res)
-                dispatch(actions.setContacts(res.contacts));
-                dispatch(actions.setFilteredList({ list: res.contacts, kindList: "filteredContacts" }));
+                checkPermission(res).then((ifOk) => {
+                    console.log("contacts", res)
+                    dispatch(actions.setContacts(res.contacts));
+                    dispatch(actions.setFilteredList({ list: res.contacts, kindList: "filteredContacts" }));
+
+                })
 
             })
-
-        // })
     }
     return next(action);
 }
@@ -124,20 +124,20 @@ export const AddContactsToHangout = ({ dispatch, getState }) => next => action =
 
             })
                 .then((res) => {
-                    //      checkPermission(res).then((ifOk) => {
-                    console.log("contacts", res)
-                    if (res.user) {
-                        debugger
-                        dispatch(actions.addMember(res.user));
-                        dispatch(actions.setFilteredList({ list: getState().hangoutReducer.members, kindList: "filteredMembers" }));
-                        dispatch(actions.getAllContactsExceptMembers())
+                    checkPermission(res).then((ifOk) => {
+                        console.log("contacts", res)
+                        if (res.user) {
+                            debugger
+                            dispatch(actions.addMember(res.user));
+                            dispatch(actions.setFilteredList({ list: getState().hangoutReducer.members, kindList: "filteredMembers" }));
+                            dispatch(actions.getAllContactsExceptMembers())
 
-                    }
+                        }
+                    })
+
                 })
 
-        })
-
-        // });
+        });
     }
     return next(action);
 }
@@ -160,31 +160,58 @@ export const getAllHangoutMembers = ({ dispatch, getState }) => next => action =
 
         })
             .then((res) => {
-                //      checkPermission(res).then((ifOk) => {
-                console.log("contacts", res)
-                debugger
-                dispatch(actions.setFilteredList({ list: res.memberList, kindList: "filteredMembers" }));
-                dispatch(actions.setMembers(res.memberList));
+                checkPermission(res).then((ifOk) => {
+                    console.log("contacts", res)
+                    debugger
+                    dispatch(actions.setFilteredList({ list: res.memberList, kindList: "filteredMembers" }));
+                    dispatch(actions.setMembers(res.memberList));
 
 
 
+                })
             })
-        //   })
 
 
     }
     return next(action);
 }
-// function checkPermission(result) {
-//     return new Promise((resolve, reject) => {
-//         if (result.status == "401") {
-//             result.routes ?
-//                 window.location.assign(`https://dev.leader.codes/login?des=${result.des}'&routes='${result.routes}`) :
-//                 window.location.assign(`https://dev.leader.codes/login?des=${result.des}`)
-//             reject(false)
+// export const getContactByUsername = ({ dispatch, getState }) => next => action => {
+//     if (action.type === 'GET_CONTACT_BY_USERNAME') {
+//         return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/getUsernameReturnContact`, {
+//             method: 'POST',
+//             headers: {
+//                 Authentication: getState().userReducer.jwt,
+//                 Accept: 'application/json',
+//                 'Content-Type': 'application/json'
+//             }
+//         }).then((res) => {
+//             return res.json()
 
-//         }
-//         resolve(true)
 
-//     })
+//         })
+//             .then((res) => {
+//                 checkPermission(res).then(async (ifOk) => {
+//                     await dispatch(actions.addContactsToHangout(res.con))
+//                     dispatch(actions.addNewHangout(getState().hangoutReducer.hangout));
+//                     dispatch(actions.setFilteredList({ list: getState().hangoutReducer.hangouts, kindList: "filteredHangouts" }));
+
+//                 })
+//             })
+
+
+//     }
+//     return next(action);
 // }
+function checkPermission(result) {
+    return new Promise((resolve, reject) => {
+        if (result.status == "401") {
+            result.routes ?
+                window.location.assign(`https://dev.leader.codes/login?des=${result.des}'&routes='${result.routes}`) :
+                window.location.assign(`https://dev.leader.codes/login?des=${result.des}`)
+            reject(false)
+
+        }
+        resolve(true)
+
+    })
+}
