@@ -24,7 +24,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
   filteredList = conversations;
   //setSearchReasult(filteredList, kindList);
   function search(eve) {
-    debugger
 
     if (eve != "") {
       console.log(eve);
@@ -55,7 +54,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
         // setSearchReasult(filteredList, kindList)
       }
       if (kindList == "filteredMembers" && item.email != undefined && item.email.toLowerCase().indexOf(searchText) > -1) {
-        debugger
         filteredList.push(item);
         //  setSearchReasult(filteredList, kindList)
       }

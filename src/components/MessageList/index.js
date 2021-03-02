@@ -16,6 +16,7 @@ import MembersList from '../MembersList/index';
 import NewHangout from '../NewHangout/index';
 import { Icon, InlineIcon } from '@iconify/react';
 import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
+// import '@testing-library/jest-dom/extend-expect'
 
 function mapStateToProps(state) {
   return {
@@ -50,7 +51,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const messages = props.filteredMessages;
   const messagesEndRef = useRef(null)
   const scrollToBottom = () => {
-    //messagesEndRef.current?.scrollIntoView();
+    // if (messagesEndRef.current)
+    // messagesEndRef.scrollIntoView = function () { };
+    // window.HTMLElement.prototype.scrollIntoView = function () { };
   }
 
   useEffect(() => {
@@ -72,7 +75,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const [message, setMessage] = useState('');
 
   // $('.emojiButton').click(function(){
-  //   debugger;
+  //   ;
   //   console.log("emoji");
   // })
   useEffect(() => {
@@ -119,7 +122,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
     console.log(socket);
     console.log("message to send" + props.messageInput);
     if (props.messageInput) {
-      debugger
+
       props.addNewWave(wave)
       props.SetMessageInput("")
       // socket.emit('chat_message', props.messageInput);

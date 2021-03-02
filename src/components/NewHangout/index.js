@@ -9,6 +9,7 @@ import ConversationSearch from '../ConversationSearch/index'
 import TextField from '@material-ui/core/TextField';
 import $ from 'jquery';
 import './NewHangout.css';
+import Spinner from 'react-bootstrap/Spinner';
 
 function mapStateToProps(state) {
     return {
@@ -55,6 +56,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
     var [AddContacts, setAddContacts] = useState([]);
     var [groupName, setGroupName] = useState('');
     var [img, setImg] = useState('');
+    var [loading, setLoading] = useState(false);
     // var [con, setCon] = useState([]);
     // setShowContactList
 
@@ -117,9 +119,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
         if (AddContacts.length > 0 && groupName != '') {
             // var hangout = { members: AddContacts, name: groupName, owner: userName }
             setAddContacts([]);
+            setLoading(true);
             var hangout = { members: AddContacts, name: groupName, profileGroup: img, owner: userName }
             returnUsersId(hangout);
             setShow();
+
 
         }
         // AddContactsToHangout(AddContacts);
@@ -173,7 +177,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
                 )
             }
 
-            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { clearList() }}>Create New Group</Button></div>
+            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { clearList() }}>Create New Group</Button>
+
+            </div>
+            {loading && <Spinner animation="border" role="status">
+
+            </Spinner> &&
+                <span >creating your new group...</span>}
+
         </div >
 
     );

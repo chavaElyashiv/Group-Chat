@@ -12,7 +12,7 @@ const store = createStore(reducer, applyMiddleware(setJwt, getUsernameReturnEmai
 window.store = store
 
 export default store;
-//debugger;
+//;
 store.dispatch({ type: 'SET_JWT' })
 store.dispatch({ type: 'GET_UID_BY_USER_NAME' })
 //store.dispatch({ type: 'CHECK_JOIN_HANGOUT' })

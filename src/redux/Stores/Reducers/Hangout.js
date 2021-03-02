@@ -24,7 +24,7 @@ const hangout = {
         state.hangouts = action.payload;
     },
     addWave(state, action) {
-        debugger
+
         if (!action.payload.hangout) {
             state.listConvesation.push(action.payload);
         }
@@ -34,7 +34,7 @@ const hangout = {
         }
     },
     addNewHangout(state, action) {
-        debugger
+
         state.hangouts.push(action.payload);
     },
     addMember(state, action) {
@@ -78,7 +78,7 @@ const hangout = {
         state.managersList = action.payload;
     },
     getCurrentHangoutID(state, action) {
-        debugger
+
         return state.hangout;
     }
 
