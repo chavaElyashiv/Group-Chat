@@ -11,17 +11,29 @@ const initalStaste = {
 
 const filteredList = {
     setFilteredList(state, action) {
+<<<<<<< HEAD
         
         if (action.payload.kindList == "filteredContacts")
             state.filteredContacts = action.payload.list;
         else if (action.payload.kindList == "filteredHangouts") {
             
+=======
+
+        if (action.payload.kindList == "filteredContacts")
+            state.filteredContacts = action.payload.list;
+        else if (action.payload.kindList == "filteredHangouts") {
+
+>>>>>>> dev
             state.filteredHangouts = action.payload.list;
         }
         else if (action.payload.kindList == "filteredMessages")
             state.filteredMessages = action.payload.list;
         else if (action.payload.kindList == "filteredMembers") {
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> dev
             state.filteredMembers = action.payload.list;
         }
         else if (action.payload.kindList == "filteredAddContacts")

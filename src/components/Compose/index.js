@@ -40,7 +40,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
     // const socketRef = useRef(socketRef);
 
     useEffect(() => {
+<<<<<<< HEAD
         
+=======
+>>>>>>> dev
         socketRef.emit('user', props.userName, props.hangout, (response) => {
             console.log(response.status); // ok
         })
@@ -49,6 +52,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
 
     }, [props.hangout])
     useEffect(() => {
+
+        console.log(socketRef)
+        debugger
         socketRef.on('connect', (message) => {
             
             console.log("someone connected");
@@ -57,7 +63,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
             // // componentDidUpdate()
             // console.log("props.hangout", props.hangout);
             // if (props.hangout != null) {
-            //     debugger
+            //     
             //     console.log("props.userName", props.userName);
             //     console.log("props.hangout", props.hangout);
             //     // socketRef.emit('user', props.userName, props.hangout)
@@ -78,16 +84,23 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
         // });
         socketRef.on('message', (message, from, hangout) => {
 
-            debugger
             //    if (hangout === props.hangout) {
             let wave = {
                 body: message,
                 from: from
             }
             addWaveLocal(wave, hangout)
+<<<<<<< HEAD
             debugger
             console.log("message", message);
             //    }
+=======
+
+
+            console.log("message", message);
+            //    }
+
+>>>>>>> dev
         })
         socketRef.on('is_online', (message) => {
             console.log("is_online", message);
@@ -96,7 +109,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
         //     // componentDidUpdate()
         //     console.log("props.hangout", props.hangout);
         //     if (props.hangout != null) {
-        //         debugger
+        //         
         //         console.log("props.userName", props.userName);
         //         console.log("props.hangout", props.hangout);
         //         // socketRef.emit('user', props.userName, props.hangout)
@@ -115,7 +128,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
     }, [])
 
     function emitMessage(message) {
+<<<<<<< HEAD
         debugger
+=======
+
+>>>>>>> dev
         //   if (!socketRef.current || socketRef.current.readyState !== 1) return;
         socketRef.emit('send_message', message, userName, props.hangout);
         const wave = {
@@ -128,7 +145,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
 
     }
     function onEnter(e) {
-        debugger
         if (e.key === 'Enter') {
             emitMessage(e.target.value);
             //   setMessage1(e.target.value)

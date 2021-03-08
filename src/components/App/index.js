@@ -9,8 +9,12 @@ export default function App() {
     <Provider store={store}>
 
       <div className="App" >
+<<<<<<< HEAD
         <Messenger />
         {/* <SpinnerWait /> */}
+=======
+            <Messenger />
+>>>>>>> dev
       </div>
     </Provider>
   );

@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(function Message(props) {
   // useEffect(() => {
-  // debugger;
+
   // },[props.listConvesation])
   const { getUsernameReturnEmail, stateConversation, userName, setCurrentConversation } = props;
   const {
@@ -59,7 +59,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
 
         <div className="bubble-container">
           <a href="#" onClick={(e) => { func(); return false; }} className="active">
+<<<<<<< HEAD
           <div className="from2" >{data.from}</div> </a>
+=======
+aaaaaaaaa
+            <div className="from2" >{data.from}</div> </a>
+>>>>>>> dev
           <div className="bubble" title={friendlyTimestamp}>
             {data.body}
           </div>

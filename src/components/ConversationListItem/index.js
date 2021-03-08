@@ -8,8 +8,13 @@ import { connect } from 'react-redux'
 import { actions } from '../../redux/Actions/actions'
 import { blueGrey, red } from '@material-ui/core/colors';
 import Button1 from '@material-ui/core/Button';
+<<<<<<< HEAD
 import profilImg from '../../images/user-3.jpg'
 import thumbtack from '../../images/thumbtack2.png'
+=======
+import Hangout from '../../redux/Stores/Reducers/Hangout';
+
+>>>>>>> dev
 
 function mapStateToProps(state) {
   return {
@@ -19,8 +24,16 @@ function mapStateToProps(state) {
     showMembers: state.hangoutReducer.showMembersList,
     managersList: state.hangoutReducer.managersList,
     userId: state.userReducer._id,
+<<<<<<< HEAD
+    hangouts:state.hangoutReducer.hangouts
     // showNewHangout: state.hangoutReducer.showNewHangout
+<<<<<<< HEAD
     
+=======
+=======
+    isMute: state.hangoutReducer.mute
+>>>>>>> dev
+>>>>>>> dev
   }
 
 }
@@ -29,13 +42,14 @@ const mapDispatchToProps = (dispatch) => ({
   GivePermission: (_id) =>
     dispatch(actions.getManagerPermission(_id)),
   removeMember: (_id) => dispatch(actions.removeMemberByManager(_id)),
-  exitHangout: () => dispatch(actions.exitHangout())
+  exitHangout: () => dispatch(actions.exitHangout()),
+<<<<<<< HEAD
+  addStuck:(found)=>dispatch(actions.addStuck(found))
+=======
+  mute: () => dispatch(actions.muteHangout())
+>>>>>>> dev
 })
 
-//   setCurrentConversation:(_id)=>
-//   dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false))), 
-
-// })
 
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationListItem(props) {
   const [show, setShow] = useState(false);
@@ -48,13 +62,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     exitHangout,
     managersList,
     showMembers,
-    // showNewHangout,
+    mute,
     owner,
     userId,
     manager,
     showButton,
     showExit,
-    isManager } = props;
+    isManager,
+<<<<<<< HEAD
+  hangouts,
+  addStuck } = props;
+=======
+    isMute } = props;
+>>>>>>> dev
 
   const getConversations = props.onClick;
   // const conversationsEndRef = useRef(null)
@@ -85,8 +105,21 @@ alert(name)
     if (managersList.includes(_id))
       GivePermission(_id)
   }
+<<<<<<< HEAD
   
+=======
+
+
+
+>>>>>>> dev
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
+
+  function stuckHangout(){
+    const found = hangouts.find(element => element._id == _id);
+    props.addStuck(found)
+    // alert(found.name)
+    
+}
   return (
     <div className="conversation-list-item" onClick={(e) => getConversations ? contactList(_id) : console.log(getConversations)} >
 
@@ -123,6 +156,8 @@ alert(name)
         </button>}
         {showExit && <button  onClick={()=>stuckHangout()}>h</button>} 
 
+        {showExit && <button onClick={() => stuckHangout()}>h</button>} 
+
         <Overlay target={target.current} show={show} placement="right">
           {({ placement, arrowProps, show: _show, popper, ...props }) => (
             <div
@@ -135,8 +170,9 @@ alert(name)
                 ...props.style,
               }}
             >
-              <option className="option" value="">delete</option>
+              {/* <option className="option" value="">delete</option> */}
               <option className="option" value="" onClick={(e) => exitHangout()} >exit</option>
+              <option className="option" value="" onClick={(e) => mute()}>{isMute ? "unmute" : "mute"}</option>
               <option className="option" value="">archive</option>
 
             </div>

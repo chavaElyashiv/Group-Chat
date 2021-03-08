@@ -50,11 +50,34 @@ export const setShow = ({ dispatch, getState }) => next => action => {
                 dispatch(actions.setShowContactList());
             if (getState().hangoutReducer.showMembersList == true)
                 dispatch(actions.setShowMembersList());
+            if (getState().hangoutReducer.setSpinner == true)
+                dispatch(actions.setShowMembersList());
         }
     }
     return next(action);
 
 }
+
+export const setSpinner = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'SET_SPINNER') {
+                dispatch(actions.setShowSpinner());
+                dispatch(actions.setShowNewHangout());
+    }
+    return next(action);
+
+}
+
+export const deletSpinner = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'DELET_SPINNER') {
+                dispatch(actions.setShowSpinner());
+                dispatch(actions.setShowMessagesList());
+    }
+    return next(action);
+
+}
+
+
+
 //getAllContactsExceptMembers
 export const getAllContactsExceptMembers = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_ALL_CONTACTS_EXCEPT_MEMBERS') {
@@ -127,7 +150,6 @@ export const AddContactsToHangout = ({ dispatch, getState }) => next => action =
                     checkPermission(res).then((ifOk) => {
                         console.log("contacts", res)
                         if (res.user) {
-                            debugger
                             dispatch(actions.addMember(res.user));
                             dispatch(actions.setFilteredList({ list: getState().hangoutReducer.members, kindList: "filteredMembers" }));
                             dispatch(actions.getAllContactsExceptMembers())
@@ -144,7 +166,6 @@ export const AddContactsToHangout = ({ dispatch, getState }) => next => action =
 
 export const getAllHangoutMembers = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_ALL_HANGOUT_MEMBERS') {
-        debugger
 
 
         return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/${getState().hangoutReducer.hangout}/getAllHangoutMembers`, {
@@ -162,7 +183,7 @@ export const getAllHangoutMembers = ({ dispatch, getState }) => next => action =
             .then((res) => {
                 checkPermission(res).then((ifOk) => {
                     console.log("contacts", res)
-                    debugger
+
                     dispatch(actions.setFilteredList({ list: res.memberList, kindList: "filteredMembers" }));
                     dispatch(actions.setMembers(res.memberList));
 
