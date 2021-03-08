@@ -13,7 +13,10 @@ const initalStaste = {
     manager: false,
     managersList: [],
     owner: false,
-    pictures: []
+    pictures: [],
+    showSpinner:false,
+    lastWavesArr:[],
+    stuckHangout:[]
 }
 
 const hangout = {
@@ -80,8 +83,28 @@ const hangout = {
     getCurrentHangoutID(state, action) {
         debugger
         return state.hangout;
-    }
+    },
+    // setSpinner(state, action){
+    //     state.showSpinner = action.payload;
+    // },
+    setShowSpinner(state, action) {
+        if (action.payload != undefined)
+            state.showSpinner = action.payload;
+        else
+            state.showSpinner = !state.showSpinner;
+    },
+    
+    setlArrLastWaves(state,action){
+        state.lastWavesArr=action.payload
+    },
 
+
+    addStuck(state,action){
+        state.stuckHangout = state.stuckHangout.concat(action.payload);
+        alert(action.payload.name)
+        alert(state.stuckHangout)
+
+    }
 
 }
 

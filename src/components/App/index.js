@@ -9,7 +9,7 @@ export default function App() {
     <Provider store={store}>
 
       <div className="App" >
-        <Messenger />
+            <Messenger />
       </div>
     </Provider>
   );

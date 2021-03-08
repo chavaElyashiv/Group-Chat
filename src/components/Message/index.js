@@ -57,7 +57,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Message(pro
 
         <div className="bubble-container">
           <a href="#" onClick={(e) => { func(); return false; }} className="active">
-
+aaaaaaaaa
             <div className="from2" >{data.from}</div> </a>
           <div className="bubble" title={friendlyTimestamp}>
             {data.body}

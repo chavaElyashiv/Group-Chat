@@ -16,6 +16,7 @@ import MembersList from '../MembersList/index';
 import NewHangout from '../NewHangout/index';
 import { Icon, InlineIcon } from '@iconify/react';
 import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
+import Spinner from '../Spinner'
 
 function mapStateToProps(state) {
   return {
@@ -27,7 +28,8 @@ function mapStateToProps(state) {
     showNewHangout: state.hangoutReducer.showNewHangout,
     showMessagesList: state.hangoutReducer.showMessagesList,
     filteredMessages: state.filteredListReducer.filteredMessages,
-    listConvesation: state.hangoutReducer.listConvesation
+    listConvesation: state.hangoutReducer.listConvesation,
+    showSpinner:state.hangoutReducer.showSpinner
     //  filteredContacts:state.filteredContacts
   }
 
@@ -58,7 +60,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   }, [messages]);
 
 
-  const { showMessagesList, showNewHangout, stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers } = props;
+  const { showMessagesList, showNewHangout, stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers,showSpinner } = props;
 
   let socket;
   // let list;
@@ -235,6 +237,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
           {showMembersList ? <MembersList /> : ''}
           {showContactList ? <ContactList /> : ''}
           {showNewHangout ? <NewHangout /> : ''}
+          {showSpinner ? <Spinner/> :''}
           <div ref={messagesEndRef} />
         </div>
       </div>

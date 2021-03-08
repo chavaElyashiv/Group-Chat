@@ -50,11 +50,34 @@ export const setShow = ({ dispatch, getState }) => next => action => {
                 dispatch(actions.setShowContactList());
             if (getState().hangoutReducer.showMembersList == true)
                 dispatch(actions.setShowMembersList());
+            if (getState().hangoutReducer.setSpinner == true)
+                dispatch(actions.setShowMembersList());
         }
     }
     return next(action);
 
 }
+
+export const setSpinner = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'SET_SPINNER') {
+                dispatch(actions.setShowSpinner());
+                dispatch(actions.setShowNewHangout());
+    }
+    return next(action);
+
+}
+
+export const deletSpinner = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'DELET_SPINNER') {
+                dispatch(actions.setShowSpinner());
+                dispatch(actions.setShowMessagesList());
+    }
+    return next(action);
+
+}
+
+
+
 //getAllContactsExceptMembers
 export const getAllContactsExceptMembers = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_ALL_CONTACTS_EXCEPT_MEMBERS') {

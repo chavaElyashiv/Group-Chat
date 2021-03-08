@@ -9,6 +9,8 @@ import ConversationSearch from '../ConversationSearch/index'
 import TextField from '@material-ui/core/TextField';
 import $ from 'jquery';
 import './NewHangout.css';
+import hangoutReducer from '../../redux/Stores/Reducers/Hangout'
+
 
 function mapStateToProps(state) {
     return {
@@ -17,9 +19,9 @@ function mapStateToProps(state) {
         filteredContacts: state.filteredListReducer.filteredContacts,
         userName: state.userReducer.userName,
         uid: state.userReducer.uid,
-        jwtFromCookie: state.userReducer.jwt
-
-    }
+        jwtFromCookie: state.userReducer.jwt,
+        showSpinner:state.hangoutReducer.showSpinner
+        }
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -39,17 +41,21 @@ const useStyles = makeStyles((theme) => ({
 //     },
 // }));
 
+
+
 const mapDispatchToProps = (dispatch) => ({
     returnUsersId: (hangout) => dispatch(actions.returnUsersId(hangout)),
     AddContactsToHangout: (AddContacts) => dispatch(actions.addContactsToHangout(AddContacts)),
-    setShow: () => dispatch(actions.setShow("newHangout"))
+    setShow: () => dispatch(actions.setShow("newHangout")),
+    setSpinner:()=>dispatch(actions.setSpinner()),
+    deletSpinner:()=>dispatch(actions.deletSpinner())
     //  setShowContactList: () => dispatch(actions.setShowContactList()),
     // setFilteredContacts:()=> dispatch(actions.setShowContactList())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(props) {
 
-    const { jwtFromCookie, uid, setShow, contacts, returnUsersId, AddContactsToHangout, members, setShowContactList, filteredContacts, userName } = props;
+    const { jwtFromCookie, uid, setShow, contacts, returnUsersId, AddContactsToHangout, members, setShowContactList, filteredContacts, userName ,showSpinner,deletSpinner} = props;
     console.log("*****", contacts);
     const classes = useStyles();
     var [AddContacts, setAddContacts] = useState([]);
@@ -113,18 +119,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
 
         console.log("AddContacts", AddContacts)
     }
-    const clearList = function () {
-        if (AddContacts.length > 0 && groupName != '') {
+
+
+
+    const clearList =async function () {
+            props.setSpinner()
+            if (AddContacts.length > 0 && groupName != '') {
             // var hangout = { members: AddContacts, name: groupName, owner: userName }
             setAddContacts([]);
             var hangout = { members: AddContacts, name: groupName, profileGroup: img, owner: userName }
             returnUsersId(hangout);
-            setShow();
-
+           await setShow()
         }
+        props.deletSpinner()
         // AddContactsToHangout(AddContacts);
         // setShowContactList();
     }
+
+
     console.log("contact-contactList", contacts);
     return (
         <div className="conversation-search" >
