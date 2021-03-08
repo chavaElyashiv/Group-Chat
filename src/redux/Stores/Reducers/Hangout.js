@@ -14,9 +14,14 @@ const initalStaste = {
     managersList: [],
     owner: false,
     pictures: [],
+<<<<<<< HEAD
     showSpinner:false,
     lastWavesArr:[],
     stuckHangout:[]
+=======
+    superGroup: false,
+    mute: false
+>>>>>>> dev
 }
 
 const hangout = {
@@ -27,7 +32,7 @@ const hangout = {
         state.hangouts = action.payload;
     },
     addWave(state, action) {
-        debugger
+
         if (!action.payload.hangout) {
             state.listConvesation.push(action.payload);
         }
@@ -37,7 +42,7 @@ const hangout = {
         }
     },
     addNewHangout(state, action) {
-        debugger
+
         state.hangouts.push(action.payload);
     },
     addMember(state, action) {
@@ -80,10 +85,14 @@ const hangout = {
     setManagersList(state, action) {
         state.managersList = action.payload;
     },
+    setSuperGroup(state, action) {
+        state.superGroup = action.payload;
+    },
     getCurrentHangoutID(state, action) {
-        debugger
+
         return state.hangout;
     },
+<<<<<<< HEAD
     // setSpinner(state, action){
     //     state.showSpinner = action.payload;
     // },
@@ -98,6 +107,14 @@ const hangout = {
         state.lastWavesArr=action.payload
     },
 
+=======
+    setMute(state, action) {
+        if (action.payload)
+            state.mute = action.payload;
+        else
+            state.mute = !state.mute;
+    }
+>>>>>>> dev
 
     addStuck(state,action){
         state.stuckHangout = state.stuckHangout.concat(action.payload);

@@ -17,6 +17,7 @@ import NewHangout from '../NewHangout/index';
 import { Icon, InlineIcon } from '@iconify/react';
 import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
 import Spinner from '../Spinner'
+// import '@testing-library/jest-dom/extend-expect'
 
 function mapStateToProps(state) {
   return {
@@ -29,7 +30,10 @@ function mapStateToProps(state) {
     showMessagesList: state.hangoutReducer.showMessagesList,
     filteredMessages: state.filteredListReducer.filteredMessages,
     listConvesation: state.hangoutReducer.listConvesation,
-    showSpinner:state.hangoutReducer.showSpinner
+    showSpinner:state.hangoutReducer.showSpinner,
+    manager: state.hangoutReducer.manager,
+    owner: state.hangoutReducer.owner,
+    superGroup: state.hangoutReducer.superGroup
     //  filteredContacts:state.filteredContacts
   }
 
@@ -52,7 +56,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const messages = props.filteredMessages;
   const messagesEndRef = useRef(null)
   const scrollToBottom = () => {
-    //messagesEndRef.current?.scrollIntoView();
+    // messagesEndRef.current?.scrollIntoView();
   }
 
   useEffect(() => {
@@ -60,7 +64,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   }, [messages]);
 
 
-  const { showMessagesList, showNewHangout, stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers,showSpinner } = props;
+  const { showMessagesList,
+    showNewHangout,
+    stateConversation,
+    setCurrentConversation,
+    showContactList,
+    showContact,
+    showMembersList,
+    showMembers,
+    manager,
+    owner,
+    superGroup ,
+    showSpinner} = props;
 
   let socket;
   // let list;
@@ -74,7 +89,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const [message, setMessage] = useState('');
 
   // $('.emojiButton').click(function(){
-  //   debugger;
+  //   ;
   //   console.log("emoji");
   // })
   useEffect(() => {
@@ -121,7 +136,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
     console.log(socket);
     console.log("message to send" + props.messageInput);
     if (props.messageInput) {
-      debugger
+
       props.addNewWave(wave)
       props.SetMessageInput("")
       // socket.emit('chat_message', props.messageInput);
@@ -243,7 +258,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
       </div>
 
       <div class="row">
-        {showMessagesList ? <Compose
+        {showMessagesList && (!superGroup || superGroup && (manager || owner)) && < Compose
         // rightItems={[
         //<button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
         // <ToolbarButton key="photo" icon="ion-ios-camera" />,
@@ -253,7 +268,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
         // <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
         // <ToolbarButton key="emoji" icon="ion-ios-happy" />
         // ]} 
-        /> : ''}
+        />}
       </div>
     </div>
   );
