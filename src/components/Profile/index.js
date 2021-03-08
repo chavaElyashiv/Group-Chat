@@ -48,14 +48,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Profile(pro
             </div>
             <div class="row ">
                 <div class="col dropdown ml-4">
-                    <button class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" >
+                    <button class="dropdown-toggle"
+                        id="dropdownMenuButton"
+                    // data-toggle="dropdown" 
+                    >
                         chat
   </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {/* <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="#">Action</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div class="row call mr-4 ml-4">

@@ -13,7 +13,9 @@ const initalStaste = {
     manager: false,
     managersList: [],
     owner: false,
-    pictures: []
+    pictures: [],
+    superGroup: false,
+    mute: false
 }
 
 const hangout = {
@@ -24,7 +26,7 @@ const hangout = {
         state.hangouts = action.payload;
     },
     addWave(state, action) {
-        debugger
+
         if (!action.payload.hangout) {
             state.listConvesation.push(action.payload);
         }
@@ -34,7 +36,7 @@ const hangout = {
         }
     },
     addNewHangout(state, action) {
-        debugger
+
         state.hangouts.push(action.payload);
     },
     addMember(state, action) {
@@ -77,9 +79,18 @@ const hangout = {
     setManagersList(state, action) {
         state.managersList = action.payload;
     },
+    setSuperGroup(state, action) {
+        state.superGroup = action.payload;
+    },
     getCurrentHangoutID(state, action) {
-        debugger
+
         return state.hangout;
+    },
+    setMute(state, action) {
+        if (action.payload)
+            state.mute = action.payload;
+        else
+            state.mute = !state.mute;
     }
 
 

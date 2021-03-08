@@ -18,7 +18,7 @@ function mapStateToProps(state) {
     showMembers: state.hangoutReducer.showMembersList,
     managersList: state.hangoutReducer.managersList,
     userId: state.userReducer._id,
-    // showNewHangout: state.hangoutReducer.showNewHangout
+    isMute: state.hangoutReducer.mute
   }
 
 }
@@ -27,13 +27,10 @@ const mapDispatchToProps = (dispatch) => ({
   GivePermission: (_id) =>
     dispatch(actions.getManagerPermission(_id)),
   removeMember: (_id) => dispatch(actions.removeMemberByManager(_id)),
-  exitHangout: () => dispatch(actions.exitHangout())
+  exitHangout: () => dispatch(actions.exitHangout()),
+  mute: () => dispatch(actions.muteHangout())
 })
 
-//   setCurrentConversation:(_id)=>
-//   dispatch(actions.getHangoutById(_id),  dispatch(actions.setShowContactList(false))), 
-
-// })
 
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationListItem(props) {
   const [show, setShow] = useState(false);
@@ -46,13 +43,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     exitHangout,
     managersList,
     showMembers,
-    // showNewHangout,
+    mute,
     owner,
     userId,
     manager,
     showButton,
     showExit,
-    isManager } = props;
+    isManager,
+    isMute } = props;
 
   const getConversations = props.onClick;
   // const conversationsEndRef = useRef(null)
@@ -80,7 +78,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     <div className="conversation-list-item" onClick={(e) => getConversations ? contactList(_id) : console.log(getConversations)} >
       {/* Group-Chat\src\images */}
       {/* C:\Users\User\OneDrive\Desktop\Group Chat\Group-Chat\src\images */}
-      {profileGroup && <img className="conversation-photo" src={require("../../images/" + profileGroup)} alt="conversation" />}
+      {/* {profileGroup && <img className="conversation-photo" src={require("../../images/" + profileGroup)} alt="conversation" />} */}
       {thumbnail && <img className="conversation-photo" src={require("../../images/" + thumbnail)} alt="conversation" />}
 
       <div className="conversation-info">
@@ -119,8 +117,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                 ...props.style,
               }}
             >
-              <option className="option" value="">delete</option>
+              {/* <option className="option" value="">delete</option> */}
               <option className="option" value="" onClick={(e) => exitHangout()} >exit</option>
+              <option className="option" value="" onClick={(e) => mute()}>{isMute ? "unmute" : "mute"}</option>
               <option className="option" value="">archive</option>
 
             </div>

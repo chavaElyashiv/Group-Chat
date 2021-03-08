@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(function Message(props) {
   // useEffect(() => {
-  // debugger;
+
   // },[props.listConvesation])
   const { getUsernameReturnEmail, stateConversation, userName, setCurrentConversation } = props;
   const {

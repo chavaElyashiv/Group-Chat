@@ -9,6 +9,7 @@ import ConversationSearch from '../ConversationSearch/index'
 import TextField from '@material-ui/core/TextField';
 import $ from 'jquery';
 import './NewHangout.css';
+import Spinner from 'react-bootstrap/Spinner';
 
 function mapStateToProps(state) {
     return {
@@ -54,6 +55,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
     const classes = useStyles();
     var [AddContacts, setAddContacts] = useState([]);
     var [groupName, setGroupName] = useState('');
+    var [superGroup, setSuperGroup] = useState(false)
     var [img, setImg] = useState('');
     // var [con, setCon] = useState([]);
     // setShowContactList
@@ -117,9 +119,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
         if (AddContacts.length > 0 && groupName != '') {
             // var hangout = { members: AddContacts, name: groupName, owner: userName }
             setAddContacts([]);
-            var hangout = { members: AddContacts, name: groupName, profileGroup: img, owner: userName }
+            var hangout = { members: AddContacts, name: groupName, profileGroup: img, owner: userName, superGroup: superGroup }
             returnUsersId(hangout);
             setShow();
+
 
         }
         // AddContactsToHangout(AddContacts);
@@ -135,8 +138,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
                 alignItems: 'center'
 
             }}>
-                <TextField id="outlined-basic" label="Fill Group Name" variant="outlined" onChange={e => { setGroupName(e.target.value) }} /> <label for="profileImg">
-                    <img className="img_person conversation-photo" referrerpolicy="no-referrer" src={img} /></label>
+                <TextField id="outlined-basic" label="Fill Group Name" variant="outlined" onChange={e => { setGroupName(e.target.value) }} />
+                <label for="profileImg">
+                    <img className="img_person conversation-photo" referrerpolicy="no-referrer" src={img} />
+                </label>
                 <input
                     type={"file"}
                     id="profileImg"
@@ -149,7 +154,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
                         //   width:'5px',
                     }}
                     onChange={(e) => onChangeHandlerProfile(e.target.files[0])}
-                /></form>
+                />
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCheck" onChange={() => { setSuperGroup(!superGroup) }} />
+                    <label class="custom-control-label" for="customCheck">Custom checkbox</label>
+                </div>
+            </form>
 
 
             {
@@ -173,7 +183,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
                 )
             }
 
-            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { clearList() }}>Create New Group</Button></div>
+            <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { clearList() }}>Create New Group</Button>
+
+            </div>
+
         </div >
 
     );
