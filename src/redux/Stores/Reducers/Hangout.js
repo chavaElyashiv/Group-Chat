@@ -13,7 +13,9 @@ const initalStaste = {
     manager: false,
     managersList: [],
     owner: false,
-    pictures: []
+    pictures: [],
+    superGroup: false,
+    mute: false
 }
 
 const hangout = {
@@ -77,9 +79,18 @@ const hangout = {
     setManagersList(state, action) {
         state.managersList = action.payload;
     },
+    setSuperGroup(state, action) {
+        state.superGroup = action.payload;
+    },
     getCurrentHangoutID(state, action) {
 
         return state.hangout;
+    },
+    setMute(state, action) {
+        if (action.payload)
+            state.mute = action.payload;
+        else
+            state.mute = !state.mute;
     }
 
 

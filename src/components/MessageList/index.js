@@ -28,7 +28,10 @@ function mapStateToProps(state) {
     showNewHangout: state.hangoutReducer.showNewHangout,
     showMessagesList: state.hangoutReducer.showMessagesList,
     filteredMessages: state.filteredListReducer.filteredMessages,
-    listConvesation: state.hangoutReducer.listConvesation
+    listConvesation: state.hangoutReducer.listConvesation,
+    manager: state.hangoutReducer.manager,
+    owner: state.hangoutReducer.owner,
+    superGroup: state.hangoutReducer.superGroup
     //  filteredContacts:state.filteredContacts
   }
 
@@ -51,9 +54,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const messages = props.filteredMessages;
   const messagesEndRef = useRef(null)
   const scrollToBottom = () => {
-    // if (messagesEndRef.current)
-    // messagesEndRef.scrollIntoView = function () { };
-    // window.HTMLElement.prototype.scrollIntoView = function () { };
+    // messagesEndRef.current?.scrollIntoView();
   }
 
   useEffect(() => {
@@ -61,7 +62,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   }, [messages]);
 
 
-  const { showMessagesList, showNewHangout, stateConversation, setCurrentConversation, showContactList, showContact, showMembersList, showMembers } = props;
+  const { showMessagesList,
+    showNewHangout,
+    stateConversation,
+    setCurrentConversation,
+    showContactList,
+    showContact,
+    showMembersList,
+    showMembers,
+    manager,
+    owner,
+    superGroup } = props;
 
   let socket;
   // let list;
@@ -243,7 +254,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
       </div>
 
       <div class="row">
-        {showMessagesList ? <Compose
+        {showMessagesList && (!superGroup || superGroup && (manager || owner)) && < Compose
         // rightItems={[
         //<button className="sendButton" onClick={(e) => sendMessage(e)}><div><i className="fa fa-paper-plane" /></div></button>,
         // <ToolbarButton key="photo" icon="ion-ios-camera" />,
@@ -253,7 +264,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
         // <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
         // <ToolbarButton key="emoji" icon="ion-ios-happy" />
         // ]} 
-        /> : ''}
+        />}
       </div>
     </div>
   );

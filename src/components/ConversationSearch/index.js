@@ -2,6 +2,7 @@ import React from 'react';
 import './ConversationSearch.css';
 import { connect } from 'react-redux'
 import { actions } from '../../redux/Actions/actions'
+import { useEffect, useRef } from 'react';
 function mapStateToProps(state) {
   return {
     // hangouts: state.hangouts,
@@ -16,13 +17,16 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationSearch(props) {
-  const conversations = props.list;
+  let conversations = props.list;
   const { setSearchReasult, kindList } = props
   let filteredList = props.list;
+  let tx;
   console.log("l;l;", props.list);
-
+  const searchT = useRef(null);
   filteredList = conversations;
-  //setSearchReasult(filteredList, kindList);
+  if (kindList == "filteredHangouts") {
+    useEffect(() => { search(searchT.current.value) });
+  }
   function search(eve) {
 
     if (eve != "") {
@@ -71,10 +75,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
   }
 
   return (
-    <div className="conversation-search">
+    <div className="conversation-search" >
       <input
         type="search" onChange={(e) => { search(e.target.value) }}
-        className="conversation-search-input"
+        className="conversation-search-input" ref={searchT}
       />
 
     </div>

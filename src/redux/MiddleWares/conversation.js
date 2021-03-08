@@ -158,7 +158,7 @@ export const newHangout = ({ dispatch, getState }) => next => action => {
 
                 checkPermission(res).then((ifOk) => {
                     dispatch(actions.addNewHangout(res.newHangout));
-                    dispatch(actions.setFilteredList({ list: getState().hangoutReducer.hangouts, kindList: "filteredHangouts" }));
+                    // dispatch(actions.setFilteredList({ list: getState().hangoutReducer.hangouts, kindList: "filteredHangouts" }));
 
 
                 })
@@ -209,7 +209,13 @@ export const returnUsersId = ({ dispatch, getState }) => next => action => {
             .then((res) => {
                 checkPermission(res).then((ifOk) => {
                     const name = `#${action.payload.name}`
-                    let hangout = { members: res.users, name: name, owner: action.payload.owner }
+                    let hangout = {
+                        members: res.users,
+                        name: name,
+                        owner: action.payload.owner,
+                        profileGroup: action.payload.profileGroup,
+                        superGroup: action.payload.superGroup
+                    }
                     dispatch(actions.newHangout(hangout))
                 })
             })
@@ -241,6 +247,8 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
                 console.log("waves", res.waves)
                 dispatch(actions.setConversation(res.waves));
                 dispatch(actions.setFilteredList({ list: res.waves, kindList: "filteredMessages" }));
+                dispatch(actions.setSuperGroup(res.superGroup));
+                dispatch(actions.setMute(res.isMute));
                 if (res.owner == getState().userReducer.userName) {
                     dispatch(actions.setOwner(true));
                     dispatch(actions.setManagersList(res.managers))
@@ -387,6 +395,29 @@ export const joinHangout = ({ dispatch, getState }) => next => action => {
     return next(action);
 }
 
+export const muteHangout = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'MUTE_HANGOUT') {
+        return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/${getState().hangoutReducer.hangout}/muteHangout`, {
+            method: 'POST',
+            headers: {
+                Authentication: getState().userReducer.jwt,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+
+        }).then((res) => {
+            return res.json()
+
+        }).then((res) => {
+            checkPermission(res).then((ifOk) => {
+                // dispatch(actions.setMute());
+
+
+            })
+        })
+    }
+    return next(action);
+}
 
 function checkPermission(result) {
     //
