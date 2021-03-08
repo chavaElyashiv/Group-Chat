@@ -11,7 +11,6 @@ import { render } from 'react-dom';
 import sendImg from '../../assets/send.png'
 import happiness from '../../assets/happiness.png'
 
-
 function mapStateToProps(state) {
     return {
         // messageInput: state.messageInput,
@@ -19,7 +18,6 @@ function mapStateToProps(state) {
         hangout: state.hangoutReducer.hangout
     }
 }
-
 
 const mapDispatchToProps = (dispatch) => ({
     SetMessageInput: (messageInput) =>
@@ -38,12 +36,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
 
 
     // const SOCKET_SERVER_URL = "https://socket.chat.leader.codes"
-
     // const socketRef = useRef();
     // const socketRef = useRef(socketRef);
 
     useEffect(() => {
-        debugger
+        
         socketRef.emit('user', props.userName, props.hangout, (response) => {
             console.log(response.status); // ok
         })
@@ -53,7 +50,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
     }, [props.hangout])
     useEffect(() => {
         socketRef.on('connect', (message) => {
-            debugger
+            
             console.log("someone connected");
             // var h = await getCurrentHangoutID();
             // var h = props.hangout;
@@ -89,15 +86,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
             }
             addWaveLocal(wave, hangout)
             debugger
-
             console.log("message", message);
             //    }
-
-
-
-
-            debugger
-
         })
         socketRef.on('is_online', (message) => {
             console.log("is_online", message);
@@ -115,7 +105,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
         //         //     console.log("message", message);
         //     }
         ////till here
-
         // });
         // socketRef.emit('user', props.userName, props.hangout)
         socketRef.on('new member', (data) => {
@@ -125,11 +114,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
 
     }, [])
 
-
-
     function emitMessage(message) {
         debugger
-
         //   if (!socketRef.current || socketRef.current.readyState !== 1) return;
         socketRef.emit('send_message', message, userName, props.hangout);
         const wave = {
@@ -164,7 +150,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
                         onClick={() => { emitMessage(message1) }}></img>
                 </div>
             </div>
-
             {
                 props.rightItems
             }

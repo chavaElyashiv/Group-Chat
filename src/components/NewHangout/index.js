@@ -9,7 +9,6 @@ import ConversationSearch from '../ConversationSearch/index'
 import TextField from '@material-ui/core/TextField';
 import $ from 'jquery';
 import './NewHangout.css';
-
 function mapStateToProps(state) {
     return {
         contacts: state.contactsReducer.contacts,
@@ -18,7 +17,6 @@ function mapStateToProps(state) {
         userName: state.userReducer.userName,
         uid: state.userReducer.uid,
         jwtFromCookie: state.userReducer.jwt
-
     }
 }
 
@@ -95,16 +93,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
                 console.log(err)
             }
         });
-
-
-
-
     }
 
 
-
     const addContactsToList = function (contact) {
-
         if (AddContacts.includes(contact)) {
             setAddContacts(AddContacts = AddContacts.filter(x => x !== contact));
         }
@@ -120,7 +112,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
             var hangout = { members: AddContacts, name: groupName, profileGroup: img, owner: userName }
             returnUsersId(hangout);
             setShow();
-
         }
         // AddContactsToHangout(AddContacts);
         // setShowContactList();
@@ -133,7 +124,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
             <form className={classes.root} noValidate autoComplete="off" style={{
                 display: 'flex',
                 alignItems: 'center'
-
             }}>
                 <TextField id="outlined-basic" label="Fill Group Name" variant="outlined" onChange={e => { setGroupName(e.target.value) }} /> <label for="profileImg">
                     <img className="img_person conversation-photo" referrerpolicy="no-referrer" src={img} /></label>
@@ -150,8 +140,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
                     }}
                     onChange={(e) => onChangeHandlerProfile(e.target.files[0])}
                 /></form>
-
-
             {
                 AddContacts ? AddContacts.map((item, index) => (
                     console.log("item", item.email),
@@ -175,6 +163,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
 
             <div className={classes.root}><Button variant="contained" color="primary" onClick={() => { clearList() }}>Create New Group</Button></div>
         </div >
-
     );
 });

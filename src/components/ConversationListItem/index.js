@@ -8,7 +8,8 @@ import { connect } from 'react-redux'
 import { actions } from '../../redux/Actions/actions'
 import { blueGrey, red } from '@material-ui/core/colors';
 import Button1 from '@material-ui/core/Button';
-
+import profilImg from '../../images/user-3.jpg'
+import thumbtack from '../../images/thumbtack2.png'
 
 function mapStateToProps(state) {
   return {
@@ -19,6 +20,7 @@ function mapStateToProps(state) {
     managersList: state.hangoutReducer.managersList,
     userId: state.userReducer._id,
     // showNewHangout: state.hangoutReducer.showNewHangout
+    
   }
 
 }
@@ -64,48 +66,62 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
   //   scrollToBottom()
   // }, [stateConversation]);
 
+
+  // function getConversationsOpenHangout(){
+  //   getConversations()
+  // }
+
   function contactList(_id) {
     getConversations(_id);
   }
   console.log("getConversations", getConversations);
+
+  function stuckHangout(){ 
+alert(name)
+  }
 
   function checkMember(_id) {
     removeMember(_id)
     if (managersList.includes(_id))
       GivePermission(_id)
   }
-
+  
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
   return (
     <div className="conversation-list-item" onClick={(e) => getConversations ? contactList(_id) : console.log(getConversations)} >
+
       {/* Group-Chat\src\images */}
       {/* C:\Users\User\OneDrive\Desktop\Group Chat\Group-Chat\src\images */}
+ 
+      { <img className="conversation-photo" src={profilImg} alt="conversation" />}
+      {/* { <img clasName="conversation-photo" src={require(profileGroup)}/>} */}
       {/* {profileGroup && <img className="conversation-photo" src={require("../../images/" + profileGroup)} alt="conversation" />} */}
+    {/* {<p><img src={thumbtack}/></p> } */}
+      
       {thumbnail && <img className="conversation-photo" src={require("../../images/" + thumbnail)} alt="conversation" />}
 
-      <div className="conversation-info">
+        <div className="conversation-info">
         <h1 className="conversation-title">{name}</h1>
         <p className="conversation-snippet">{text}</p>
         <p className="conversation-snippet">{email}</p>
-
 
       </div>
       {(userId !== _id) && owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => GivePermission(_id)}> {isManager ? "remove permission" : "Manager permission"}</Button1>}
       {(userId !== _id) && owner && showButton && <Button1 variant="contained" color="primary" onClick={(e) => checkMember(_id)}>remove member</Button1>}
 
       <>
-        {showExit && <button type="button" class="btn" ref={target}
+        {showExit && <button type="button" ref={target}
           style={{
-            border: 'none',
-            background: 'none'
+            border:'none',
+            background:'none'
           }}
-          onClick={() => setShow(!show)}>
-
+          onClick={() => setShow(!show)} onMouseLeave ={()=>setShow(false)}>
           <i className="la la-ellipsis-v" />
           <div>
             <i variant="danger" ref={target} onClick={() => setShow(!show)} className="fa fa-ellipsis-v" />
           </div>
         </button>}
+        {showExit && <button  onClick={()=>stuckHangout()}>h</button>} 
 
         <Overlay target={target.current} show={show} placement="right">
           {({ placement, arrowProps, show: _show, popper, ...props }) => (
@@ -130,5 +146,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
       {/* <div ref={conversationsEndRef} /> */}
     </div>
   );
-
 })
