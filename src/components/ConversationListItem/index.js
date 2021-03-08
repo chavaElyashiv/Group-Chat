@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { actions } from '../../redux/Actions/actions'
 import { blueGrey, red } from '@material-ui/core/colors';
 import Button1 from '@material-ui/core/Button';
+import Hangout from '../../redux/Stores/Reducers/Hangout';
 
 
 function mapStateToProps(state) {
@@ -18,7 +19,12 @@ function mapStateToProps(state) {
     showMembers: state.hangoutReducer.showMembersList,
     managersList: state.hangoutReducer.managersList,
     userId: state.userReducer._id,
+<<<<<<< HEAD
+    hangouts:state.hangoutReducer.hangouts
+    // showNewHangout: state.hangoutReducer.showNewHangout
+=======
     isMute: state.hangoutReducer.mute
+>>>>>>> dev
   }
 
 }
@@ -28,7 +34,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.getManagerPermission(_id)),
   removeMember: (_id) => dispatch(actions.removeMemberByManager(_id)),
   exitHangout: () => dispatch(actions.exitHangout()),
+<<<<<<< HEAD
+  addStuck:(found)=>dispatch(actions.addStuck(found))
+=======
   mute: () => dispatch(actions.muteHangout())
+>>>>>>> dev
 })
 
 
@@ -50,7 +60,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     showButton,
     showExit,
     isManager,
+<<<<<<< HEAD
+  hangouts,
+  addStuck } = props;
+=======
     isMute } = props;
+>>>>>>> dev
 
   const getConversations = props.onClick;
   // const conversationsEndRef = useRef(null)
@@ -73,7 +88,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
       GivePermission(_id)
   }
 
+
+
   const { _id, profileGroup, name, text, email, thumbnail } = props.data;
+
+  function stuckHangout(){
+    const found = hangouts.find(element => element._id == _id);
+    props.addStuck(found)
+    // alert(found.name)
+    
+}
   return (
     <div className="conversation-list-item" onClick={(e) => getConversations ? contactList(_id) : console.log(getConversations)} >
       {/* Group-Chat\src\images */}
@@ -104,6 +128,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
             <i variant="danger" ref={target} onClick={() => setShow(!show)} className="fa fa-ellipsis-v" />
           </div>
         </button>}
+
+        {showExit && <button onClick={() => stuckHangout()}>h</button>} 
 
         <Overlay target={target.current} show={show} placement="right">
           {({ placement, arrowProps, show: _show, popper, ...props }) => (

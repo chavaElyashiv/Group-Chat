@@ -14,7 +14,8 @@ import { red } from '@material-ui/core/colors';
 function mapStateToProps(state) {
     return {
         hangouts: state.hangoutReducer.hangouts,
-        filteredHangouts: state.filteredListReducer.filteredHangouts
+        filteredHangouts: state.filteredListReducer.filteredHangouts,
+        waves:state.hangoutReducer.lastWavesArr
 
     }
 
@@ -30,9 +31,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationList(props) {
-    const { setCurrentConversation, NewHanghout, hangouts, setHangoutID } = props;
+    const { setCurrentConversation, NewHanghout, hangouts, setHangoutID ,waves} = props;
     const conversations = props.hangouts;
     const filteredHangouts = props.filteredHangouts;
+    const resultHangoutSort=[]
 
     const getConversations = () => {
         axios.get('https://randomuser.me/api/?results=20').then(response => {
@@ -65,6 +67,32 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
             </div>
             <div class="row cli scrollable2">
                 <div class="col ">
+                    {/* {
+                        waves && waves.length > 0 ?
+                            waves.sort((a, b) => a.timestamp > b.timestamp ? 1 : -1)
+                             : <div className="no-result">No results found</div>
+                    } */}
+
+
+                    {/* {
+
+                        waves && waves.length > 0 ?
+                        waves.forEach(function(key){
+                            var found = false
+                            hangouts=hangouts.filter(function(item){
+                                if(!found && item.conversation==key){
+                                    resultHangoutSort.push(item)
+                                    found=true
+                                    return false
+                                }
+                                else
+                                     return true
+                            })
+                        })
+                        : <div className="no-result"></div>
+
+                    } */}
+
                     {
                         filteredHangouts && filteredHangouts.length > 0 ?
                             filteredHangouts.map(conversation =>
@@ -76,7 +104,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                                     /></div>
                             ) : <div className="no-result">No results found</div>
                     }
+                
                 </div>
+                
             </div>
 
         </div>

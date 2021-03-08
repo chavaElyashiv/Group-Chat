@@ -4,11 +4,11 @@ import contactsReducer from './Reducers/Contact'
 import hangoutReducer from './Reducers/Hangout'
 import filteredListReducer from './Reducers/FilteredLists'
 import { getUsernameReturnEmail, returnUsersId, newHangout, getHangoutById, setJwt, getHangoutsForUser, getUidByUserName, addNewWave, getIdByUserName, getManagerPermission, removeMemberByManager, exitHangout, deleteHangout, joinHangout, muteHangout } from '../MiddleWares/conversation'
-import { getContactsForUser, getAllContactsExceptMembers, AddContactsToHangout, getAllHangoutMembers, setShow } from '../MiddleWares/contact'
+import { getContactsForUser, getAllContactsExceptMembers, AddContactsToHangout, getAllHangoutMembers, setShow,,setSpinner,deletSpinner } from '../MiddleWares/contact'
 
 const reducer = combineReducers({ userReducer, contactsReducer, hangoutReducer, filteredListReducer });
 
-const store = createStore(reducer, applyMiddleware(setJwt, getUsernameReturnEmail, returnUsersId, getUidByUserName, newHangout, getHangoutById, getHangoutsForUser, getAllContactsExceptMembers, getContactsForUser, AddContactsToHangout, getAllHangoutMembers, addNewWave, setShow, getIdByUserName, getManagerPermission, removeMemberByManager, exitHangout, deleteHangout, joinHangout, muteHangout))
+const store = createStore(reducer, applyMiddleware(setJwt, setSpinner,deletSpinner, getUsernameReturnEmail, returnUsersId, getUidByUserName, newHangout, getHangoutById, getHangoutsForUser, getAllContactsExceptMembers, getContactsForUser, AddContactsToHangout, getAllHangoutMembers, addNewWave, setShow, getIdByUserName, getManagerPermission, removeMemberByManager, exitHangout, deleteHangout, joinHangout, muteHangout))
 window.store = store
 
 export default store;

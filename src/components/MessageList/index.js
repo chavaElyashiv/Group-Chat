@@ -16,6 +16,7 @@ import MembersList from '../MembersList/index';
 import NewHangout from '../NewHangout/index';
 import { Icon, InlineIcon } from '@iconify/react';
 import accountMultiplePlus from '@iconify-icons/mdi/account-multiple-plus';
+import Spinner from '../Spinner'
 // import '@testing-library/jest-dom/extend-expect'
 
 function mapStateToProps(state) {
@@ -29,6 +30,7 @@ function mapStateToProps(state) {
     showMessagesList: state.hangoutReducer.showMessagesList,
     filteredMessages: state.filteredListReducer.filteredMessages,
     listConvesation: state.hangoutReducer.listConvesation,
+    showSpinner:state.hangoutReducer.showSpinner,
     manager: state.hangoutReducer.manager,
     owner: state.hangoutReducer.owner,
     superGroup: state.hangoutReducer.superGroup
@@ -72,7 +74,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
     showMembers,
     manager,
     owner,
-    superGroup } = props;
+    superGroup ,
+    showSpinner} = props;
 
   let socket;
   // let list;
@@ -249,6 +252,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
           {showMembersList ? <MembersList /> : ''}
           {showContactList ? <ContactList /> : ''}
           {showNewHangout ? <NewHangout /> : ''}
+          {showSpinner ? <Spinner/> :''}
           <div ref={messagesEndRef} />
         </div>
       </div>

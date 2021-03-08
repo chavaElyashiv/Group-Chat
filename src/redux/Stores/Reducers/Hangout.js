@@ -14,8 +14,14 @@ const initalStaste = {
     managersList: [],
     owner: false,
     pictures: [],
+<<<<<<< HEAD
+    showSpinner:false,
+    lastWavesArr:[],
+    stuckHangout:[]
+=======
     superGroup: false,
     mute: false
+>>>>>>> dev
 }
 
 const hangout = {
@@ -86,13 +92,36 @@ const hangout = {
 
         return state.hangout;
     },
+<<<<<<< HEAD
+    // setSpinner(state, action){
+    //     state.showSpinner = action.payload;
+    // },
+    setShowSpinner(state, action) {
+        if (action.payload != undefined)
+            state.showSpinner = action.payload;
+        else
+            state.showSpinner = !state.showSpinner;
+    },
+    
+    setlArrLastWaves(state,action){
+        state.lastWavesArr=action.payload
+    },
+
+=======
     setMute(state, action) {
         if (action.payload)
             state.mute = action.payload;
         else
             state.mute = !state.mute;
     }
+>>>>>>> dev
 
+    addStuck(state,action){
+        state.stuckHangout = state.stuckHangout.concat(action.payload);
+        alert(action.payload.name)
+        alert(state.stuckHangout)
+
+    }
 
 }
 
