@@ -100,6 +100,10 @@ const hangout = {
 
     addStuck(state,action){
         state.stuckHangout = state.stuckHangout.concat(action.payload);
+    },
+
+    setHangoutsSort(state,action){
+        state.hangouts=action.payload
     }
 
 }

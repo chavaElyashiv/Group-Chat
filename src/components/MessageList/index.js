@@ -30,7 +30,7 @@ function mapStateToProps(state) {
     showMessagesList: state.hangoutReducer.showMessagesList,
     filteredMessages: state.filteredListReducer.filteredMessages,
     listConvesation: state.hangoutReducer.listConvesation,
-    showSpinner:state.hangoutReducer.showSpinner,
+    showSpinner: state.hangoutReducer.showSpinner,
     manager: state.hangoutReducer.manager,
     owner: state.hangoutReducer.owner,
     superGroup: state.hangoutReducer.superGroup
@@ -74,8 +74,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
     showMembers,
     manager,
     owner,
-    superGroup ,
-    showSpinner} = props;
+    superGroup,
+    showSpinner } = props;
 
   let socket;
   // let list;
@@ -151,8 +151,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
   const renderMessages = () => {
     console.log("messages", messages);
     let i = 0;
-    let messageCount = messages.length;
+    // let messageCount = messages.length;
     let tempMessages = [];
+    let messageCount = 0
+    if (messages)
+      messageCount = messages.length
 
     while (i < messageCount) {
       if (messages[i].body) {
@@ -252,7 +255,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function MessageList
           {showMembersList ? <MembersList /> : ''}
           {showContactList ? <ContactList /> : ''}
           {showNewHangout ? <NewHangout /> : ''}
-          {showSpinner ? <Spinner/> :''}
+          {showSpinner ? <Spinner /> : ''}
           <div ref={messagesEndRef} />
         </div>
       </div>

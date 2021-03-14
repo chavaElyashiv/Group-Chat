@@ -256,7 +256,7 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
                 else
                     dispatch(actions.setOwner(false));
                 await dispatch(actions.getIdByUserName(getState().userReducer.userName))
-                if (res.managers.includes(getState().userReducer._id))
+                if (res.managers && res.managers.includes(getState().userReducer._id))
                     dispatch(actions.setManager(true))
                 else
                     dispatch(actions.setManager(false))
