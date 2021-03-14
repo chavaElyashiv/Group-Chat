@@ -19,12 +19,9 @@ function mapStateToProps(state) {
     showMembers: state.hangoutReducer.showMembersList,
     managersList: state.hangoutReducer.managersList,
     userId: state.userReducer._id,
-<<<<<<< HEAD
-    hangouts:state.hangoutReducer.hangouts
+    hangouts:state.hangoutReducer.hangouts,
     // showNewHangout: state.hangoutReducer.showNewHangout
-=======
     isMute: state.hangoutReducer.mute
->>>>>>> dev
   }
 
 }
@@ -34,11 +31,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actions.getManagerPermission(_id)),
   removeMember: (_id) => dispatch(actions.removeMemberByManager(_id)),
   exitHangout: () => dispatch(actions.exitHangout()),
-<<<<<<< HEAD
-  addStuck:(found)=>dispatch(actions.addStuck(found))
-=======
+  addStuck:(found)=>dispatch(actions.addStuck(found)),
   mute: () => dispatch(actions.muteHangout())
->>>>>>> dev
 })
 
 
@@ -60,12 +54,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     showButton,
     showExit,
     isManager,
-<<<<<<< HEAD
   hangouts,
-  addStuck } = props;
-=======
-    isMute } = props;
->>>>>>> dev
+  addStuck ,isMute} = props;
 
   const getConversations = props.onClick;
   // const conversationsEndRef = useRef(null)

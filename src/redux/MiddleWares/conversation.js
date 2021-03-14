@@ -34,17 +34,11 @@ export const getHangoutsForUser = ({ dispatch, getState }) => next => action => 
 
         })
             .then((res) => {
+                
                 checkPermission(res).then((ifOk) => {
-<<<<<<< HEAD
-                    debugger;
-                    console.log("hangout "+res.lastWaves)
-=======
-                    ;
-
-                    console.log(res.hangouts)
->>>>>>> dev
+                    console.log(res.lastWaves)
                     dispatch(actions.setHangouts(res.hangouts));
-                    dispatch(actions.setlArrLastWaves(res.lastWaves))
+                    dispatch(actions.setArrLastWaves(res.lastWaves))
                     dispatch(actions.setFilteredList({ list: res.hangouts, kindList: "filteredHangouts" }));
 
                     // dispatch(actions.setFilteredHangouts(res.hangouts));

@@ -34,7 +34,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     const { setCurrentConversation, NewHanghout, hangouts, setHangoutID ,waves} = props;
     const conversations = props.hangouts;
     const filteredHangouts = props.filteredHangouts;
-    const resultHangoutSort=[]
+    const resultHangoutSort=[];
+    const [waveSort,setWaveSort] =useState()
+    const [hangoutSort,setHangoutSort]=useState()
 
     const getConversations = () => {
         axios.get('https://randomuser.me/api/?results=20').then(response => {
@@ -46,6 +48,32 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                 };
             });
         });
+    }
+useEffect(()=>{sortWaves()},[waveSort,props.waves])
+
+    const sortWaves =()=>{
+        debugger
+            waves && waves.length > 0 ?
+            setWaveSort( waves.slice().sort((a, b) => a.timestamp > b.timestamp ? 1 : -1))
+
+            // setWaveSort( waves.sort((a, b) => a.timestamp > b.timestamp ? 1 : -1))
+                 : <div className="no-result">No results found</div>
+        
+            waveSort && waveSort.length > 0 ?
+            waveSort.forEach(function(key){
+                var found = false
+                setHangoutSort(hangouts.filter(function(item){
+                    if(!found && item.conversations[conversations.length-1]==key.conversation){
+                        resultHangoutSort.push(item)
+                        found=true
+                        return false
+                    }
+                    else
+                         return true
+                }))
+            })
+            : <div className="no-result"></div>
+            setHangoutSort(resultHangoutSort)
     }
 
     return (
@@ -77,7 +105,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                     {/* {
 
                         waves && waves.length > 0 ?
-                        waves.forEach(function(key){
+                        waves.conversation.forEach(function(key){
                             var found = false
                             hangouts=hangouts.filter(function(item){
                                 if(!found && item.conversation==key){
@@ -94,8 +122,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                     } */}
 
                     {
-                        filteredHangouts && filteredHangouts.length > 0 ?
-                            filteredHangouts.map(conversation =>
+                        hangoutSort && hangoutSort.length > 0 ?
+                        hangoutSort.map(conversation =>
                                 <div >
 
                                     <ConversationListItem key={conversation._id} className="color"

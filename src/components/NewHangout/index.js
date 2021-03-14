@@ -9,12 +9,8 @@ import ConversationSearch from '../ConversationSearch/index'
 import TextField from '@material-ui/core/TextField';
 import $ from 'jquery';
 import './NewHangout.css';
-<<<<<<< HEAD
 import hangoutReducer from '../../redux/Stores/Reducers/Hangout'
 
-=======
-import Spinner from 'react-bootstrap/Spinner';
->>>>>>> dev
 
 function mapStateToProps(state) {
     return {
@@ -134,13 +130,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
             setAddContacts([]);
             var hangout = { members: AddContacts, name: groupName, profileGroup: img, owner: userName, superGroup: superGroup }
             returnUsersId(hangout);
-<<<<<<< HEAD
            await setShow()
-=======
-            setShow();
-
-
->>>>>>> dev
         }
         props.deletSpinner()
         // AddContactsToHangout(AddContacts);

@@ -4,7 +4,7 @@ import contactsReducer from './Reducers/Contact'
 import hangoutReducer from './Reducers/Hangout'
 import filteredListReducer from './Reducers/FilteredLists'
 import { getUsernameReturnEmail, returnUsersId, newHangout, getHangoutById, setJwt, getHangoutsForUser, getUidByUserName, addNewWave, getIdByUserName, getManagerPermission, removeMemberByManager, exitHangout, deleteHangout, joinHangout, muteHangout } from '../MiddleWares/conversation'
-import { getContactsForUser, getAllContactsExceptMembers, AddContactsToHangout, getAllHangoutMembers, setShow,,setSpinner,deletSpinner } from '../MiddleWares/contact'
+import { getContactsForUser, getAllContactsExceptMembers, AddContactsToHangout, getAllHangoutMembers, setShow,setSpinner,deletSpinner } from '../MiddleWares/contact'
 
 const reducer = combineReducers({ userReducer, contactsReducer, hangoutReducer, filteredListReducer });
 

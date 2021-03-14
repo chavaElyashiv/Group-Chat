@@ -24,9 +24,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
   console.log("l;l;", props.list);
   const searchT = useRef(null);
   filteredList = conversations;
-  if (kindList == "filteredHangouts") {
+  // if (kindList == "filteredHangouts") {
     useEffect(() => { search(searchT.current.value) });
-  }
+  // }
   function search(eve) {
 
     if (eve != "") {
