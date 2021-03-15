@@ -16,7 +16,9 @@ function mapStateToProps(state) {
     return {
         // messageInput: state.messageInput,
         userName: state.userReducer.userName,
-        hangout: state.hangoutReducer.hangout
+        hangout: state.hangoutReducer.hangout,
+        filteredHangouts: state.filteredListReducer.filteredHangouts,
+        hangouts: state.hangoutReducer.hangouts
     }
 }
 
@@ -27,20 +29,25 @@ const mapDispatchToProps = (dispatch) => ({
     addNewWave: (wave) => dispatch(actions.addNewWave(wave)),
     addWaveLocal: (wave, hangout) => dispatch(actions.addWave({ wave: wave, hangout: hangout })),
     //getCurrentHangoutID to handle it!!
-    getCurrentHangoutID: () => dispatch(actions.getCurrentHangoutID())
+    getCurrentHangoutID: () => dispatch(actions.getCurrentHangoutID()),
+    setFilteredList: (hangoutSort) => dispatch(actions.setFilteredList({ list: hangoutSort, kindList: "filteredHangouts" }))
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(function Compose(props) {
     // const { hangout } = props;
-    const { addNewWave, addWaveLocal, userName, getCurrentHangoutID } = props;
+    const { addNewWave, addWaveLocal, userName, getCurrentHangoutID, setFilteredList, filteredHangouts, hangout, hangouts,filterHangouts } = props;
     const [message1, setMessage1] = useState("");
     const [input, setInput] = useState("");
-
 
     // const SOCKET_SERVER_URL = "https://socket.chat.leader.codes"
 
     // const socketRef = useRef();
     // const socketRef = useRef(socketRef);
+
+    // useEffect(() => {
+    //     firstHangout()
+    // }, [props.hangouts])
 
     useEffect(() => {
         socketRef.emit('user', props.userName, props.hangout, (response) => {
@@ -122,9 +129,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
     }, [])
 
 
+    function firstHangout() {
+        var currentHangout=filteredHangouts.filter(x => x._id == hangout)
+        var newHangouts = filteredHangouts.filter(x => x._id !== hangout)
+        newHangouts.unshift(currentHangout[0])
+        props.setFilteredList(newHangouts)
+        
+    }
 
     function emitMessage(message) {
-
         //   if (!socketRef.current || socketRef.current.readyState !== 1) return;
         socketRef.emit('send_message', message, userName, props.hangout);
         const wave = {
@@ -135,6 +148,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
         // inputVal.value = null;
         setMessage1('')
 
+        firstHangout()
     }
     function onEnter(e) {
         if (e.key === 'Enter') {
@@ -150,7 +164,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Compose(pro
                     className="form-control"
                     placeholder="Type your message"
                     value={message1}
-                    onChange={(e) => { setMessage1(e.target.value) }}
+                    onChange={(e) => { debugger; setMessage1(e.target.value) }}
                     onKeyDown={(e) => { onEnter(e) }} >
                 </input>
                 <div class="input-group-append">

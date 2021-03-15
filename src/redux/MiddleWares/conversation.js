@@ -228,8 +228,8 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_HANGOUT_BY_ID') {
 
         dispatch(actions.setCurrentHangout(action.payload));
-
-        return fetch(`https://chat.leader.codes/api/${userID}/${action.payload}/getHangout`, {
+        return fetch(`https://chat.leader.codes/api/${getState().userReducer.userName}/${action.payload}/getHangout`, {
+        // return fetch(`https://chat.leader.codes/api/${userID}/${action.payload}/getHangout`, {
             method: 'POST',
             headers: {
                 Authentication: getState().userReducer.jwt,
@@ -245,6 +245,7 @@ export const getHangoutById = ({ dispatch, getState }) => next => action => {
                 dispatch(actions.setCurrentHangout(action.payload));
 
                 console.log("waves", res.waves)
+                debugger
                 dispatch(actions.setConversation(res.waves));
                 dispatch(actions.setFilteredList({ list: res.waves, kindList: "filteredMessages" }));
                 dispatch(actions.setSuperGroup(res.superGroup));

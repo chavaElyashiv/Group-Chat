@@ -15,7 +15,7 @@ function mapStateToProps(state) {
     return {
         hangouts: state.hangoutReducer.hangouts,
         filteredHangouts: state.filteredListReducer.filteredHangouts,
-        waves:state.hangoutReducer.lastWavesArr
+        waves: state.hangoutReducer.lastWavesArr
 
     }
 
@@ -24,20 +24,21 @@ const mapDispatchToProps = (dispatch) => ({
     setCurrentConversation: (_id) => dispatch(actions.getHangoutById(_id)
         , dispatch(actions.setShow("messages"))),
     setHangoutID: (_id) => dispatch(actions.setCurrentHangout(_id)),
-
-
     NewHanghout: () => dispatch(actions.setShow("newHangout")),
-    setHangoutsSort:(sortHangout)=>dispatch(actions.setHangoutsSort(sortHangout))
-
+    setHangoutsSort: (sortHangout) => dispatch(actions.setHangoutsSort(sortHangout)),
+    // dispatch(actions.setFilteredList({ list: res.hangouts, kindList: "filteredHangouts" }));
+    setFilteredList: (hangoutSort) => dispatch(actions.setFilteredList({ list: hangoutSort, kindList: "filteredHangouts" }))
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(function ConversationList(props) {
-    const { setCurrentConversation, NewHanghout, hangouts, setHangoutID ,waves,setHangoutsSort} = props;
+    const { setCurrentConversation, NewHanghout, hangouts, setHangoutID, waves, setHangoutsSort, setFilteredList } = props;
     const conversations = props.hangouts;
     const filteredHangouts = props.filteredHangouts;
-    const resultHangoutSort=[];
-    const [waveSort,setWaveSort] =useState()
-    const [hangoutSort,setHangoutSort]=useState()
+    const resultHangoutSort = [];
+    const [waveSort, setWaveSort] = useState()
+    const [hangoutSort, setHangoutSort] = useState()
+    var [flag,setFlag] = useState(false)
+
 
     const getConversations = () => {
         axios.get('https://randomuser.me/api/?results=20').then(response => {
@@ -50,33 +51,39 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
             });
         });
     }
-// useEffect(()=>{sortWaves()},[waveSort,props.waves,props.hangouts])
+    // useEffect(() => { sortWaves() }, [props.filteredHangouts])
+    useEffect(() => { sortWaves() }, [waveSort, props.waves, props.hangouts, props.filteredHangouts])
 
-//     const sortWaves =()=>{
-//         debugger
-//             waves && waves.length > 0 ?
-//             setWaveSort( waves.slice().sort((a, b) => a.timestamp > b.timestamp ? 1 : -1))
+    const sortWaves = () => {
+        if (flag == false) {
+            waves && waves.length > 0 ?
+                setWaveSort(waves.slice().sort((a, b) => a.timestamp > b.timestamp ? 1 : -1).reverse())
+                : <div className="no-result">No results found</div>
 
-//             // setWaveSort( waves.sort((a, b) => a.timestamp > b.timestamp ? 1 : -1))
-//                  : <div className="no-result">No results found</div>
-        
-//             waveSort && waveSort.length > 0 ?
-//             waveSort.forEach(function(key){
-//                 var found = false
-//                 setHangoutSort(hangouts.filter(function(item){
-//                     if(!found && item.conversations[conversations.length-1]==key.conversation){
-//                         resultHangoutSort.push(item)
-//                         found=true
-//                         return false
-//                     }
-//                     else
-//                          return true
-//                 }))
-//             })
-//             : <div className="no-result"></div>
-//             setHangoutSort(resultHangoutSort)
-//             // props.setHangoutsSort(hangoutSort)
-//     }
+            waveSort && waveSort.length > 0 ?
+                waveSort.forEach(function (key) {
+                    var found = false
+                    setHangoutSort(hangouts.filter(function (item) {
+                        if (!found && item.conversations[item.conversations.length - 1] == key.conversation) {
+                            resultHangoutSort.push(item)
+                            found = true
+                            return false
+                        }
+                        else
+                            return true
+                    }))
+                })
+                : <div className="no-result"></div>
+
+            setHangoutSort(resultHangoutSort)
+            props.setFilteredList(hangoutSort)
+            if (hangoutSort)
+            setFlag(true)
+
+        }
+
+
+    }
 
     return (
         <div class="container-fluid conversation-list p-0" >
@@ -124,8 +131,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                     } */}
 
                     {
-                        hangouts && hangouts.length > 0 ?
-                        hangouts.map(conversation =>
+                        filteredHangouts && filteredHangouts.length > 0 ?
+                            filteredHangouts.map(conversation =>
                                 <div >
 
                                     <ConversationListItem key={conversation._id} className="color"
@@ -134,9 +141,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                                     /></div>
                             ) : <div className="no-result">No results found</div>
                     }
-                
+
                 </div>
-                
+
             </div>
 
         </div>
