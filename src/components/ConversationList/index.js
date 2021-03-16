@@ -37,7 +37,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     const resultHangoutSort = [];
     const [waveSort, setWaveSort] = useState()
     const [hangoutSort, setHangoutSort] = useState()
-    var [flag,setFlag] = useState(false)
+    var [flag, setFlag] = useState(false)
 
 
     const getConversations = () => {
@@ -55,6 +55,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
     useEffect(() => { sortWaves() }, [waveSort, props.waves, props.hangouts, props.filteredHangouts])
 
     const sortWaves = () => {
+        debugger
         if (flag == false) {
             waves && waves.length > 0 ?
                 setWaveSort(waves.slice().sort((a, b) => a.timestamp > b.timestamp ? 1 : -1).reverse())
@@ -75,10 +76,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
                 })
                 : <div className="no-result"></div>
 
-            setHangoutSort(resultHangoutSort)
-            props.setFilteredList(hangoutSort)
-            if (hangoutSort)
-            setFlag(true)
+
+            if (resultHangoutSort.length > 0) {
+                setHangoutSort(resultHangoutSort)
+                setFlag(true)
+                props.setFilteredList(resultHangoutSort)
+            }
 
         }
 

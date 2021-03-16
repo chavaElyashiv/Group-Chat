@@ -124,14 +124,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(function NewHangout(
 
 
     const clearList =async function () {
-            props.setSpinner()
+           await props.setSpinner()
             if (AddContacts.length > 0 && groupName != '') {
             // var hangout = { members: AddContacts, name: groupName, owner: userName }
             setAddContacts([]);
             var hangout = { members: AddContacts, name: groupName, profileGroup: img, owner: userName, superGroup: superGroup }
-            returnUsersId(hangout);
-           await setShow()
+           await returnUsersId(hangout);
+            // setShow()
         }
+
+
         props.deletSpinner()
         // AddContactsToHangout(AddContacts);
         // setShowContactList();
