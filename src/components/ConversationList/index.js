@@ -58,14 +58,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Conversatio
         debugger
         if (flag == false) {
             waves && waves.length > 0 ?
-                setWaveSort(waves.slice().sort((a, b) => a.timestamp > b.timestamp ? 1 : -1).reverse())
+                setWaveSort(waves.slice().sort((a, b) => {if(a== null || b==null) return-1;if( a.timestamp > b.timestamp)return 1; else return -1}).reverse())
                 : <div className="no-result">No results found</div>
 
             waveSort && waveSort.length > 0 ?
                 waveSort.forEach(function (key) {
                     var found = false
                     setHangoutSort(hangouts.filter(function (item) {
-                        if (!found && item.conversations[item.conversations.length - 1] == key.conversation) {
+                        if (item && key && !found && item.conversations[item.conversations.length - 1] == key.conversation) {
                             resultHangoutSort.push(item)
                             found = true
                             return false
